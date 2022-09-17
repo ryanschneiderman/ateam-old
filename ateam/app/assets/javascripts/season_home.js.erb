@@ -1,0 +1,514 @@
+	
+	$(document).on('turbolinks:load ', function(){
+        if($("body").hasClass("seasons") && $("body").hasClass("show")){
+			$(window).on("resize", function() {
+				if($("body").hasClass("seasons") && $("body").hasClass("show")){
+			    	// var window_height = $(window).height() - $("#header-outer").outerHeight();
+			    	// var big_box_height = (window.innerHeight - $(".big-box").offset().top)/2
+				    // $(".big-box").height(big_box_height - 5);
+				}
+			});
+			if(gon.read_permiss || gon.write_permiss){
+				load_posts()
+			}
+
+
+			season_home_advanced_data()
+			season_home_previous_game()
+
+			init_season_home_stat_section()
+
+			insert_season_home_lineups()
+
+			set_chat_input_rules()
+			set_change_orientation_rules()
+
+
+			
+			num_stat_sections = $("#season-home-stat-content-inner .season-home-stat-container").length
+
+			// switch interval to 10 seconds
+
+        }
+    });
+
+    function set_season_home_elements(){
+    	
+    }
+
+    function set_change_orientation_rules(){
+    	$( window ).on( "orientationchange", function( event ) {
+			clearTimeout(window.resizedFinished);
+		    window.resizedFinished = setTimeout(function(){
+		       handleSeasonHomeOrientationChange()
+		    }, 100);
+		});
+
+		$( window ).on( "resize", function( event ) {
+			$("#season-home-grid").css("min-height",window.innerHeight - $("#logged-in-header").outerHeight())
+			$("#team-chat-wrapper").css("height",window.innerHeight - $("#logged-in-header").outerHeight() - 30)
+			$("#team-chat-container").height($("#team-chat-content").height() - $("#team-chat-heading").outerHeight() -60)
+		});
+
+    }
+
+    function handleSeasonHomeOrientationChange(){
+    	$(".season-home-lineup-offensive").empty()
+    	$(".season-home-lineup-defensive").empty()
+    	$(".season-home-lineup-net").empty()
+    	$(".percentage-circle").empty()
+    	season_home_advanced_data()
+    	init_season_home_stat_section()
+    	insert_season_home_lineups()
+    	toggle_season_home_stats(0)
+    	
+    }
+
+
+    function init_season_home_stat_section(){
+    	$(".season-home-stat-container").hide()
+    	$("#season-home-stat-container-0").show()
+    	$(".season-home-stat-container").css("left", $("#season-home-stat-content-inner").width() + slide_offset)
+    	align_season_home_elements()
+    	$("#season-home-stat-container-0").css("left", 0)	
+    	$(".season-home-stat-container").addClass("season-home-stat-transition")
+    }
+
+    function align_season_home_elements(){
+		$("#season-home-stat-content-inner").width($("#season-home-stat-container-0").width())
+		// $(".season-home-stat-container").width($("#season-home-stat-container-0").width())
+		$('#team-chat-container').scrollTop($('#team-chat-container')[0].scrollHeight);
+		$('#mobile-chat-inner').scrollTop($('#mobile-chat-inner')[0].scrollHeight);
+		$("#team-chat-wrapper").css("height",window.innerHeight - $("#logged-in-header").outerHeight() - 30)
+		$("#team-chat-wrapper").css("top", $("#team-chat-wrapper").offset().top)
+
+		var circles_height =  $(".season-home-stat-circles").height()
+		console.log("circles_height: " + circles_height)
+		var natural_height = $(".season-home-container").height() - $("#season-home-stat-heading").outerHeight()-20
+		var stat_container_height = (circles_height>natural_height) ? circles_height : natural_height
+		console.log("actual height: " + stat_container_height)
+
+		$("#season-home-grid").css("min-height",window.innerHeight - $("#logged-in-header").outerHeight())
+		$("#season-home-stat-content-inner").height(circles_height + 20)
+		$("#team-chat-container").height($("#team-chat-content").height() - $("#team-chat-heading").outerHeight() -60)
+	}
+
+
+	function set_chat_input_rules(){
+    	$('body').on('focus', '.new-post', function() {
+		    const $this = $(this);
+		    $this.data('before', $this.html());
+		}).on('blur keyup paste input', '.new-post', function() {
+		    const $this = $(this);
+		    if($this.hasClass("new-post")){
+		    	// if ($this.data('before') !== $this.html()) {
+			    	if($(".new-post").text()==""){
+			    		console.log("empty")
+				    	$(".post-placeholder").show()
+				    	$(".send-post").addClass("send-post-inactive")
+				    	$(".send-post").prop("disabled",true);
+				    }
+				    else{
+				    	console.log("not empty")
+				    	$(".post-placeholder").hide()
+				    	$(".send-post").removeClass("send-post-inactive")
+				    	$(".send-post").prop("disabled",false);
+				    }
+			    	
+			        $this.data('before', $this.html());
+			        $this.trigger('change');
+			    // }
+		    }
+		    
+		});
+
+		$("#new-post-form").submit(function(e) {
+		    e.preventDefault();
+		    send_post()
+		});
+
+		$(".new-post").on('keydown',  function(e) {  
+		    if(e.keyCode == 13)
+		    {	
+		        e.preventDefault();
+		        send_post()
+		        $(this).empty()
+
+		    }
+		});
+    }
+
+    function Timer(fn, t) {
+	    var timerObj = setInterval(fn, t);
+
+	    this.stop = function() {
+	        if (timerObj) {
+	            clearInterval(timerObj);
+	            timerObj = null;
+	        }
+	        return this;
+	    }
+
+	    // start timer using current settings (if it's not already running)
+	    this.start = function() {
+	        if (!timerObj) {
+	            this.stop();
+	            timerObj = setInterval(fn, t);
+	        }
+	        return this;
+	    }
+
+	    // start with new or original interval, stop current interval
+	    this.reset = function(newT = t) {
+	        t = newT;
+	        return this.stop().start();
+	    }
+	}
+
+    function expand_mobile_chat(){
+    	if($("#mobile-chat-container").hasClass("mobile-chat-expanded")){
+    		$("#mobile-chat-container").removeClass("mobile-chat-expanded")
+    		$('#mobile-chat-inner').height(0)
+    		var path = document.getElementById('mobile-chat-dropdown-svg');
+  			path.setAttribute('d','M5 18 L15 28 L25 18');
+    	}
+    	else{
+    		$("#mobile-chat-container").addClass("mobile-chat-expanded")
+    		$('#mobile-chat-inner').height(400)
+    		$('#mobile-chat-inner').scrollTop($('#mobile-chat-inner')[0].scrollHeight);
+    		var path = document.getElementById('mobile-chat-dropdown-svg');
+  			path.setAttribute('d','M5 28 L15 18 L25 28');
+    	}
+    }
+
+    function toggle_season_home_stats(index){
+    	var old_index = curr_stat_section;
+    	if(index > old_index){
+    		var direction = 1;
+    	}
+    	else if(index < old_index){
+    		var direction = -1;
+    	}
+    	else{
+    		return;
+    	}
+    	slide_stat_content(index, old_index, direction)
+    }
+
+    function slide_stat_content_left(){
+    	var old_index = curr_stat_section;
+    	curr_stat_section--;
+    	if(curr_stat_section < 0){
+    		curr_stat_section = num_stat_sections -1
+    	}
+    	slide_stat_content(curr_stat_section, old_index, -1)
+    }
+
+    function slide_stat_content_right(){
+    	var old_index = curr_stat_section;
+    	curr_stat_section++;
+    	if(curr_stat_section > num_stat_sections -1){
+    		curr_stat_section = 0;
+    	}
+    	slide_stat_content(curr_stat_section, old_index, 1)
+    }
+
+    function slide_stat_content(index, old_index, direction){
+		var slide_width = $("#season-home-stat-content-inner").width()
+		curr_stat_section = index;
+
+    	$("#season-stat-toggle-button-"+curr_stat_section).addClass("season-stat-toggle-button-active")
+    	$("#season-stat-toggle-button-"+curr_stat_section).css("width", 10)
+    	$("#season-stat-toggle-button-"+curr_stat_section).css("height", 10)
+
+    	$("#season-stat-toggle-button-"+old_index).css("width", 8)
+    	$("#season-stat-toggle-button-"+old_index).css("height", 8)
+    	$("#season-stat-toggle-button-"+old_index).removeClass("season-stat-toggle-button-active")
+
+    	$("#season-home-stat-container-"+curr_stat_section).addClass("season-home-stat-no-transition")
+    	$("#season-home-stat-container-"+curr_stat_section).css("left", (slide_width + slide_offset)* direction)
+
+    	$("#season-home-stat-container-"+curr_stat_section).show()
+    	$("#season-home-stat-heading").text($("#season-home-stat-container-"+curr_stat_section).data("header-text"))
+
+
+    	$("#season-home-stat-container-"+old_index).css("left", (slide_width + slide_offset)* direction * -1)
+    	$("#season-home-stat-container-"+curr_stat_section).removeClass("season-home-stat-no-transition")
+    	$("#season-home-stat-container-"+curr_stat_section).css("left", 0)
+    	season_stat_timer.reset(10000);
+    }
+
+    
+
+    function season_home_advanced_data(){
+    	console.log("printing offensive_rating");
+    	console.log(gon.offensive_rating);
+
+    	(gon.offensive_rating) ? $("#offensive-rating-value").text(gon.offensive_rating[0].value) : $("#offensive-rating-value").text("N/A");
+    	(gon.defensive_rating) ? $("#defensive-rating-value").text(gon.defensive_rating[0].value) : $("#defensive-rating-value").text("N/A");
+    	
+		insertBasicTeamPercentageCircles(gon.team_stats, 10, 10, 4, "#353535", .9, true)
+    }
+
+    function season_home_previous_game(){
+    	if(gon.team_points){
+	    	if(gon.team_points > gon.opponent_points){
+	    		$("#previous-game-team-result").addClass("previous-game-winner")
+	    	}
+	    	else{
+	    		$("#previous-game-opponent-result").addClass("previous-game-winner")
+	    	}
+	    }
+    }
+
+    function season_home_lineup_arr(lineup_obj, index){
+
+    	var adv_arr = []
+
+		var off_eff_wrapper = "<div class = 'lineup-slider-wrapper'></div>"
+		var off_eff_header = "<div class = 'lineup-slider-header'>Offensive Rating</div>"
+		var off_eff_value = '<div class = "lineup-slider-value" id = "lineup-'+index+'-value-29"></div>'
+		var off_eff_tooltip = '<div class = "lineup-slider-tooltip" id = "lineup-'+index+'-tooltip-29"></div>'
+		var off_eff_slider = '<div class = "lineup-adv-slider" id = "lineup-'+index+'-adv-slider-29"></div>'
+		var off_eff_html =  $(off_eff_wrapper).append(off_eff_header).append(off_eff_slider).append(off_eff_value).append(off_eff_tooltip)
+		adv_arr.push(off_eff_html)
+
+		var def_eff_wrapper = "<div class = 'lineup-slider-wrapper'></div>"
+		var def_eff_header = "<div class = 'lineup-slider-header'>Defensive Rating</div>"
+		var def_eff_value = '<div class = "lineup-slider-value" id = "lineup-'+index+'-value-30"></div>'
+		var def_eff_tooltip = '<div class = "lineup-slider-tooltip" id = "lineup-'+index+'-tooltip-30"></div>'
+		var def_eff_slider = '<div class = "lineup-adv-slider" id = "lineup-'+index+'-adv-slider-30"></div>'
+		var def_eff_html =  $(def_eff_wrapper).append(def_eff_header).append(def_eff_slider).append(def_eff_value).append(def_eff_tooltip)
+		adv_arr.push(def_eff_html)
+		
+		return adv_arr;
+    }
+
+    function create_season_home_lineup_html(lineup_obj, index){
+
+		var lineup_stats = $('<div class = "season-home-lineup-stats"></div>')
+
+		var adv_arr = season_home_lineup_arr(lineup_obj, index)
+
+		lineup_stats.append(adv_arr[0]).append(adv_arr[1])
+		return lineup_stats;
+	}
+
+	function season_home_lineup_players(lineup_obj){
+		var lineup_members = $("<div class = 'season-home-lineup-members'></div>")
+		for(var i = 0; i < 4; i++){
+			var player_html = $("<div class = 'lineup-member'>"+ lineup_obj.lineup_members[i].name + ", &nbsp</div>")
+			lineup_members.append(player_html)
+		}
+		var player_html = $("<div class = 'lineup-member'>"+ lineup_obj.lineup_members[i].name + "</div>")
+		lineup_members.append(player_html)
+		return lineup_members
+	}
+
+	function create_season_home_lineup(lineup_obj, container, index){
+		// var module_container = $("<div class = 'lineup-module' id = 'lineup-module-" + index + "'></div>") 
+		// var module_main = $("<div class = 'lineup-module-main'></div>")
+
+		var lineup_members = season_home_lineup_players(lineup_obj)
+		
+		var stat_html = create_season_home_lineup_html(lineup_obj, index)
+
+
+		// $(module_container).append(module_main.append(lineup_members).append(stat_html).append(table_container)).append(module_right)
+		
+		$(container).append(lineup_members).append(stat_html)
+
+		// lineup_obj.html = $(module_container)
+		// $(container).append(module_container)
+		var len = lineup_obj.advanced_stats.length;
+
+		var mobile = window.matchMedia( "screen and (min-device-width : 300px) and (max-device-width : 1024px) and (orientation : portrait)" );
+		if(mobile.matches){
+			var width = 200
+			var radius = 20;
+		}
+		else{
+			var width =  window.innerWidth * .14
+			var radius = 15;
+		}
+
+		for(var i = 0; i < len; i++){
+			if(lineup_obj.advanced_stats[i].stat_list_id == 29){
+				insert_slider(lineup_obj.advanced_stats[i], "#lineup-"+index+"-adv-slider-"+29, width, radius)
+			}
+			else if (lineup_obj.advanced_stats[i].stat_list_id == 30){
+				insert_slider(lineup_obj.advanced_stats[i], "#lineup-"+index+"-adv-slider-"+30, width, radius)
+			}
+		}
+	}
+
+	function season_lineup_not_applicable(container, message){
+		var message_container = "<div class = 'lineup-message-container'></div>"
+		$(container).append($(message_container).append(message))
+	}
+
+
+	function insert_season_home_lineups(){
+		if(gon.offensive_rating_lineup){
+			create_season_home_lineup(gon.offensive_rating_lineup, ".season-home-lineup-offensive", 1)
+		}
+		else{
+			season_lineup_not_applicable(".season-home-lineup-offensive", "*Offensive rating data hasn't been collected for lineups. Enter data or make sure you are keeping offensive rating as a stat.")
+		}
+
+		if(gon.defensive_rating_lineup){
+			create_season_home_lineup(gon.defensive_rating_lineup, ".season-home-lineup-defensive", 2)
+		}
+		else{
+			season_lineup_not_applicable(".season-home-lineup-defensive", "*Defensive rating data hasn't been collected for lineups. Enter data or make sure you are keeping defensive rating as a stat.")
+		}
+
+		if(gon.net_rating_lineup){
+			create_season_home_lineup(gon.net_rating_lineup, ".season-home-lineup-net", 3)
+		}
+		else{
+			season_lineup_not_applicable(".season-home-lineup-net", "*Net rating data hasn't been collected for lineups. Enter data or make sure you are keeping net rating as a stat.")
+		}
+    }
+
+
+    function load_posts(){
+    	var len = gon.post_objs.length
+    	for(var i = 0; i < len; i++){
+    		load_post(gon.post_objs[i].post.nickname, gon.post_objs[i].post.content, gon.post_objs[i].post.id, gon.post_objs[i].post.role_id, gon.post_objs[i].curr_member, gon.post_objs[i].time, "#team-chat-container")
+    		load_post(gon.post_objs[i].post.nickname, gon.post_objs[i].post.content, gon.post_objs[i].post.id, gon.post_objs[i].post.role_id, gon.post_objs[i].curr_member, gon.post_objs[i].time, "#mobile-chat-inner")
+    	}
+    }
+
+
+	function load_post(author, content, post_id, role_id, is_curr_member, time, container){
+		if(is_curr_member){
+			var post_wrapper = "<div class = 'post-wrapper post-wrapper-curr-member' id = '"+post_id+"'>"
+		}
+		else{
+			var post_wrapper = "<div class = 'post-wrapper' id = '"+post_id+"'>"
+		}
+		var post_info = '<div class = "post-info"></div>'
+		var post_author = "<div class = 'post-author'>"+author + " </div>"
+		var post_ago = '<div class = "post-ago">'+time+'</div>'
+		var post = '<div class = "post post-role-'+role_id+'">'
+		var post_content = "<div class = 'post-content'>"+content + "</div>"
+		var post = $(container).append($(post_wrapper).append($(post_info).append(post_author).append(post_ago)).append($(post).append(post_content)))
+		$(container).scrollTop($(container)[0].scrollHeight);
+	}
+
+
+
+	function send_post(){
+		var url = "/teams/"+ gon.team_id + "/seasons/" + gon.season_id +"/posts/"
+		var data = {content: $(".new-post").text(), member_id: gon.curr_member.id, author: gon.curr_member.nickname}
+		$(".new-post").val("")
+		console.log("printing post channel")
+		console.log(postsChannel)
+		$.ajax({
+			url: url, 
+			beforeSend: function(xhr) {xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))},
+		    type: "post",
+		    data_type: 'json',
+		    data: data,
+			success: function(result){
+		        // insert_post(result)
+		        postsChannel.send({"result": result})
+		    }
+		});
+	}
+
+	function insert_post(result){
+		var is_curr_member = result.post.member_id == gon.curr_member.id
+		load_post(result.author, result.content, result.post_id, result.role_id, is_curr_member, "1s", "#team-chat-container")
+		load_post(result.author, result.content, result.post_id, result.role_id, is_curr_member, "1s", "#mobile-chat-inner")
+	}
+
+	function convert_date_string(str){
+		console.log(str.text())
+		var text = str.text()
+		var split = text.split(/[\s, ]+/);
+		if(split[0] == "less"){
+			var return_word = str.text()
+		}
+		else{
+			var arr_len = split.length
+			for(var i = 0; i < arr_len; i++){
+				if(parseInt(split[i])){
+					var return_word = split[i] + split[i+1][0]
+				}
+			}
+		}
+		return return_word
+	}
+	
+
+	function populate_schedule_info(){
+		if(gon.is_game){
+			var schedule_event_title = $("<div class = 'schedule-event-title'></div>")
+			var game_title = $("<div class = 'game-title'>GAME</div>")
+			var game_opponent = $("<div class = 'game-opponent'>vs. <%=@opponent_name%></div>")
+			$("#schedule-event").append(schedule_event_title.append(game_title).append(game_opponent))
+			var location_time = $("<div class = 'location-time'></div>")
+			var location = $("<div class = 'schedule-event-info'>Location: <%=@schedule_event_place%></div>")
+			var time_str = parseTime("<%=@schedule_event_time%>")
+			var time = $("<div class = 'schedule-event-info'>Time: "+time_str+"</div>")
+			$("#schedule-event").append(location_time.append(location).append(time))
+		}
+		else if (gon.is_practice){
+			var schedule_event_title = $("<div class = 'schedule-event-title'></div>")
+			var game_title = $("<div class = 'game-title'>Practice</div>")
+			$("#schedule-event").append(schedule_event_title.append(game_title))
+			var location_time = $("<div class = 'location-time'></div>")
+			var location = $("<div class = 'schedule-event-info'>Location: <%=@schedule_event_place%></div>")
+			var time_str = parseTime("<%=@schedule_event_time%>")
+			var time = $("<div class = 'schedule-event-info'>Time: "+time_str+"</div>")
+			$("#schedule-event").append(location_time.append(location).append(time))
+		}
+		else{
+			var schedule_event_title = $("<div class = 'schedule-event-title'></div>")
+			var game_title = $("<div class = 'game-title'>No Practice</div>")
+			$("#schedule-event").append(schedule_event_title.append(game_title))
+		}
+
+	}
+
+	function parseTime(str){
+		var substring = str.substr(str.indexOf(' ')+1); 
+		var military_time = substring.substr(0,substring.indexOf(' '));
+		var length = military_time.length;
+		var seconds_stripped = military_time.substr(0,length - 3);
+		var military_hours = seconds_stripped.substr(0,seconds_stripped.indexOf(":"))
+		var minutes = seconds_stripped.substr(seconds_stripped.indexOf(":")+1)
+		var hours = military_hours % 12;
+		var suffix = (military_hours > 12) ? " PM" : " AM";
+		return hours + ":" + minutes + suffix
+	}
+
+
+	function select_member(button, member_id){
+		member_to_join = member_id;
+		if (button.style.backgroundColor != "#00c1ff"){
+			button.style.backgroundColor = "#00c1ff";
+			button.style.color = "white";
+		}
+		if(curr_button){
+			curr_button.style.backgroundColor = "transparent";
+			curr_button.style.color = "#00efff";
+		}
+		curr_button = button;
+	}
+
+	// function submit_join_member(){
+	// 	var url = ""
+	// 	$.ajax({
+	// 		beforeSend: function(xhr) {xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))},
+	// 	    type: "post",
+	// 	    data_type: 'json',
+	// 	    data: {member_id: member_to_join},
+	// 		success: function(result){
+	// 	        $(".modal-overlay").hide()
+	// 			$(".new-box").hide()
+	// 	    }
+	// 	});
+	// }

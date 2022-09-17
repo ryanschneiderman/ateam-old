@@ -1,0 +1,139 @@
+#main{
+
+}
+
+
+#purchase-join-team-wrapper{
+	position: relative;
+	z-index: 10;
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+}
+
+#portal{
+	justify-content: center;
+	display: flex;
+	bottom: 10vh;
+	color: white;
+}
+
+.portal-button{
+	width: 135px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    border-radius: 30px;
+    font-size: 14px;
+    font-weight: 600;
+    font-family: helvetica;
+    box-shadow: 0px 0px 3px #ff7a31;
+}
+
+.portal-button-2{
+	border: 1px solid #ff6c40;
+	color: white;
+}
+
+.portal-button-2-alt{
+	color: #ff6c40 !important;
+}
+
+.portal-button-1{
+	background-color: #ff6c40;
+	color: white;
+}
+
+.logout-link{
+	color: white;
+}
+
+.logout-link:hover{
+	color: grey;
+}
+
+
+
+#main-grid{
+	display: grid;
+	align-items: center;
+}
+.teams{
+
+}
+.header.teams{
+	width: 100%;
+	background-image: url(bball.JPG);
+	background-size: cover;
+	color: white;
+	height: 150px;
+	padding-top: 40px;
+	text-align: center;
+	font-size: 40px;
+}
+
+.header.teams:before{
+	content: '';
+	position: absolute;
+	background: rgba(0, 0, 0, 0.2);
+	left: 0;
+	right: 0;
+	top: 0;
+	bottom: 0;
+}
+
+#team-text{
+	color: white;
+	position: relative;
+}
+
+.team-grid{
+	width: 100%;
+	display: grid;
+	grid-template-columns: repeat(4, 1fr);
+  	grid-template-rows: repeat(auto-fill, 250px);
+}
+
+#team-block{
+	height: 250px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	border-right: 1px solid #dbdbdb;
+}
+
+.add-join-team div{
+	width: 100%;
+	padding-left: 5px;
+	margin-top: 20%;
+}
+
+
+#header-buttons{
+    display: flex;
+}
+
+.player-dropdown-text{
+	color: white;
+	font-family: "Montserrat";
+	font-weight: 600;
+	line-height: 16px;
+}
+
+.player-dropdown{
+	padding-left: 10px;
+}
+
+
+.player-dropdown-dark{
+	color: #212121;
+}
+
+.player-dropdown-arrow{
+	margin-left: 5px;
+}
+
+.header-button-deactivated{
+	display: none;
+}
+
+
+

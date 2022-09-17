@@ -1,0 +1,237 @@
+<%=render "layouts/small_header"%>
+<div id = "new-team-block" class = "flex-column page-index">
+	<div class = "page-header" style = "text-align: center;">Team Settings</div>
+	<div class = "new-team-block-wrapper">
+		<div class = "new-team-block" id = "team-info-block">
+			<div class = "new-team-inner">
+				<div class = "page-subheader" id = "create-team-header">Team Info</div>
+				<div class = "new-form team-info-row">
+					<div class = "team-info-col-1">
+						<div class = "team-info-input">
+							<div class = "team-info-descr">Team name </div>
+							<input type = "text" class = "new-team-input" id = "enter-team-name" value = "<%=@season.team_name%>" disabled>
+							<div class = "needs-input" id = "needs-team-name" style= "display: none;">*Please enter a team name</div>
+						</div>
+						<div class = "team-info-input">
+							<div class = "team-info-descr">Do your seasons span multiple years? <span class = "team-info-parenthetical">(e.g. 2019/2020 season)</span> </div>
+							<div class = "flex-row">
+								<form>
+									<div class = "team-info-radio-wrapper">
+										<input type="radio" id="season-years-yes" class = "new-team-input" name="season-years" value="true" disabled>
+				  						<label for="season-years-yes">Yes</label>
+				  					</div>
+				  					<div class = "team-info-radio-wrapper">
+										<input type="radio" id="season-years-no" class = "new-team-input" name="season-years" value="false" disabled>
+				  						<label for="season-years-no">No</label>
+				  					</div>
+				  				</form>
+							</div>
+							<div class = "needs-input" id = "needs-year-bool" style= "display: none;">*Please select yes or no.</div>
+						</div>
+						<div class = "team-info-input">
+							<div class = "team-info-descr">Period Type</div>
+							<div class = "flex-row">
+								<form>
+									<div class = "team-info-radio-wrapper">
+										<input type="radio" id="team-info-quarters" class = "new-team-input" name="period-type" value="4" disabled>
+				  						<label for="team-info-quarters">Quarters</label>
+				  					</div>
+				  					<div class = "team-info-radio-wrapper">
+										<input type="radio" id="team-info-halves" class = "new-team-input" name="period-type" value="2" disabled>
+				  						<label for="team-info-halves">Halves</label>
+				  					</div>
+				  				</form>
+							</div>
+							<div class = "needs-input" id = "needs-period-type" style= "display: none;">*Please enter a period type</div>
+						</div>
+						<div class = "team-info-input">
+							<div class = "team-info-descr">Period Length (min)</div>
+							<input type = "number" class = "new-team-input" id = "period-length" value = "<%=@season.period_length%>" disabled>
+							<div class = "needs-input" id = "needs-period-length" style= "display: none;">*Please enter a period length</div>
+						</div>
+					</div>
+					<div class = "team-info-col-2">
+						<div class = "team-info-input">
+							<div class = "team-info-descr">Team Colors (primary)</div>
+							<div class = "color-picker-grid grid" id = "primary-color-picker">
+								
+							</div>
+							<div class = "needs-input" id = "needs-primary-color" style= "display: none;">*Please select a primary color</div>
+						</div>
+						<div class = "team-info-input">
+							<div class = "team-info-descr">Team Colors (secondary)</div>
+							<div class = "color-picker-grid grid" id = "secondary-color-picker">
+								
+							</div>
+							<div class = "needs-input" id = "needs-secondary-color" style= "display: none;">*Please select a secondary color</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class = "new-team-block-wrapper">
+		<div class = "new-team-block" id = "new-team-members">
+			<div class = "new-team-inner">
+				<div class = "page-subheader" id = "create-team-header">Team Members</div>
+				<div class = "flex-row">
+					<div id = "added-members">
+						<div id = "added-players">
+							<div class = "added-members-header">Players</div>
+							<div id = "added-players-container"></div>
+						</div>
+						<div id = "added-coaches">
+							<div class = "added-members-header">Coaches</div>
+							<div id = "added-coaches-container"></div>
+						</div>
+						<div id = "added-managers">
+							<div class = "added-members-header">Managers/Other</div>
+							<div id = "added-managers-container"></div>
+						</div>
+					</div>
+				</div>
+			</div>	
+		</div>
+	</div>
+
+	<div class = "new-team-block-wrapper">
+		<div class = "new-team-block" id = "choose-stats">
+			<div class = "new-team-inner">
+				<div class = "page-subheader" id = "create-team-header">Stats</div>
+				<div class = "create-team-note">Some stats are default and essential. Others you can choose to keep if you want. The more you keep, the more advanced stats you will have at your disposal. We recommend starting with more stats than less. </div>
+				<div id = "choose-stats-block">
+					<div class = "flex-row" id = "stat-selection-container">
+						<div class = "flex-column" id = "selection-stats">
+							<div id = "optional-stats-wrapper" class = "select-stats-wrapper" >
+								<div class = "team-info-descr">Optional Stats <span class = "team-info-parenthetical">(Click to add to your stats)</span></div>
+								<div id = "optional-stats">
+									<% @non_default_collectable_add.each do |stat| %>
+										<div class = "stat-choice stat-choice-active optional-stat-deactivated"> <%= stat.stat %> </div>
+									<% end %>
+								</div>
+							</div>
+							<div id = "your-stats-wrapper" class = "select-stats-wrapper">
+								<div class = "team-info-descr">Your Stats</div>
+								<div id = "your-stats">
+									<div class = "stat-choice stat-choice-active"> Field Goals </div>
+									<div class = "stat-choice stat-choice-active"> Free Throws </div>
+									<div class = "stat-choice stat-choice-active"> Points </div>
+									<div class = "stat-choice stat-choice-active"> Minutes </div>
+									<div class = "stat-choice stat-choice-active"> Fouls </div>
+									<% @non_default_collectable_belongs.each do |stat| %>
+										<div class = "stat-choice stat-choice-active" id = "stat-<%=stat.stat_list_id%>"> <%= stat.stat %> </div>
+
+									<% end %>
+								</div>
+							</div>
+						</div>
+						<div class = "flex-column" id = "advanced-stats">
+							<div id = "player-advanced-stats-wrapper" class = "select-stats-wrapper">
+								<div class = "team-info-descr">Player Advanced Stats</div>
+								<div id = "player-advanced-stats">
+									<%@default_indiv_advanced.each do |stat|%>
+										<div class = "stat-choice stat-choice-active" id = "stat-<%=stat.id%>"> <%= stat.stat %> </div>
+									<%end%>
+
+									<%@non_default_advanced_belongs.each do |stat|%>
+										<div class = "stat-choice stat-choice-active" id = "stat-<%=stat.stat_list_id%>"> <%= stat.stat %> </div>
+									<%end%>
+
+									
+
+									<%@non_default_advanced_add.each do |stat|%>
+										<div class = "stat-choice stat-choice-inactive" id = "stat-<%=stat.id%>"> <%= stat.stat %> </div>
+									<%end%>
+								</div>
+							</div>
+							<div id = "team-advanced-stats-wrapper" class = "select-stats-wrapper">
+								<div class = "team-info-descr">Team Advanced Stats</div>
+								<div id = "select-team-advanced-stats">
+									<%@default_team_advanced.each do |stat|%>
+										<div class = "stat-choice stat-choice-active" id = "stat-<%=stat.id%>"> <%= stat.stat %> </div>
+									<%end%>
+									<%@non_default_team_advanced_belongs.each do |stat|%>
+										<div class = "stat-choice stat-choice-active" id = "stat-<%=stat.stat_list_id%>"> <%= stat.stat %> </div>
+									<%end%>
+									
+									<%@non_default_team_advanced_add.each do |stat|%>
+										<div class = "stat-choice stat-choice-inactive" id = "stat-<%=stat.id%>"> <%= stat.stat %> </div>
+									<%end%>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+		</div>
+
+	</div>
+
+	
+
+</div>
+
+<%= render "/teams/role_modal"%>
+
+
+
+
+<script>
+
+	$("#new-team-block").css("padding-top", $("#header-outer").outerHeight())
+	var basic_stats = [];
+	var collection_stats = [];
+	var non_default_adv_stats = [];
+	var non_default_team_adv_stats = [];
+	var advanced_stats = [];
+	var team_stats = [];
+	var team_advanced_stats = [];
+	var members = []
+
+
+	var stats_to_add = []
+	var stats_to_remove = []
+	var non_default_adv_stats = []
+	var non_default_team_adv_stats = []
+	var non_default_team_adv_belongs = []
+	var non_default_adv_belongs = []
+
+	var curr_members = []
+	var update_members = []
+	var new_members = []
+	var remove_members = []
+	
+
+
+	$('.new-team-input').on('input', function() {
+	    $(this).removeClass('incorrect-input')
+	    $(this).parents(".team-info-input").find(".needs-input").hide()
+	    $("#check-team-input").hide()
+	});
+
+	$("#enter-member-email").on('input', function() {
+	    $("#valid-email").hide()
+	});
+
+
+	$('input:radio[name="role"]').change(function(){
+		$("#member-role-input .needs-input").hide()
+		if($("#member-role-other").prop("checked")){
+			$("#custom-permissions").show()
+		}
+		else{
+			$("#custom-permissions").hide()
+		}
+	});
+
+	$('input:checkbox[name="is_player"]').change(function(){
+		if($('input:checkbox[name="is_player"]').prop("checked")){
+			$('input:checkbox[name="view-access"]').prop("checked", true)
+		}
+	});
+	
+
+
+
+</script>

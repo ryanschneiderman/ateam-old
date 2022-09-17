@@ -1,0 +1,390 @@
+
+
+<div id="locations" data-midnight="dark"  class="wpb_row vc_row-fluid vc_row full-width-content  vc_row-o-equal-height vc_row-flex  vc_row-o-content-middle standard_section " style=" left: 0px; visibility: visible;">
+			<div class="row-bg-wrap" data-bg-animation="none" data-bg-overlay="true">
+<!-- 				<div class="inner-wrap">
+					<div class="row-bg" style=""></div>
+				</div> -->
+				<div class="row-bg-overlay" style=" background: linear-gradient(#ffeee6 0%,#ffffff 100%); opacity: 1; "></div>
+			</div>
+			<div id = "play-diagramming-container">
+		<div id = "play-diagramming-wrapper" class = "page-content-wrapper">
+			<div class = "section-descr-wrapper">
+				<div id = "play-diagramming-descr" class = "section-descr">
+					<div class = "section-header">Clear the Whiteboard.<br> Play diagramming has changed.</div>
+					<div class = "section-subheader">ATeam play diagramming makes it easy to build plays and share them with your players. A messy whiteboard is a thing of the past.   </div>
+					<div class = "section-bullets">
+						<ul>
+						  <li class = "section-bullet">Separate plays into progressions for increased readability.</li>
+						  <li class = "section-bullet">Animate progressions to visualize movement.</li>
+						  <li class = "section-bullet">Annotate plays for precise direction.</li>
+						  <li class = "section-bullet">Categorize plays in a dynamic library.</li>
+						</ul>
+						<div class="nectar-cta " data-style="material" data-alignment="left" data-display="block" data-text-color="custom"><h4> <span class="text"> </span><span class="link_wrap" style="color: #ff1053;">
+	<%= link_to product_play_diagramming_path, {:class => "link_text"} do %> 
+		Learn more about plays<span class="circle" style="background-color: #ff1053;"></span><span class="arrow"></span>
+	<%end%>
+	
+</span></h4></div>
+					</div>
+					
+			</div> 
+				</div>
+			</div>
+			<div class = "section-visual" id = "play-diagramming-visual">
+				<div class = "court-wrapper">
+					<svg height="150" width="150" class = "player-piece" id = "player-piece-1" >
+						<filter id="dropshadow" height="130%" width = "130%">
+						  <feGaussianBlur in="SourceAlpha" stdDeviation="3"/>
+						  <feOffset dx="2" dy="3" result="offsetblur"/>
+						  <feComponentTransfer>
+						    <feFuncA type="linear" slope="0.4"/>
+						  </feComponentTransfer>
+						  <feMerge> 
+						    <feMergeNode/>
+						    <feMergeNode in="SourceGraphic"/>
+						  </feMerge>
+						</filter>
+					  <circle class ="player-piece-svg" cx="75" cy="75" r="2.5vw" stroke="#FF6060" stroke-width="3" fill="red" style="filter:url(#dropshadow)" />
+					</svg>
+
+					<svg height="150" width="150" class = "player-piece" id = "player-piece-2">
+						<filter id="dropshadow" height="130%" width = "130%">
+						  <feGaussianBlur in="SourceAlpha" stdDeviation="3"/> 
+						  <feOffset dx="2" dy="3" result="offsetblur"/> 
+						  <feComponentTransfer>
+						    <feFuncA type="linear" slope="0.4"/> 
+						  </feComponentTransfer>
+						  <feMerge> 
+						    <feMergeNode/> 
+						    <feMergeNode in="SourceGraphic"/> 
+						  </feMerge>
+						</filter>
+					  <circle class ="player-piece-svg" cx="75" cy="75" r="2.5vw" stroke="#FF6060" stroke-width="3" fill="red" style="filter:url(#dropshadow)" />
+					</svg>
+					<!-- transform: translate3d(130px, 40px, 0px); -->
+					<svg height="150" width="150" class = "player-piece" id = "player-piece-3" >
+						<filter id="dropshadow" height="130%" width = "130%">
+						  <feGaussianBlur in="SourceAlpha" stdDeviation="3"/>
+						  <feOffset dx="2" dy="3" result="offsetblur"/>
+						  <feComponentTransfer>
+						    <feFuncA type="linear" slope="0.4"/>
+						  </feComponentTransfer>
+						  <feMerge> 
+						    <feMergeNode/>
+						    <feMergeNode in="SourceGraphic"/>
+						  </feMerge>
+						</filter>
+					  <circle class ="player-piece-svg" cx="75" cy="75" r="2.5vw" stroke="#6F96FF" stroke-width="3" fill="#3C70FD" style="filter:url(#dropshadow)" />
+					</svg>
+					<svg height="150" width="150" class = "player-piece" id = "player-piece-4" >
+						<filter id="dropshadow" height="130%" width = "130%">
+						  <feGaussianBlur in="SourceAlpha" stdDeviation="3"/>
+						  <feOffset dx="2" dy="3" result="offsetblur"/>
+						  <feComponentTransfer>
+						    <feFuncA type="linear" slope="0.4"/>
+						  </feComponentTransfer>
+						  <feMerge> 
+						    <feMergeNode/>
+						    <feMergeNode in="SourceGraphic"/>
+						  </feMerge>
+						</filter>
+					  <circle class ="player-piece-svg" cx="75" cy="75" r="2.5vw" stroke="#6F96FF" stroke-width="3" fill="#3C70FD" style="filter:url(#dropshadow)" />
+					</svg>
+					<!-- transform: translate3d(60px, 380px, 0px); -->
+					<svg height="150" width="150" class = "player-piece" id = "player-piece-5" >
+						<filter id="dropshadow" height="130%" width = "130%">
+						  <feGaussianBlur in="SourceAlpha" stdDeviation="3"/>
+						  <feOffset dx="2" dy="3" result="offsetblur"/>
+						  <feComponentTransfer>
+						    <feFuncA type="linear" slope="0.4"/>
+						  </feComponentTransfer>
+						  <feMerge> 
+						    <feMergeNode/>
+						    <feMergeNode in="SourceGraphic"/>
+						  </feMerge>
+						</filter>
+					  <circle class ="player-piece-svg" cx="75" cy="75" r="2.5vw" stroke="#6F96FF" stroke-width="3" fill="#3C70FD" style="filter:url(#dropshadow)" />
+					</svg>
+					<%= image_tag("court-cropped.png", :alt => "court-img", :class => "court", :id => "front-court") %>	
+				</div>
+			</div>
+		</div>
+	</div>
+ 
+
+<div id = "stat-collection-target"></div>
+<!--HERE -->
+
+
+		<div id="locations" data-midnight="dark"class="wpb_row vc_row-fluid vc_row full-width-content  vc_row-o-equal-height vc_row-flex  vc_row-o-content-middle standard_section " style=" left: 0px; visibility: visible;">
+			<div class="row-bg-wrap" data-bg-animation="none" data-bg-overlay="true">
+				<div class="row-bg-overlay">
+					
+				</div>
+
+			</div>
+			<div id = 'stat-collection-container' uk-parallax="target: #stat-collection-target; background-color: #ffffff,#1F1F1F" >
+		<div id = "stat-collection-descr-target" class = "descr-target"></div>
+		<div id = "stat-collection-wrapper" class = "page-content-wrapper">
+
+			<div id = "dotted-background" style = "background-image: url(<%= asset_path('microdot-grid.png') %>);"></div>
+				<div class = "section-visual" id = "stat-collection-visual-wrapper">
+					<!-- transform: translate3d(-530px, 300px, 0px); -->
+					<div class = "stat-collection-item" id = "stat-collection-points" data-incremented= "0" >
+						<div class = "stat-collection-name">Points</div>
+						<div class = "stat-collection-number">9</div>
+					</div>
+					<!-- transform: translate3d(-390px, 170px, 0px); -->
+					<div class = "stat-collection-item" id = "stat-collection-assists" data-incremented= "0" id = "assists-val">
+						<div class = "stat-collection-name">Assists</div>
+						<div class = "stat-collection-number" >3</div>
+					</div>
+					<!-- transform: translate3d(-280px, 630px, 0px); -->
+					<div class = "stat-collection-item" id = "stat-collection-steals" data-incremented= "0" id = "steals-val">
+						<div class = "stat-collection-name">Steals</div>
+						<div class = "stat-collection-number" >1</div>
+					</div>
+					<!-- transform: translate3d(-290px, 240px, 0px); -->
+					<div class = "stat-collection-item" id = "stat-collection-off-reb" data-incremented= "0" id = "off-reb-val">
+						<div class = "stat-collection-name">Offensive Rebounds</div>
+						<div class = "stat-collection-number" >2</div>
+					</div>
+					<!-- transform: translate3d(-390px, 400px, 0px); -->
+					<div class = "stat-collection-item" id = "stat-collection-def-reb" data-incremented= "0" id = "def-reb-val">
+						<div class = "stat-collection-name">Defensive Rebounds</div>
+						<div class = "stat-collection-number" >5</div>
+					</div>
+					<!-- transform: translate3d(-180px, 530px, 0px); -->
+					<div class = "stat-collection-item" id = "stat-collection-blocks" data-incremented= "0" id = "blocks-val">
+						<div class = "stat-collection-name">Blocks</div>
+						<div class = "stat-collection-number" >0</div>
+					</div>
+					<!-- transform: translate3d(-500px, 490px, 0px); -->
+					<div class = "stat-collection-item" id = "stat-collection-turnovers" data-incremented= "0" id = "turnovers-val">
+						<div class = "stat-collection-name">Turnovers</div>
+						<div class = "stat-collection-number" >2</div>
+					</div>
+				</div>
+			<div class = "section-descr-wrapper" id = "stat-collection-descr-wrapper">
+				<div id = "stat-collection-descr" class = "section-descr" uk-parallax="target: #stat-collection-descr-target; opacity: 0,1; x: 0,0,0; scale: 0.8,1, 1; viewport: .3; ">
+					<div class = "section-header">Stat collection <br> made easy.</div>
+					<div class = "section-subheader">Track stats for your team during games with ATeam Game Mode for in game insights, or afterward with film. </div>
+					<div class = "section-bullets">
+						<ul>
+						  <li class = "section-bullet">Customize stats you want to keep for your team.</li>
+						  <li class = "section-bullet">Shot charts for players and team.</li>
+						  <li class = "section-bullet">Game and period box scores</li>
+						  <li class = "section-bullet">Submit at end of game to accumulate to season stats.</li>
+						</ul>
+						<div class="nectar-cta " data-style="material" data-alignment="left" data-display="block" data-text-color="custom"><h4> <span class="text"> </span><span class="link_wrap" style="color: #ff1053;">
+	<%= link_to product_stat_collection_path, {:class => "link_text"} do %> 
+		Learn more about stat collection<span class="circle" style="background-color: #ff1053;"></span><span class="arrow"></span>
+	<%end%>
+	</span></h4></div>
+					</div>
+					
+				</div>
+			</div>
+
+		</div>
+	</div>
+
+		</div>
+		<div id = "stat-collection-val-target"></div>
+	<div id = "analytics-target"></div>
+	<div id="locations" data-midnight="dark" class="wpb_row vc_row-fluid vc_row full-width-content  vc_row-o-equal-height vc_row-flex  vc_row-o-content-middle standard_section " style=" left: 0px;  visibility: visible;">
+		<div class="row-bg-wrap" data-bg-animation="none" data-bg-overlay="true">
+			<div class="inner-wrap"><div class="row-bg" style="">
+				
+			</div>
+		</div>
+		<div class="row-bg-overlay">
+			
+		</div>
+	</div>
+	<div id = 'analytics-container' uk-parallax="target: #analytics-target; background-color: #1F1F1F, #001115" >
+		<div id = "analytics-descr-target" class = "descr-target"></div>
+		<div id = "analytics-wrapper" class = "page-content-wrapper">
+			<div id = "analytics-particles"></div>
+			<div class = "section-descr-wrapper" id = "analytics-descr-wrapper">
+				<div id = "analytics-descr" class = "section-descr" uk-parallax="target: #analytics-descr-target; opacity: 0,1; x: 0,0,0; scale: 0.8,1, 1; viewport: .3; ">
+					<div class = "section-header">Pro level analytics meet the eye test.</div>
+					<div class = "section-subheader">Gain next level insight with ATeam stat analytics. Track performance with basic and advanced stats. Explore different data visualizations. Make decisions with confidence.  </div>
+					<div class = "section-bullets">
+						<ul>
+						  <li class = "section-bullet">Track 25+ basic and advanced stats for players and team.</li>
+						  <li class = "section-bullet">Lineup insights, including best offensive and defensive.</li>
+						  <li class = "section-bullet">Game reports.</li>
+						  <li class = "section-bullet">Effective field goal percentage shot charts.</li>
+						</ul>
+						<div class="nectar-cta " data-style="material" data-alignment="left" data-display="block" data-text-color="custom"><h4> <span class="text"> </span><span class="link_wrap" style="color: #ff1053;">
+				<%= link_to product_analytics_path, {:class => "link_text"} do %> 
+					Learn more about analytics<span class="circle" style="background-color: #ff1053;"></span><span class="arrow"></span>
+				<%end%>
+			</span></h4></div>
+					</div>
+
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+		
+		
+		<div id="fws_5e99d0fc40436"  data-midnight="light"  data-bg-mobile-hidden="" class="wpb_row vc_row-fluid vc_row full-width-content  vc_row-o-equal-height vc_row-flex standard_section  margin-bottom "  style="padding-top: 0px; padding-bottom: 0px; ">
+			<div class="row-bg-wrap" data-bg-animation="none">
+				<div class="inner-wrap ">
+					<div class="row-bg    "  style=""></div>
+				</div>
+				<div class="row-bg-overlay" ></div>
+			</div>
+			<div class="col span_12 light center">
+				<div style="" class="flex-row-important vc_col-sm-6 vc_col-lg-offset-0 vc_col-lg-6 vc_col-md-offset-0 vc_col-md-6 vc_col-sm-offset-0 vc_col-xs-12 view_more_section wpb_column column_container vc_column_container col padding-3-percent" data-using-bg="true" data-t-w-inherits="default" data-border-radius="none" data-shadow="none" data-border-animation="" data-border-animation-delay="" data-border-width="none" data-border-style="solid" data-border-color="" data-bg-cover="" data-padding-pos="top-bottom" data-has-bg-color="true" data-bg-color="#ffffff" data-bg-opacity="1" data-hover-bg="#f7f7f7" data-hover-bg-opacity="0.9" data-animation="" data-delay="0"><a class="column-link" onclick = "sign_up_modal()"></a>
+					<div class="column-image-bg-wrap" data-bg-animation="none">
+						<div class="inner-wrap">
+							<div class="column-image-bg" style=" background-image: url(''); "></div>
+						</div>
+					</div>
+					<div class="column-bg-overlay" style="opacity: 1; background-color: #ffffff;"></div>
+					<div class="vc_column-inner flex-column center-justified">
+						<div class="wpb_wrapper">
+							<div class="morphing-outline" data-starting-color="#ff7526" data-hover-color="#ff4c00" data-border-thickness="11">
+								<div class="inner">
+									<h5><i>Like what you see?</i></h5>
+									<h2 style="font-size: 33px; letter-spacing: -0.5px;">Sign Up for ATeam</h2>
+								</div>
+							</div>
+						</div> 
+						</div>
+				</div> 
+				<div style="" class="flex-row-important vc_col-sm-6 vc_col-lg-offset-0 vc_col-lg-6 vc_col-md-offset-0 vc_col-md-6 vc_col-sm-offset-0 vc_col-xs-12 request-strategy wpb_column column_container vc_column_container col padding-3-percent" data-using-bg="true" data-t-w-inherits="default" data-border-radius="none" data-shadow="none" data-border-animation="" data-border-animation-delay="" data-border-width="none" data-border-style="solid" data-border-color="" data-bg-cover="" data-padding-pos="top-bottom" data-has-bg-color="true" data-bg-color="#ff7526" data-bg-opacity="1" data-hover-bg="#ff4300" data-hover-bg-opacity="1" data-animation="" data-delay="0">
+					<a class="column-link" target="_self" href="/demos"></a><div class="column-bg-overlay" style="opacity: 1; background-color: #ff7526;"></div>
+					<div class="vc_column-inner flex-column center-justified">
+						<div class="wpb_wrapper">
+							<div class="morphing-outline" data-starting-color="#ffffff" data-hover-color="#ffffff" data-border-thickness="11">
+								<div class="inner">
+									<div style="cursor: pointer;">
+										<h5><i>Want to see more?</i></h5>
+										<h2 style="font-size: 33px; letter-spacing: -0.5px;">Explore Demos</h2>
+									</div>
+								</div>
+							</div>
+						</div> 
+					</div>
+				</div> 
+			</div>
+		</div>
+
+<script>
+	particlesJS('analytics-particles', 
+		{ "particles": {
+		    "number": {
+		      "value": 200,
+		      "density": {
+		        "enable": true,
+		        "value_area": 2000
+		      }
+		    },
+		    "color": {
+		      "value": "#cafff9"
+		    },
+		    "shape": {
+		      "type": "circle",
+		      "stroke": {
+		        "width": 0,
+		        "color": "#000000"
+		      },
+		      "polygon": {
+		        "nb_sides": 5
+		      },
+		      "image": {
+		        "src": "img/github.svg",
+		        "width": 100,
+		        "height": 100
+		      }
+		    },
+		    "opacity": {
+		      "value": 0.5,
+		      "random": false,
+		      "anim": {
+		        "enable": false,
+		        "speed": 1,
+		        "opacity_min": 0.1,
+		        "sync": false
+		      }
+		    },
+		    "size": {
+		      "value": 3,
+		      "random": true,
+		      "anim": {
+		        "enable": false,
+		        "speed": 80,
+		        "size_min": 0.1,
+		        "sync": false
+		      }
+		    },
+		    "line_linked": {
+		      "enable": true,
+		      "distance": 200,
+		      "color": "#26d7e0",
+		      "opacity": 0.4,
+		      "width": 1
+		    },
+		    "move": {
+		      "enable": true,
+		      "speed": 6,
+		      "direction": "none",
+		      "random": false,
+		      "straight": false,
+		      "out_mode": "out",
+		      "bounce": false,
+		      "attract": {
+		        "enable": false,
+		        "rotateX": 600,
+		        "rotateY": 1200
+		      }
+		    }
+		  },
+		  "interactivity": {
+		    "detect_on": "canvas",
+		    "events": {
+		      "onhover": {
+		        "enable": false,
+		        "mode": "repulse"
+		      },
+		      "onclick": {
+		        "enable": false,
+		        "mode": "push"
+		      },
+		      "resize": true
+		    },
+		    "modes": {
+		      "grab": {
+		        "distance": 800,
+		        "line_linked": {
+		          "opacity": 1
+		        }
+		      },
+		      "bubble": {
+		        "distance": 800,
+		        "size": 80,
+		        "duration": 2,
+		        "opacity": 0.8,
+		        "speed": 3
+		      },
+		      "repulse": {
+		        "distance": 400,
+		        "duration": 0.4
+		      },
+		      "push": {
+		        "particles_nb": 4
+		      },
+		      "remove": {
+		        "particles_nb": 2
+		      }
+		    }
+		  },
+		  "retina_detect": true
+		});
+</script>

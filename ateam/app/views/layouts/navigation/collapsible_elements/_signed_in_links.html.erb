@@ -1,0 +1,35 @@
+<nav>
+	<ul class="buttons" data-user-set-ocm="1" id = "header-buttons">
+		<li class="button_login button_logged_in " id = "create-team-button">
+			<%=link_to new_team_path do %>
+              <button class = "portal-button portal-button-1">Purchase Team</button>
+            <%end%>
+		</li>	
+		<li class="button_login button_logged_in " id = "join-team-button">
+			<a>
+				<button class = "portal-button portal-button-2" >Join Team</button>
+			</a>
+		</li>
+
+		<li class = "player-dropdown">
+			<div class = "player-dropdown-wrapper flex-row">
+				<div class = "player-dropdown-text player-dropdown-dark" ><%= current_user.first_name %></div> 
+             	<object data='<%=asset_path("down-dark.svg")%>' type="image/svg+xml" class = "sort-img player-dropdown-arrow" id = "player-dropdown-arrow-dark">
+                	<%= image_tag("down-dark.png", :alt => "sort", :class => "sort-img") %>	
+             	</object>
+             </div>
+		</li>
+	</ul>
+	<ul class="sf-menu">	
+		<li id="menu-item-8559" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-home current-menu-item page_item page-item-3166 current_page_item menu-item-8559"><%= link_to 'Home', root_path %>
+		</li>
+		<li id="menu-item-9626" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-9626"><%= link_to 'Product', product_path %> 
+		</li>
+		<li id="menu-item-9627" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-9627"><%= link_to 'Demos', demos_path %> 
+		</li>
+<!-- 		<li id="menu-item-9626" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-9626"><%= link_to 'About', about_path %> 
+		</li> -->
+		
+	</ul>	   
+</nav>		
+

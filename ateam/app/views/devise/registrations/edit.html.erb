@@ -1,0 +1,110 @@
+
+
+
+<%=render "layouts/small_header"%>
+
+
+
+<%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
+  <%= devise_error_messages! %>
+<div id = "edit-profile">
+<div class = "page-header" style = "text-align: center;">Edit Profile</div>
+  <div class = "edit-profile-block-wrapper flex-column">
+    
+    <div class = "edit-profile-block flex-row">
+      <div class = "flex-column edit-profile-inner" id = "edit-basic-info"> 
+        <div class = "edit-profile-header page-subheader">Basic Info</div> 
+        <div class = "edit-profile-container">
+          <div class = "flex-row edit-profile-row">
+            <div class = "flex-column edit-profile-content">
+              <div class = "edit-profile-heading">First Name</div>
+              <%= f.text_field :first_name, autofocus: true,  class: "new-team-input"%>
+            </div>
+            <div class = "flex-column edit-profile-content">
+              <div class = "edit-profile-heading">Last Name</div>
+              <%= f.text_field :last_name, autofocus: true, class: "new-team-input" %>
+            </div>
+          </div>
+          <div class = "flex-row edit-profile-row">
+            <div class = "flex-column edit-profile-content" style = "width: 100%;">
+              <div class = "edit-profile-heading">Email</div>
+              <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "new-team-input" %>
+              <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
+            <div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
+        <% end %>
+            </div>
+          </div>
+      </div>
+      </div>
+    </div>
+  </div>
+  <div class = "edit-profile-block-wrapper">
+    <div class = "edit-profile-block">
+      <div class = "flex-column edit-profile-inner" id = "edit-basic-info">
+        <div class = "edit-profile-header page-subheader">Change Password <span class = "team-info-parenthetical">(Leave input blank if you don't want to change it)</span></div>
+        <div class = "edit-profile-container">
+          <div class = "flex-row edit-profile-row">
+            <div class = "flex-column edit-profile-content">
+              <div class = "edit-profile-heading">Old Password </div>
+              <%= f.password_field :current_password, autocomplete: "current-password", class: "new-team-input" %>
+            </div>
+            
+          </div>
+          <div class = "flex-row edit-profile-row">
+            <div class = "flex-column edit-profile-content">
+              <div class = "edit-profile-heading">New Password</div>
+              <%= f.password_field :password, autocomplete: "new-password", class: "new-team-input" %>
+            </div>
+          </div>
+          <div class = "flex-row edit-profile-row">
+            <div class = "flex-column edit-profile-content">
+              <div class = "edit-profile-heading">Confirm Password</div>
+              <%= f.password_field :password_confirmation, autocomplete: "password_confirmation", class: "new-team-input" %>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class = "edit-profile-block-wrapper">
+    <div class = "edit-profile-block">
+      <div class = "flex-column edit-profile-inner" id = "subscription-details">
+        <div class = "edit-profile-header page-subheader">Subscription Details</div>
+        <div class = "edit-profile-container">
+        	<div id = "edit-subscription">
+        		<div class = "subscription-col-heading flex-row center-justified center-aligned">Subscription</div>
+        		<div class = "subscription-col-heading flex-row center-justified center-aligned">Price</div>
+        		<div class = "subscription-col-heading flex-row center-justified center-aligned">Next Renewal</div>
+        		<div class = "subscription-col-heading flex-row center-justified center-aligned"></div>
+        		<div class = "subscription-col-content flex-row center-justified center-aligned" id = "subscription-name"></div>
+        		<div class = "subscription-col-content flex-row center-justified center-aligned" id = "subscription-price"> </div>
+        		<div class = "subscription-col-content flex-row center-justified center-aligned" id = "renew-date-wrapper">
+        			<div id = "renew-date"></div>
+        		</div>
+        		<div class = "subscription-col-content flex-row center-justified center-aligned">
+        			<div id = "edit-subscription-button">Edit</div>
+        		</div>
+        	</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class = "create-team-button-wrapper flex-column end-aligned edit-profile-block-margins">
+    <%= f.submit "Update Profile", class: "create-team-button update-profile-button" %>
+  </div>
+</div>
+
+<%end%>
+
+<script>
+	var chargebeeInstance = Chargebee.init({
+	    site: "ateamsports"
+	});
+	var chargebeeInstance = Chargebee.getInstance();
+
+	initialize_subscription()
+	
+	$("#edit-subscription-button").on("click",function(){
+		open_chargebee_portal()
+	})
+</script>

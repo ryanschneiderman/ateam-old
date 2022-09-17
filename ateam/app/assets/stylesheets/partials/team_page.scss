@@ -1,0 +1,861 @@
+a {
+	color: inherit;
+}
+
+a:hover{
+	color: inherit;
+}
+
+
+.team-page-link {
+	color: white;
+	font-size: 40px;
+	position: relative;
+	font-weight: 300;
+    top: 40%;
+}
+.post-placeholder{
+	position: absolute;
+	z-index: 1;
+	color: #ababab;
+}
+
+
+.send-post{
+	padding: 5px;
+	padding-right: 20px;
+	padding-left: 20px;
+	background-color: #2e9dea;
+	border-radius: 20px;
+}
+
+.season-home-lineup-wrapper{
+	display: table;
+	width: -moz-fit-content;
+	width: fit-content;
+}
+
+.send-post-inactive{
+	opacity: .7;
+}
+
+#team-chat-no-write:hover #team-chat-no-write-tooltip, #mobile-chat-no-write:hover #mobile-chat-no-write-tooltip{
+	transition-delay: .3s;
+	visibility: visible;
+}
+
+#no-chat-access{
+	margin: 10px;
+    font-size: 16px;
+    font-style: italic;
+}
+
+#team-chat-no-write-tooltip, #mobile-chat-no-write-tooltip{
+	position: absolute;
+    bottom: 40px;
+    font-size: 12px;
+    padding: 7px;
+    width: 80%;
+    background-color: #545454;
+    left: 5px;
+    border-radius: 5px;
+    font-weight: 500;
+    visibility: hidden;
+}
+
+.new-post-toolbar{
+	display: flex;
+	justify-content: flex-end;
+}
+
+.textbox-nostyle{
+	outline: none;
+	user-select: text;
+	overflow-wrap: break-word;
+	z-index: 5;
+}
+
+.new-post{
+	position: relative;
+    text-align: left;
+    color: white;
+    outline: none;
+    z-index: 3;
+    background-color: inherit;
+    border: none;
+    padding: 0px;
+}
+
+.new-post-author{
+	float: left;
+}
+
+.post-author{
+	font-weight: bold;
+	font-size: 13px;
+	margin-right: 10px;
+}
+
+.post-content{
+	display: inline-block;
+	font-weight: 500;
+}
+
+.new-post-content{
+	display: inline-block;
+	margin-left: 10px;
+}
+
+#team-chat-container{
+	height: 0px;
+	overflow: scroll;
+}
+
+#feed{
+    color: white;
+    text-align: left;
+}
+
+.posts{
+	padding-top: 5px;
+	margin-top: 10px;
+	border-top: 1px solid #5e637d;
+	height: 450px;
+	overflow: scroll;
+	margin-right: -8px;
+    padding-right: 8px;
+    margin-left: -8px;
+    padding-left: 8px;
+}
+
+
+.post-play{
+	width: 200px;
+	box-shadow: none !important;
+	text-align: center;
+}
+
+.post-data{
+	text-align: center;
+}
+
+.author-content{
+	padding-right: 15px;
+	padding-left: 15px;
+	padding-bottom: 10px;
+}
+
+.post-wrapper{
+	padding-top: 5px;
+    padding-bottom: 5px;
+    margin-left: 10px;
+    margin-right: 30px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    
+}
+
+.post-wrapper-curr-member{
+	margin-right: 10px;
+	margin-left: 30px;
+	align-items: flex-end;
+}
+
+.post-info{
+	display: flex;
+    margin-bottom: 5px;
+}
+
+.post{
+    position: relative;
+    background-color: #636363;
+    border-radius: 20px;
+    padding: 10px;
+    border-bottom-left-radius: 0px;
+    display: inline-flex;
+}
+
+.post-wrapper-curr-member .post{
+	background-color: #2684f3 !important;
+	 border-bottom-left-radius: 20px;
+	 border-bottom-right-radius: 0px;
+}
+
+.post-role-2{
+	background-color: #ff144b;
+}
+.post-role-4{
+	background-color: #ff5200;
+}
+
+.post-ago{
+    display: flex;
+    justify-content: flex-end;
+    font-weight: normal;
+    color: #cacaca;
+}
+
+.num-comments{
+	width: 20px;
+    font-size: 14px;
+    color: #5e637d;
+}
+
+.comment-section{
+	position: relative;
+	border-top: 1px solid #5e637d;
+	padding-left: 15px;
+	padding-right: 15px;
+	padding-top: 5px;
+	font-size: 13px;
+}
+.comments{
+	display: none;
+	margin-top: 10px;
+	margin-bottom: 10px;
+}
+
+.comment-author{
+	font-weight: bold;
+	display: inline-block;
+}
+.comment-content{
+	display: inline-block;
+}
+
+.enter-comment{
+	border: 1px solid #5e637d;
+    border-radius: 10px;
+	position: relative;
+	padding: 7px;
+}
+
+.comment-text{
+	position: relative;
+}
+
+.comment-button{
+	display: flex;
+	align-items: flex-end;
+	margin-right: 10px;
+	border: none;
+}
+
+.comment-wrapper{
+	display: flex;
+	justify-content: flex-end;
+}
+
+.comment-icon{
+	fill: white;
+}
+
+.new-post-wrapper{
+	margin-bottom: 10px;
+	border: 1px solid #e8e8e8;
+    border-radius: 10px;
+    box-shadow: 0px 0px 8px #e8e8e8;
+    padding: 15px;
+}
+
+.post-name{
+	position: absolute;
+    margin-left: 10px;
+}
+
+
+.post:hover{
+
+}
+
+.post-title{
+	margin: auto;
+    font-size: 20px;
+}
+
+.post-footer{
+	text-align: right;
+	padding: 5px;
+}
+
+.post-header{
+	display: flex;
+}
+
+.location-time{
+	display: flex;
+	margin-top: 10px;
+}
+
+.play-post{
+	box-shadow: 0px 0px 8px #f99c80 !important;
+    border: 1px solid #f99c80 !important;
+}
+
+#date-info{
+	display: flex;
+	flex-direction: column;
+	padding-left: 15px;
+	padding-top: 10px;
+	padding-bottom: 15px;
+	border-top-left-radius: 9px;
+	border-bottom-left-radius: 9px;
+}
+
+#schedule-info{
+	display: grid;
+    grid-template-columns: 2fr 3fr;
+    color: white;
+    border-radius: 10px;
+    text-align: left;
+    margin-top: 35px;
+    width: 90%;
+    border: 1px solid #00ffb8;
+    box-shadow: 0 0 4px #00ffb8;
+}
+
+
+.schedule-info:hover{
+	background-color: #212121;
+}
+
+
+
+#date-toggle-wrapper{
+	margin-bottom: 30px;
+}
+
+#date-wrapper{
+	display: flex;
+	flex-direction: column;
+}
+
+#schedule-event-wrapper{
+	display: flex;
+	flex-direction: column;
+	width: 100%;
+    border-left: 1px solid #565656;
+    border-top-right-radius: 9px;
+    border-bottom-right-radius: 9px;
+}
+
+#schedule-event-info{
+	display: flex;
+	flex-direction: column;
+	margin-left: 10px;
+    margin-top: 10px;
+}
+
+#schedule-event{
+	display: flex;
+	flex-direction: column;
+	margin: 6px;
+	margin-top: 10px;
+    padding-bottom: 10px;
+}
+
+
+.schedule-event-info{
+	margin: auto;
+}
+
+.schedule-event-title{
+	display: flex;
+	flex-direction: column;
+	text-align: center;
+}
+
+.game-title{
+	font-size: 25px;
+	font-weight: 500;
+}
+.game-opponent{
+	font-size: 20px;
+}
+.day-week{
+	font-size: 15px;
+}
+
+.day-date{
+	font-size: 30px;
+    font-weight: 600;
+}
+
+.month-year{
+	font-size: 16px;
+    font-weight: 500;
+}
+
+#season-home-main{
+	color: white;
+	position: relative;
+	background-color: #171717;
+}
+
+#season-home-grid{
+	/*display: grid;
+	grid-template-columns: 4.3fr 1fr;*/
+	display: flex;
+}
+
+.season-home-container{
+	background-color: #2b2b2b;
+	position: relative;
+	padding: 20px;
+    border-radius: 5px;
+}
+
+#season-main-wrapper{
+	margin: 15px;
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	grid-template-rows: 1fr 1fr;
+	grid-row-gap: 15px;
+	grid-column-gap: 15px;
+}
+
+#season-home-stats{
+    border-radius: 5px;
+    background-color: #0c0c0c;
+    position: relative;
+    overflow: hidden;
+}
+
+.season-home-grid-row{
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+}
+
+.season-home-rating, .previous-game-result{
+	align-items: flex-start;
+}
+
+
+#previous-game-score{
+	grid-column-gap: 50px;
+}
+
+#leaders-header{
+	font-size: 18px;
+    font-weight: 600;
+    padding-bottom: 10px;
+}
+
+.previous-game-leader-text{
+	padding-top: 5px;
+    padding-bottom: 5px;
+    font-weight: 600;
+    font-size: 13px;
+    padding-right: 10px;
+}
+
+#previous-game-leaders-container{
+	display: flex;
+    /*grid-template-columns: 1fr 1fr 1fr 1fr;*/
+    grid-column-gap: 25px;
+}
+
+#previous-game-leaders{
+	padding-top: 20px;
+}
+
+#previous-game-container{
+	position: relative;
+	padding-left: 20px;
+}
+
+#previous-game-leaders-wrapper{
+}
+
+.previous-game-heading{
+	padding-bottom: 3px;
+    border-bottom: 1px solid #707070;
+    margin-bottom: 3px;
+    padding-right: 10px;
+}
+
+.previous-game-leader-name{
+	border-bottom: 1px solid #FF2412;
+}
+
+.season-home-advanced-text{
+	font-size: 1.5vw;
+	font-weight: 600;
+}
+
+.previous-game-text{
+	font-size: 18px;
+	font-weight: 600;
+}
+
+.season-home-heading{
+	color: white;
+    text-align: left;
+    font-size: 25px;
+    font-weight: 600;
+    padding-bottom: 15px;
+}
+
+.season-home-stat-content{
+	justify-content: space-around;
+}
+
+#season-home-stat-content-inner{
+	position: relative;
+	overflow: hidden;
+	height: 160px;
+	display: flex;
+    align-items: center;
+}
+
+.season-home-stat-circles .percentage-circle-header{
+	font-size: 15px !important;
+	padding-bottom: 5px;
+}
+
+.season-home-stat-circles .player-circle-text{
+	font-size: 15px !important;
+}
+
+.season-home-team-advanced-ratings{
+	width: 100%;
+}
+
+.season-home-offensive-rating{
+	color: #09a7f5 !important;
+}
+
+#previous-game-container{
+
+}
+
+.season-home-rating{
+	justify-self: center;
+}
+
+.season-home-stat-circles{
+	display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+}
+
+.season-home-stat-container{
+	position: absolute;
+}
+
+.season-home-stat-transition{
+	transition: left 1s;
+}
+
+.season-home-stat-no-transition{
+	transition: unset !important;
+}
+
+.season-home-footer-link{
+	position: absolute;
+	color: white;
+	bottom: 0;
+	right: 0;
+	font-family: Montserrat;
+    text-transform: uppercase;
+    font-weight: 500;
+    font-size: 13px;
+    display: flex;
+}
+
+.season-more-link-arrow{
+	font-family: "Fontawesome" !important;
+    font-weight: normal;
+    font-style: normal;
+    text-decoration: inherit;
+    backface-visibility: hidden;
+    -webkit-font-smoothing: antialiased;
+    content: "\f105";
+}
+
+.season-home-plays #recently-viewed{
+	display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    padding-top: 10px;
+}
+
+.season-home-plays .play-img{
+	width: 10vw;
+	height: auto;
+}
+
+.season-home-plays .play-index-image{
+	border-radius: 2px;
+}
+
+.season-home-plays .play-link-text a{
+	color: white;
+	font-size: 18px;
+}
+
+.season-home-plays .play-link-text{
+	margin-top: 5px;
+}
+
+#season-home-plays-wrapper{
+
+}
+
+#season-home-schedule-info{
+	padding: 15px;
+    padding-top: 0px;
+}
+
+.season-home-team-name{
+    font-size: 40px;
+    font-weight: 600;
+}
+
+.season-home-record{
+	font-size: 30px;
+    font-weight: 600;
+    padding-top: 5px;
+}
+
+#previous-game{
+}
+
+.previous-game-winner{
+	color: #00ff73;
+}
+
+#mobile-chat-wrapper{
+	display: none;
+}
+
+#team-chat-wrapper{
+	margin: 15px;
+    margin-left: 0px;
+    background-color: #2b2b2b;
+    border-radius: 5px;
+    width: 280px;
+    position: sticky;
+}
+
+#team-chat-content{
+	position: relative;
+	height: 100%;
+    width: 100%;
+}
+
+#team-chat-heading{
+	padding: 20px;
+	border-bottom: 1px solid #5a5a5a;
+}
+
+.team-chat-enter{
+	position: absolute;
+    display: flex;
+    width: 100%;
+    bottom: 0px;
+    padding: 10px;
+    border-top: 1px solid grey;
+}
+
+.team-chat-enter-inner{
+	width: 100%;
+    border: 1px solid grey;
+    border-radius: 17px;
+    background-color: #404346;
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+
+.team-chat-enter-text{
+	display: inline-block;
+	margin-left: 10px;
+	width: 90%;
+}
+
+#season-stat-toggle-buttons{
+	position: absolute;
+    width: 100%;
+    display: flex;
+    padding-top: 5px;
+    justify-content: center;
+    bottom: 0;
+}
+
+.season-home-container-inner{
+	height: 100%;
+	position: relative;
+}
+
+.season-stat-toggle-button{
+	padding-left: 5px;
+	padding-right: 5px;
+}
+
+.toggle-dot {
+  height: 8px;
+  width: 8px;
+  background-color: #525252;
+  border-radius: 50%;
+  display: inline-block;
+  transition: .2s ease;
+}
+
+.season-home-lineup-stats{
+	display: flex;
+}
+
+.season-stat-toggle-button-active{
+	background-color: #9c9c9c !important;
+}
+
+.season-home-lineup-members .lineup-member{
+	font-size: 20px;
+}
+
+.season-home-lineup-members{
+	margin-bottom: 20px;
+	padding-bottom: 5px;
+    border-bottom: 1px solid #9c9c9c;
+}
+
+.season-home-lineup-stats .lineup-slider-header{
+	font-weight: 500;
+}
+
+.lineup-message-container{
+	font-size: 18px;
+}
+
+
+#create-play-plus{
+	padding: 10px;
+    padding-bottom: 8px;
+    padding-top: 8px;
+    border: 3px solid white;
+    border-radius: 5px;
+}
+
+
+#create-play-plus-text{
+	text-align: center;
+    font-weight: 600;
+    font-size: 15px;
+    margin-top: 12px;
+}
+
+#no-previous-game-message{
+	font-weight: 600;
+    margin-top: 10px;
+}
+
+
+
+
+#col2{
+
+}
+
+#col3{
+
+}
+
+#col1{
+	border-radius: 3px;
+	margin-top: 5px;
+	margin-left: 20px;
+    margin-right: 20px;
+}
+
+.big-box{
+	margin-top: 5px;
+	margin-left: 5px;
+}
+
+#schedule{
+	background-color: #57d6bd;
+}
+
+#schedule:hover{
+	background-color:#93e8d8;
+}
+
+#plays{
+	background-color: #fa815c;
+}
+
+#plays:hover{
+	background-color: #fbb099;
+}
+
+#lineups{
+	background-color: #de457d;
+	
+}
+
+#lineups:hover{
+	background-color:#f385ad;
+	
+}
+
+#stats{
+	background-color: #7a83e6;
+}
+
+#stats:hover{
+	background-color: #b7bdfd;
+}
+
+/* particle styles */
+#page-header-bg .canvas-bg{transition:background-color 0.7s ease; -webkit-transition:background-color 0.7s ease; position:absolute; top:0; left:0; width:100%; height:100%; z-index: 10;}
+
+#page-header-bg .nectar-particles .span_6, 
+.nectar-box-roll .overlaid-content .span_6{backface-visibility:visible; transform-style:preserve-3d; -webkit-transform-origin:50% 100%;  transform-origin:50% 100%;  top:auto!important;  bottom:auto!important;  width:100%; height:100%}
+
+#page-header-bg .nectar-particles{width:100%; height:100%}
+
+#page-header-bg .nectar-particles .inner-wrap{ top:0;  left:0;  position:absolute;  width:100%}
+
+#page-header-bg .nectar-particles .span_6 .inner-wrap, 
+.nectar-box-roll .overlaid-content .span_6 .inner-wrap, 
+#page-header-bg[data-alignment-v="top"] .span_6 .inner-wrap{ left:0;  position:absolute;  width:100%}
+
+.nectar-box-roll .overlaid-content .span_6 .inner-wrap {
+   top:50%;  transform:translateY(-50%);  -webkit-transform:translateY(-50%);  
+}
+
+#page-header-wrap .nectar-particles .fade-out{display:block; content:''; display:block; width:100%; height:100%; position:absolute; top:0; left:0; z-index:1000; opacity:0; background-color:#000; pointer-events:none}
+
+.pagination-navigation{ text-align:center;  font-size:0;  position:absolute; right:20px; top:50%; width:33px; transform:translateY(-50%) translateZ(0); -webkit-transform:translateY(-50%) translateZ(0);  backface-visibility:hidden; -webkit-backface-visibility:hidden; opacity:0.5; line-height:1px; z-index:1000}
+
+@media only screen and (max-width:690px){.pagination-navigation{display:none!important}
+.overlaid-content svg{display:none}
+}
+
+.nectar-particles .pagination-current, .overlaid-content .pagination-current{ position:absolute!important;  left:1px;  top:0;  z-index:100; display: none;}
+
+.pagination-dot, 
+.pagination-current{ transition: transform 0.3s cubic-bezier(.21, .6, .35, 1); position:relative;  display:inline-block;  width:10px;  height:10px;  padding:0;  line-height:17px;  background:#fff;  border-radius:50%;  margin:12px 7px;  border:none;  outline:none;  font-size:14px;  font-weight:bold;  color:#fff;  cursor:pointer;  transform:translateY(20px);  -webkit-transform:translateY(20px);  opacity:0}
+
+
+.pagination-dot.active {
+  -webkit-transform: scale(1.7)!important;
+  transform: scale(1.7)!important;
+}
+
+  
+.pagination-navigation {
+  -webkit-filter: none!important;
+ filter: none!important;
+}
+
+@media only screen and (min-width: 1000px){
+	#page-header-wrap.fullscreen-header, #page-header-wrap.fullscreen-header #page-header-bg, html:not(.nectar-box-roll-loaded) .nectar-box-roll > #page-header-bg.fullscreen-header, .nectar_fullscreen_zoom_recent_projects, #nectar_fullscreen_rows:not(.afterLoaded) > div {
+	    height: 100vh;
+	}
+}
+
+
+
+
+
+

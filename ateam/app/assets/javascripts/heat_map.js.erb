@@ -1,0 +1,167 @@
+$(document).on('turbolinks:load ', function(){
+
+	if($("body").hasClass("heat_map")){
+		init_heat_map_chart(court_width, court_height, gon.shot_chart_data, 'Celtics')
+	}
+});
+
+function init_heat_map_chart(court_width, court_height, shot_chart_data, team_name){
+    var court = d3.select("#heat_map").append('svg');
+    // 14 shot locations = length of array
+
+    var court_regions = [];
+
+
+    court.attr('width', court_width  + 5)
+         .attr('height', court_height  + 5)
+
+    var heat_map_data = shot_chart_data.map(function(e){
+    	return {"x": parseFloat(e.metadata.x_loc)* court_width, "y" : parseFloat(e.metadata.y_loc)* court_width}
+    })
+
+    console.log(heat_map_data)
+
+         
+    var court_g = court.append('g')
+    var team_shot_chart = {"court" : court, "court_g" : court_g, "court_regions": court_regions, "shot_chart_data": shot_chart_data}
+	draw_court_without_regions(court_width, team_shot_chart, inner_width, inner_height, x_offset, y_offset, region_spacing);
+    //draw_court(court_width, team_shot_chart, inner_width, inner_height, x_offset, y_offset, region_spacing);
+    heat_map(court, heat_map_data, court_width, court_height)
+    //fill_regions(team_shot_chart);
+}
+
+function draw_court_without_regions(width, shot_chart, inner_width, inner_height, x_offset, y_offset, region_spacing){
+
+      var court_xScale = d3.scaleLinear()
+                                   .domain([0, court_width]);
+      var court_yScale = d3.scaleLinear()
+                                   .domain([0,court_height]);
+
+      var color = d3.scaleSequential(d3.interpolateOrRd)
+                    .domain([5e-6, 3e-2]); // Points per square pixel.
+      
+      var RestrictedArea = shot_chart.court_g.append('path')
+      
+      var BottomFreeThrow = shot_chart.court_g.append('path')
+      var ThreeLine = shot_chart.court_g.append('path')
+      var CenterOuter = shot_chart.court_g.append('path')
+      var CenterInner = shot_chart.court_g.append('path')
+
+      var BasketRegion = shot_chart.court_g.append('circle');
+      var MidRangeRegion = shot_chart.court_g.append('circle');
+
+    shot_chart.court_g.attr("width", court_width)
+           .attr("height", court_height)
+
+    var lineFunction = d3.line()
+                         .x(function(d) { return d.x; })
+                         .y(function(d) { return d.y; })
+                         .curve(d3.curveLinear)
+
+      
+      var Basket = shot_chart.court_g.append('circle');
+      var Backboard = shot_chart.court_g.append('rect');
+      var Outterbox = shot_chart.court_g.append('rect');
+      var Innerbox = shot_chart.court_g.append('rect');
+      var CornerThreeLeft = shot_chart.court_g.append('rect');
+      var CornerThreeRight = shot_chart.court_g.append('rect');
+      var OuterLine = shot_chart.court_g.append('rect');
+      var TopFreeThrow = shot_chart.court_g.append('path');
+
+
+     
+
+      Basket.attr('cx', inner_width /2 + x_offset)
+             .attr('cy', inner_width / 17 + inner_width / 66.67)
+             .attr('r', inner_width / 66.67)
+             .style('fill', 'None')
+             .attr('stroke-width', x_offset /2)
+             .style('stroke', 'black');
+
+      Backboard.attr('x', inner_width / 2 - inner_width / 16.67 + x_offset)
+             .attr('y', inner_width / 17)
+             .attr('width', inner_width / 8.33)
+             .attr('height', 0.25)
+             .style('fill', 'none')
+             .attr('stroke-width', x_offset /2)
+             .style('stroke', 'black');
+
+
+      CornerThreeLeft
+             .attr('x', inner_width * 0.088)
+             .attr('y', y_offset)
+             .attr('width', 0.2)
+             .attr('height', inner_height * .197)
+             .style('fill', 'none')
+             .attr('stroke-width', x_offset * .75)
+             .style('stroke', 'white');
+
+      CornerThreeRight
+             .attr('x', inner_width *.9172)
+             .attr('y', y_offset)
+             .attr('width', 0.2)
+             .attr('height', inner_height * .197)
+             .style('fill', 'none')
+             .attr('stroke-width', x_offset * .75)
+             .style('stroke', 'white');
+
+      OuterLine
+             .attr('x', x_offset)
+             .attr('y', y_offset)
+             .attr("rx", 2)
+             .attr('width', inner_width - x_offset /2)
+             .attr('height', inner_height - y_offset)
+             .style('fill', 'none')
+             .style('stroke', 'white')
+             .style('stroke-width', x_offset * .75)
+
+
+
+      var angle = Math.atan((10-0.75)/(70))* 180 / Math.PI
+      var dis = inner_width / 2.39;
+      // appendArcPath(ThreeLine, dis, (angle+90)*(Math.PI/180), (270-angle)*(Math.PI/180))
+      //     .attr('fill', 'none')
+      //     .attr("stroke", "white")
+      //     .attr('stroke-width', x_offset * .75)
+      //     .attr('class', 'shot-chart-court-3pt-line')
+      //     .attr("transform", "translate(" + (inner_width / 1.99)  + ", " + inner_width * 0.086 +")");
+}
+
+function heat_map(court, shot_chart_data, width, height){
+	  // Prepare a color palette
+  var color = d3.scaleLinear()
+      .domain([0, 1]) // Points per square pixel.
+      .range(["white", "#c52111"])
+
+  // compute the density data
+  var densityData = d3.contourDensity()
+    .x(function(d) { 
+    	return d.x; 
+    })
+    .y(function(d) { return d.y; })
+    .size([width, height])
+    .bandwidth(35)
+    .weight(15)
+    (shot_chart_data)
+
+   // show the shape!
+  court.insert("g", "g")
+    .selectAll("path")
+    .data(densityData)
+    .enter().append("path")
+      .attr("d", d3.geoPath())
+      .attr("fill", function(d) { return color(d.value); })
+}
+
+
+
+
+
+
+
+
+
+
+
+
+

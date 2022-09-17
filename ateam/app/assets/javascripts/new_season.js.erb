@@ -1,0 +1,158 @@
+	$(document).on('turbolinks:load ', function(){
+		if($("body").hasClass("seasons") && $("body").hasClass("new") && !$("body").hasClass("plays") && !$("body").hasClass("stats") && !$("body").hasClass("games")){
+			initialize_adv_stats();
+			initialize_stat_arr();
+			initialize_stats_kept()
+			populate_color_pickers();
+			setPeriodType()
+			setColorPicker()
+			setYearsFlag()
+			initialize_new_season_members()
+		}
+	});	
+
+	function initialize_new_season_members(){
+		var len = gon.members.length;
+		for (var i = 0; i < len; i++) {
+			if(!gon.members[i].is_admin){
+				var member = gon.members[i]
+				var container = get_new_season_role_container(gon.members[i])
+				if(gon.members[i].role_name == "Player" || permissionsIsPlayer(gon.members[i])){
+					add_previous_player_dom(gon.members[i].id, gon.members[i].nickname, container)
+					previous_members.push(member)
+				}
+				else{
+					
+					member.curr_member = true;
+					curr_members.push(member)
+					add_member_dom(gon.members[i].id, gon.members[i].nickname, container)
+				}
+			}
+		}
+	}
+
+	function add_previous_player_dom(member_id, member_name, container){
+		var member_block_wrapper = "<div class = 'member-block-wrapper' id = 'previous-member-block-"+ member_id+"'></div>"
+		var member_block = "<div class = 'member-block' ></div>"
+		var member_block_top = "<div class = 'member-block-top flex-row center-justified'></div>"
+		
+		var name = "<div class = 'member-block-name' id = 'member-block-name-"+member_id+"'>"+member_name+"</div>"
+		
+		var member_buttons_wrapper = "<div class = 'flex-row center-justified edit-delete-member-wrapper'></div>" 
+		var edit_member = "<button class = 'add-member-season edit-delete-member' onclick = 'add_member_to_season("+member_id+", `"+member_name+"`, this)'>Add to season</button>"
+		
+		//var done_editing = "<button class = 'done-member'>Done</button>"
+		container.append($(member_block_wrapper).append($(member_block).append($(member_block_top).append(name)).append($(member_buttons_wrapper).append(edit_member))))
+	}
+
+
+	function member_to_previous(member_id){
+		removeIndex = curr_members.map(function(item) { return item.id; }).indexOf(member_id);
+		var member = curr_members.splice(removeIndex, 1)
+		add_previous_player_dom(member_id, member[0].name, $("#previous-players-container"))
+		previous_members.push(member[0])
+		$("#member-block-"+member_id).remove()
+	}
+
+	function add_recurr_member_dom(member_id, member_name, container){
+		var member_block_wrapper = "<div class = 'member-block-wrapper' id = 'member-block-"+ member_id+"'></div>"
+		var member_block = "<div class = 'member-block' ></div>"
+		var member_block_top = "<div class = 'member-block-top flex-row center-justified'></div>"
+		
+		var name = "<div class = 'member-block-name' id = 'member-block-name-"+member_id+"'>"+member_name+"</div>"
+		
+		var member_buttons_wrapper = "<div class = 'flex-row center-justified edit-delete-member-wrapper'></div>" 
+		var edit_member = "<button class = 'edit-delete-member edit-member' onclick = 'edit_member("+member_id+")'>Edit</button>"
+		var delete_member_dom = "<button class = 'edit-delete-member delete-member' onclick = 'member_to_previous("+member_id+")'>Delete</button>"
+
+		container.append($(member_block_wrapper).append($(member_block).append($(member_block_top).append(name)).append($(member_buttons_wrapper).append(edit_member).append(delete_member_dom))))
+	}
+
+	function add_member_to_season(member_id, member_name, button){
+		add_recurr_member_dom(member_id, member_name, $("#added-players-container"));
+		$(button).parents(".member-block-wrapper").remove()
+		var result = previous_members.filter(obj => {
+		  return obj.id === member_id
+		})
+		curr_members.push(result[0])
+	}
+	function get_new_season_role_container(member){
+		switch(member.role_name){
+			case "Player" :
+				return $("#previous-players-container");
+			case "Coach" :
+				return  $("#added-coaches-container");
+			case "Manager" :
+				return $("#added-managers-container");
+			case "Other" :
+				if(permissionsIsPlayer(member)){
+					return $("#previous-players-container");
+				}
+				else{
+					return $("#added-managers-container");
+				}
+		}
+	}
+
+	function get_all_stats(){
+		var collection_stats = gon.default_collectable.map(x => x.id)
+		var basic_stats = gon.default_application_basic.map(x => x.id)
+
+		var stat_arr = collection_stats.concat(basic_stats)
+		$("#your-stats").find(".non-default-stat-marker").each(function(){
+			stat_arr.push($(this).data("stat-id"))
+		})
+
+		$("#select-team-advanced-stats").find(".stat-choice-active").each(function(){
+			stat_arr.push($(this).data("stat-id"))
+		})
+
+
+		$("#player-advanced-stats").find(".stat-choice-active").each(function(){
+			stat_arr.push($(this).data("stat-id"))
+		})
+		console.log(stat_arr)
+
+		return stat_arr
+	}
+
+	function confirm_new_season(){
+		var team_name = $("#enter-team-name").val()
+		var period_type = $("input:radio[name='period-type']:checked").val()
+		var period_length = $("#period-length").val()
+		var primary_color = $("#primary-color-picker .color-picker-selected").data("color-id")
+		var secondary_color = $("#secondary-color-picker .color-picker-selected").data("color-id")
+		var stat_arr = get_all_stats()
+		var multiple_year_bool = $("input:radio[name='season-years']:checked").val()
+		if(checkTeamInput(team_name, period_type, period_length, primary_color, secondary_color, multiple_year_bool)){
+			$("#new-season-confirm").css("display", "flex")
+		}
+		else{
+			$("#check-team-input").show()
+		}
+	}
+
+	function close_confirm_new_season(){
+		$("#new-season-confirm").hide()
+	}
+
+
+	function submit_new_season(){
+		var team_name = $("#enter-team-name").val()
+		var period_type = $("input:radio[name='period-type']:checked").val()
+		var period_length = $("#period-length").val()
+		var primary_color = $("#primary-color-picker .color-picker-selected").data("color-id")
+		var secondary_color = $("#secondary-color-picker .color-picker-selected").data("color-id")
+		var stat_arr = get_all_stats()
+		var multiple_year_bool = $("input:radio[name='season-years']:checked").val()
+		var url = "/teams/" + gon.team_id + "/seasons/"+gon.season_id+"/create/"
+		$.ajax({
+		  url: url,
+		  beforeSend: function(xhr) {xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))},
+		  type: "post",
+		  data_type: 'json',
+		  data: {team_stats: stat_arr, new_members: new_members, recurr_members: curr_members, team_name: team_name, period_type: period_type, period_length: period_length, primary_color: primary_color, secondary_color: secondary_color, multiple_year_bool: multiple_year_bool}
+		});
+	}
+
+

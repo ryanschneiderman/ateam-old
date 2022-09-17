@@ -1,0 +1,23 @@
+#sign-up-form {
+  margin-top: 100px;
+  h1 {
+    font-size: 36px !important;
+    font-size: 3.6rem !important;
+  }
+  text-align: center;
+  padding-bottom: 20px; 
+}
+
+#create-account{
+	font-weight: 500;
+	margin-left: 5px;
+	cursor: pointer;
+}
+
+#email-not-found{
+  width: 35vw;
+}
+
+#email-sent{
+  margin-top: 15px;
+}

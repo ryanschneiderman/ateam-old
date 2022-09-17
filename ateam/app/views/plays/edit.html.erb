@@ -1,0 +1,186 @@
+ <% content_for(:body_attributes) do %>
+    data-turbolinks="false"
+ <% end %>
+<%=render "layouts/small_header"%>
+
+<div id = "edit-grid">
+    <div id = "play-scrollbar-wrapper">
+        <!-- RENDER EDIT SCROLLBAR or RENDER NEW SCROLLBAR -->
+        <div class="progression-block-header" id = "progression-block-header-<%=@play.id%>" contenteditable="true"><%=@play.name%></div>
+        <div id = "play-scrollbar">
+            <%= render @progressions %>
+        </div>
+    </div>
+    <div class = "plays-with-arrows">
+        <div class = "progressions">
+            <% @progressions.each do |pro| %>
+                <canvas id ="c-<%=pro.id%>" class = "show-canvas"></canvas>
+            <%end%>
+        </div>
+    </div>
+    <div id = "toolbar-wrapper">
+        <div id = "expand-collapse" onclick = "expandCollapseToolbar()"> 
+            <div id = "expand-wrapper"style = "display: none;">
+                <button class = "left expand-collapse-arrow" id = "expand-arrow" onclick = "expandCollapseToolbar()"></button>
+            </div>
+            <div id = "collapse-wrapper">
+                <button class = "right expand-collapse-arrow" id = "collapse-arrow" onclick = "expandCollapseToolbar()"></button>
+            </div>
+        </div>
+        <div id = "tool-bar">
+            <div id = "drawing-buttons-wrapper">
+                <div class = "toolbar-heading">Drawing Tools</div>
+                <div id = "drawing-buttons">
+                  <button id = "run" class = "drawing-button" type = "button" onclick="lineToRun(this)">
+                    <div class = "drawing-button-name">Run</div>
+
+                    <div class = "drawing-button-arrow">
+                      <%= image_tag("white-arrow.png", :alt => "information", :class => "drawing-img") %>
+                    </div>
+                  </button>
+                  
+                  <button id = "pass" class = "drawing-button" type = "button" onclick="lineToPass(this)">
+                    <div class = "drawing-button-name">Pass</div>
+                    <div class = "drawing-button-arrow">
+                        <%= image_tag("dotted-arrow.png", :alt => "information", :class => "drawing-img") %>
+                    </div>
+                  </button>
+                  
+                  <button id = "drive" class = "drawing-button" type = "button" onclick="lineToDribble(this)">
+                    <div class = "drawing-button-name">Dribble</div>
+                    <div class = "drawing-button-arrow ">
+                      <%= image_tag("stripe-arrow.png", :alt => "information", :class => "drawing-img") %>
+                    </div>
+                  </button>
+                  
+                  <button id = "screen" class = "drawing-button" type = "button" onclick="lineToScreen(this)">
+                    <div class = "drawing-button-name">Screen</div>
+                    <div class = "drawing-button-arrow">
+                        <%= image_tag("screen-line.png", :alt => "information", :class => "drawing-img") %>
+                    </div>
+                  </button> 
+                  <button id = "has-ball" class = "drawing-button" type = "button" onclick="hasBall(this)">
+                    <div class = "drawing-button-name">Has Ball</div>
+                       <%= image_tag("basketball-icon.png", :alt => "basketball", :class => "basketball-icon") %>
+                  </button>  
+                  <button id = "text-box" class = "drawing-button" type = "button" onclick="textBox(this)">
+                    <div class = "drawing-button-name">Textbox</div>
+                    <div class = "textbox-logo">T</div>
+                  </button>  
+                </div>
+            </div>
+             <div id = "reset-play-wrapper">
+              <button id = "reset-play" onclick = "reset_play()" style = "color: white;">Reset Board</button>
+            </div>
+            <div id = "other-buttons-and-save" class = "flex-column center-aligned">
+                <div id = "other-buttons-wrapper">
+                    <div id = "other-play-buttons">
+                        <button class = "other-button" type ="button" onclick="indexJsonArray(1)">
+                            <div class="tooltiptext">Animate Step</div>
+                            <%= image_tag("animate-icon.png", :alt => "download", :class => "other-button-icon") %>
+                        </button>
+                        <button id = "download" class = "other-button" type = "button" onclick="downloadPlay()">
+                            <div class="tooltiptext">Download</div>
+                            <%= image_tag("download-icon.png", :alt => "download", :class => "other-button-icon") %>
+                        </button> 
+                        <button class = "other-button" type ="button" onclick="new_progression()">
+                            <div class="tooltiptext">New Step</div>
+                            <%= image_tag("plus-icon.png", :alt => "download", :class => "other-button-icon") %>
+                        </button>
+                        
+                        <button  class = "other-button" type = "button" onclick="delete_progression()">
+                            <div class="tooltiptext">Delete Step</div>
+                            <%= image_tag("delete-play-icon.png", :alt => "download", :class => "other-button-icon") %>
+                        </button> 
+                    </div>
+                </div>
+                <div class = "save-play-wrapper">
+                    <div id = "propagate-changes-wrapper">
+                        <input id = "propagate-changes-button" type="checkbox" name="propagate-changes" value="true" checked> Propagate Changes 
+                        <span class = "propagate-icon-wrapper">
+                            <div class="tooltiptext">What is this? <span class = "propagation-more-info-link" onclick = "show_propagation_modal()">Learn about play propagation here</span>.</div>
+                            <object data='<%=asset_path("information-icon.svg")%>' type="image/svg+xml" class = "propagate-changes-info">
+                              <%= image_tag("information-icon.svg", :alt => "information", :class => "information-icon") %>
+                            </object>
+                        </span>
+                    </div>
+                    <button class = "save-play-button" type ="button" onclick="update_progression(false)"> SAVE </button>
+                </div>
+            </div>
+        </div>
+    </div>
+        
+</div>
+<div id = "save-changes-banner" class = "play-change-banner">Play Saved 
+    <object data='<%=asset_path("green-check.svg")%>' type="image/svg+xml" class = "changes-saved-check">
+        <%= image_tag("green-check.svg", :alt => "changes-saved", :class => "changes-saved") %>
+</object></div>
+
+<div id = "save-changes-banner" class = "play-change-banner">Play Saved 
+    <object data='<%=asset_path("green-check.svg")%>' type="image/svg+xml" class = "changes-saved-check">
+        <%= image_tag("green-check.svg", :alt => "changes-saved", :class => "changes-saved") %>
+</object></div>
+<%= render 'plays/propagation_modal'%>
+
+<script>
+
+    $("#toolbar-wrapper").css("top", $("#logged-in-header").outerHeight())
+    $("#play-scrollbar-wrapper").css("top", $("#logged-in-header").outerHeight())
+    $( window ).resize(function() {
+        //$("#play-scrollbar-wrapper").css("max-height", "89vh")
+
+    });
+
+    $(".new-progression-box").width($(".progression-block").width())
+
+
+        var convert = function(convert){
+            return $("<span />", { html: convert }).text();
+            //return document.createElement("span").innerText;
+        };
+
+        $("#progression-img-0 .progression-img").addClass("progression-img-current")
+        $("#progression-num-0").addClass("progression-num-current")
+
+        var index = 0
+        var line_type;
+    
+        var line, isDown, evented;
+        var anchorRadius = 3;
+        var anchorOffset = anchorRadius - .5;
+        var anchorSelectRadius = 12
+        var anchorSelectOffset = anchorSelectRadius;
+        var canvas_width;
+        var canvas_height;
+        var playerRadius;
+        var propagation_modal_expanded = false;
+
+        var animate_time = 900;
+        var curr_line_type = null;
+        var play_name = "<%=@play.name%>";
+
+        var progressions_arr = []
+        var endpoint_moves = []
+        var root_moves = []
+        var i = 0;
+        var canvas;
+
+        var has_ball_selected = false;
+
+        var play_type = "<%=@play_type%>";
+        var play_id = <%=@play.id%>;
+        var unsaved_play = false;
+
+        
+
+        
+</script>
+
+<style>
+  body{
+    background-image: url(<%= asset_path('tiled_floor3.png')%>);
+    background-size: 100%;
+  }
+</style>
+
+

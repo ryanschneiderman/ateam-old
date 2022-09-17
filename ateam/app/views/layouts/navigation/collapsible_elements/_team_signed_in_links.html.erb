@@ -1,0 +1,42 @@
+<div class = "flex-row" id = "header-page-links">
+	    <div id="home-page-link" class="header-link"><%= link_to 'Home', team_season_path(@team_id, @season_id) %>
+	    </div>
+		<div id="stats-page-link" class="header-link"><%=link_to "Stats", team_season_stats_path(@team_id, @season_id)%> 
+	    </div>
+	    <div id="plays-page-link" class="header-link"><%=link_to "Plays", team_season_plays_path(@team_id, @season_id)%>
+	    </div>
+	    <div id="schedule-page-link" class="header-link"> <%=link_to "Schedule", team_season_games_path(@team_id, @season_id)%>
+	    </div>
+	    <div id="settings-page-link" class="header-link"><%=link_to "Settings", team_season_settings_path(@team_id, @season_id)%>
+	    </div>
+	    <div id="other-page-link" class = "header-sub-menu-wrapper header-link">
+	    	<div class = "">Other</div>
+	    	<div class = "header-sub-menu" id = "other-sub-menu">
+	    		<%= link_to product_path do %>
+	    			<div class = "header-sub-menu-item">Product  </div>
+	    		<%end%>
+	    		<%= link_to demos_path do %>
+	    			<div class = "header-sub-menu-item">Demos  </div>
+	    		<%end%>
+<!-- 	    		<%= link_to about_path do %>
+	    			<div class = "header-sub-menu-item">About  </div>
+	    		<%end%> -->
+	    		
+	    	</div>
+	    </div>
+</div>
+
+
+
+	
+
+
+<script>
+
+
+
+
+</script>
+
+
+

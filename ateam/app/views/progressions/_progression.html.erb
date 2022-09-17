@@ -1,0 +1,38 @@
+<div class = "progression-block" id = "progression-block-<%=progression.index%>">
+	<div class = "progression-img-wrapper" id = "progression-img-<%=progression.index%>">
+		<button class = "jump-to-progression" onclick = "jumpToProgression(<%=progression.index%>)">
+			<%if progression.play_image.attached?%>
+				<%= image_tag(url_for(progression.play_image), :alt => "progression", :class => "progression-img") if progression.play_image.attached?%>
+			<%end%>
+			<div class = "progression-num" id = "progression-num-<%=progression.index%>"><%=progression.index+1%></div>
+		</button>
+	
+		
+	</div>
+</div>
+
+
+<script>
+	$(".next-progression")
+	.mouseover(function(){
+		$(this).children("#plus-sign").attr('style', "opacity: .9");
+		$(this).children("#plus-sign").attr('src', '<%= image_path("plus-dark.png") %>');
+		$(this).children("#next-text").attr('style', "opacity: 1");
+	})
+	.mouseout(function(){
+		$(this).children("#plus-sign").attr('style', "opacity: .9");
+		$(this).children("#plus-sign").attr('src', '<%= image_path("plus-thick.png") %>');	
+		$(this).children("#next-text").attr('style', "opacity: 0;");
+	});
+
+	$(".delete-progression")
+	.mouseover(function(){
+		$(this).children("#X-sign").attr('src', '<%= image_path("X-dark.png") %>');
+		$(this).children("#delete-text").attr('style', "opacity: 1");
+	})
+	.mouseout(function(){
+		$(this).children("#X-sign").attr('src', '<%= image_path("X-thick.png") %>');
+		$(this).children("#delete-text").attr('style', "opacity: 0;");
+	});
+
+</script>

@@ -1,0 +1,29 @@
+<%=render "layouts/small_header"%>
+<%=render "stats/stats_home"%>
+
+<div class = "modal-overlay" id = "analytics-demo-modal-overlay"></div>
+<div class = "modal modal-positioning" id = "analytics-demo-modal">
+  <div id = "playlist-initializer" class = "modal-container">
+    <div class = "modal-wrapper">
+      <div class = "modal-inner-content demo-modal-content-wrapper">
+        <div class = "modal-heading">Analytics Demo</div>
+        <div class = "modal-body">
+         	<div class = "demo-modal-content">Welcome to the ATeam Analytics demo where you can interact with real data from the 2019/2020 Boston Celtics season. To read more about ATeam Analytics, check out the documentation <%=link_to "here", product_analytics_path, :class => "main-link"%>.</div>
+        </div>
+      </div>
+    </div>
+    <div class = "modal-footing">
+        <button class = "modal-submit-button" onclick = "close_analytics_modal()">Enter</button>
+      </div>
+  </div>
+</div>
+
+
+
+<script>
+	function close_analytics_modal(){
+		$("#analytics-demo-modal-overlay").hide()
+		$("#analytics-demo-modal").hide()
+	}
+	$(".portal-button-2").addClass("portal-button-2-alt")
+</script>

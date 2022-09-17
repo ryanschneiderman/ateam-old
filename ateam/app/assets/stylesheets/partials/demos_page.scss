@@ -1,0 +1,82 @@
+#demos-banner{
+	height: 350px;
+    background-color: #c34800;
+    position: relative;
+}
+
+.demo-banner-wrapper{
+	height: 450px;
+	position: relative;
+}
+
+.dark-background{
+	background-color: black; 
+}
+
+.demo-modal-content-wrapper{
+	padding: 30px 30px 10px;
+}
+
+.demo-banner{
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+}
+
+.demo-banner-heading{
+	color: white;
+    font-size: 80px;
+}
+
+.demo-banner-link{
+	color: white;
+	border: 2px solid white;
+    padding: 5px;
+    padding-right: 20px;
+    padding-left: 20px;
+    font-size: 17px;
+}
+
+.demo-banner-link-wrapper{
+	display: flex;
+	position: absolute;
+    bottom: 50px;
+}
+
+.demo-banner-content{
+	width: 100%;
+	height: 100%;
+	padding: 70px;
+	font-family: Montserrat;
+}
+
+.demo-banner-inner{
+	position: relative;
+	height: 100%;
+}
+
+#plays-demo-banner{
+    background: url(asset-path('play-diagramming-banner2.jpg'));
+    background-size: cover;
+    opacity: .4
+}
+
+
+#game-mode-demo-banner{
+    background: url(asset-path('stat-collection-banner.png'));
+    background-size: cover;
+    opacity: .4
+}
+
+#analytics-demo-banner{
+    background: url(asset-path('analytics-banner.jpg'));
+    background-size: cover;
+    opacity: .5
+}
+
+.demo-modal-content{
+	padding-top: 20px;
+    font-size: 24px;
+}

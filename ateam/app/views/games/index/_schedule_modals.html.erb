@@ -1,0 +1,230 @@
+
+
+<div class = "modal-overlay" id = "new-game-overlay" style = "display: none;"></div>
+<div class = "modal modal-positioning" id = "new-game-modal" style = "display: none;">
+  <div id = "signup-initializer" class = "modal-container">
+    <div class = "GM-modal-wrapper">
+      <div class = "modal-header-wrapper">
+        <div class = "modal-header" id = "new-game-header">New Game</div>
+      </div>
+      <div class = "modal-inner-content" id = "new-game-modal-content">
+        <div class = "modal-body ">
+            <div id = "create-account-wrapper">
+                <div class = "new-game-form">
+					<div class="form-group">
+						<div class = "new-game-input-label">Select Opponent</div>
+            <div class = "flex-row">
+              <div class = "team-info-radio-wrapper">
+                <input type="radio" id="opponent-exists" class = "new-team-input" name="select-opponent" value="opponent-exists" checked>
+                <label for="opponent-exists">Previous Opponent</label>
+              </div>
+              <div class = "team-info-radio-wrapper">
+                <input type="radio" id="new-opponent" class = "new-team-input" name="select-opponent" value="new-opponent">
+                <label for="new-opponent">New Opponent</label>
+              </div>
+            </div>
+            <div class = 'select-opponent-wrapper'>
+              <input type="text" name="opponent" class = "opponent-selection"  autocomplete="off" id = "new-game-opponent" style = "display: none;" placeholder="New Opponent">
+              <select name="opponent" id="select-previous-opponent" class = "opponent-selection">
+                <option value="" style = "display: none">Select Opponent</option>
+              </select>
+              <div class = "needs-input-game needs-opponent-new" id = "needs-opponent-new" style= "display: none;">*Please enter an opponent</div>
+              <div class = "needs-input-game needs-opponent-choose" id = "needs-opponent-choose" style= "display: none;">*Please select an opponent</div>
+            </div>
+						
+					</div>
+					<div class="form-group">
+						<div class = "new-game-input-label">Location</div>
+						<input type="text" autocomplete="off" name="location" id = "new-game-location" >
+            <div class = "needs-input-game needs-location" id = "needs-location" style= "display: none;">*Please select a location</div>
+					</div>
+					<div class="form-group">
+						<div class = "new-game-input-label">Game Date</div>
+						<input type="date" name="date" id = "new-game-date">
+            <div class = "needs-input-game needs-game-date" id = "needs-game-date" style= "display: none;">*Please select a date</div>
+					</div>
+					<div class="form-group">
+						<div class = "new-game-input-label">Game Time</div>
+						<input type="time" name="time" id = "new-game-time">
+            <div class = "needs-input-game needs-game-time" id = "needs-game-time" style= "display: none;">*Please select a time</div>
+					</div>
+				</div>
+            </div>
+
+        </div>
+      </div>
+      <div class = "modal-footing">
+      	<button class = "modal-cancel-button" onclick = "hide_new_game_modal()">Cancel</button>
+      	<button class = "modal-submit-button" onclick = "newGame()">Submit</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+<div class = "modal-overlay" id = "edit-game-overlay" style = "display: none;"></div>
+<div class = "modal modal-positioning" id = "edit-game-modal" style = "display: none;">
+  <div id = "signup-initializer" class = "modal-container">
+    <div class = "GM-modal-wrapper">
+      <div class = "modal-header-wrapper">
+        <div class = "modal-header" id = "new-game-header">Edit Game</div>
+      </div>
+      <div class = "modal-inner-content" id = "new-game-modal-content">
+        <div class = "modal-body ">
+            <div id = "create-account-wrapper">
+                <div class = "new-game-form">
+                  <div class="form-group">
+                    <div class = "new-game-input-label">Select Opponent</div>
+                    <div class = "flex-row">
+                      <div class = "team-info-radio-wrapper">
+                        <input type="radio" id="opponent-exists-edit" class = "new-team-input" name="select-opponent-edit" value="opponent-exists-edit" checked>
+                        <label for="opponent-exists-edit">Previous Opponent</label>
+                      </div>
+                      <div class = "team-info-radio-wrapper">
+                        <input type="radio" id="new-opponent-edit" class = "new-team-input" name="select-opponent-edit" value="new-opponent">
+                        <label for="new-opponent-edit">New Opponent</label>
+                      </div>
+                    </div>
+                    <div class = 'select-opponent-wrapper'>
+                      <input type="text" name="opponent" class = "opponent-selection" id = "new-game-opponent-edit" style = "display: none;" placeholder="New Opponent">
+                      <select name="opponent" id="select-previous-opponent-edit" class = "opponent-selection">
+
+                      </select>
+                      <div class = "needs-input-game" id = "needs-opponent-edit" style= "display: none;">*Please enter an opponent</div>
+                      <div class = "needs-input-game" id = "needs-opponent-choose-edit" style= "display: none;">*Please select an opponent</div>
+                    </div>
+                    
+                  </div>
+                  <div class="form-group">
+                    <div class = "new-game-input-label">Location</div>
+                    <input type="text" name="location" id = "edit-game-location" >
+                    <div class = "needs-input-game" id = "edit-needs-location" style= "display: none;">*Please select a location</div>
+                  </div>
+                  <div class="form-group">
+                    <div class = "new-game-input-label">Game Date</div>
+                    <input type="date" name="date" id = "edit-game-date">
+                    <div class = "needs-input-game" id = "edit-needs-game-date" style= "display: none;">*Please select a date</div>
+                  </div>
+                  <div class="form-group" id ="edit-game-time-wrapper">
+                    <div class = "new-game-input-label">Game Time</div>
+                    <input type="time" name="time" id = "edit-game-time">
+                    <div class = "needs-input-game" id = "edit-needs-game-time" style= "display: none;">*Please select a time</div>
+                  </div>
+                </div>
+                <div style = "display: none;" class = "re-enter-stats-wrapper flex-row center-justified">
+                  <!-- <button class = "re-enter-stats" data-game-id = "" onclick = "re_enter_stats(this)">Re-enter stats</button> -->
+                </div>
+            </div>
+
+        </div>
+      </div>
+      <div class = "modal-footing">
+        <button class = "modal-cancel-button" onclick = "hide_edit_game_modal()">Cancel</button>
+        <button class = "modal-submit-button" id = "update-game" onclick = "updateGame(this)">Submit</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class = "modal-overlay" id = "new-practice-overlay" style = "display: none;"></div>
+<div class = "modal modal-positioning" id = "new-practice-modal" style = "display: none;">
+  <div id = "signup-initializer" class = "modal-container">
+    <div class = "GM-modal-wrapper">
+      <div class = "modal-header-wrapper">
+        <div class = "modal-header" id = "new-practice-header">New Practice</div>
+      </div>
+      <div class = "modal-inner-content" id = "new-practice-modal-content">
+        <div class = "modal-body ">
+            <div id = "create-account-wrapper">
+                <div class = "new-game-form">
+					<div class="form-group">
+						<div class = "new-game-input-label">Location</div>
+						<input type="text" name="location" id = "new-practice-location" >
+					</div>
+					<div class="form-group">
+						<div class = "new-game-input-label">Practice Date</div>
+						<input type="date" name="date" id = "new-practice-date">
+					</div>
+					<div class="form-group">
+						<div class = "new-game-input-label">Practice Time</div>
+						<input type="time" name="time" id = "new-practice-time">
+					</div>
+				</div>
+            </div>
+
+        </div>
+      </div>
+      <div class = "modal-footing">
+      	<button class = "modal-cancel-button" onclick = "hide_practice_modal()">Cancel</button>
+      	<button class = "modal-submit-button" onclick = "newPractice()">Submit</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class = "modal-overlay" id = "edit-practice-overlay" style = "display: none;"></div>
+<div class = "modal modal-positioning" id = "edit-practice-modal" style = "display: none;">
+  <div id = "signup-initializer" class = "modal-container">
+    <div class = "GM-modal-wrapper">
+      <div class = "modal-header-wrapper">
+        <div class = "modal-header" id = "edit-practice-header">Edit Practice</div>
+      </div>
+      <div class = "modal-inner-content" id = "edit-practice-modal-content">
+        <div class = "modal-body ">
+            <div id = "create-account-wrapper">
+                <div class = "new-game-form">
+          <div class="form-group">
+            <div class = "new-game-input-label">Location</div>
+            <input type="text" name="location" id = "edit-practice-location" >
+          </div>
+          <div class="form-group">
+            <div class = "new-game-input-label">Practice Date</div>
+            <input type="date" name="date" id = "edit-practice-date">
+          </div>
+          <div class="form-group">
+            <div class = "new-game-input-label">Practice Time</div>
+            <input type="time" name="time" id = "edit-practice-time">
+          </div>
+        </div>
+            </div>
+
+        </div>
+      </div>
+      <div class = "modal-footing">
+        <button class = "modal-cancel-button" onclick = "hide_edit_practice_modal()">Cancel</button>
+        <button class = "modal-submit-button" id = "update-practice" onclick = "updatePractice(this)">Submit</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<script>
+  $('input:radio[name="select-opponent"]').change(function(){
+    if($("#opponent-exists").prop("checked")){
+      $("#select-previous-opponent").show()
+      $("#new-game-opponent").hide()
+    }
+    else{
+      $("#select-previous-opponent").hide()
+      $("#new-game-opponent").show()
+    }
+  });
+
+  $('input:radio[name="select-opponent-edit"]').change(function(){
+    if($("#opponent-exists-edit").prop("checked")){
+      $("#select-previous-opponent-edit").show()
+      $("#new-game-opponent-edit").hide()
+    }
+    else{
+      $("#select-previous-opponent-edit").hide()
+      $("#new-game-opponent-edit").show()
+    }
+  });
+</script>
+
+
+

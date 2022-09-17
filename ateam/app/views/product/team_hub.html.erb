@@ -1,0 +1,122 @@
+<%=render "layouts/small_header"%>
+<div class = "page-banner-wrapper" id = "play-banner-wrapper">
+	<div class = "dark-background page-banner"></div>
+	<div id = "team-hub-banner-img" class = "page-banner"></div>
+	<div class = "page-landing-banner page-banner flex-row center-aligned center-justified" id = "play-diagramming-banner">
+		<div class = "page-banner-heading">Team Hub</div>
+	</div>
+</div>
+<div class = "mobile-product-sidebar-wrapper">
+	<div class = "mobile-product-sidebar">
+		<button class = "sidebar-link team-creation-section-link" id = "team-creation-section-link" onclick = "jumpTo('#team-creation-section')"><div class = "sidebar-link-text">Team Creation</div></button>
+		<button class = "sidebar-link play-creation-section-link" id = "team-home-section-link" onclick = "jumpTo('#team-home-section')"><div class = "sidebar-link-text">Home Page</div></button>
+		<button class = "sidebar-link team-chat-section-link" id = "team-chat-section-link" onclick = "jumpTo('#team-chat-section')"><div class = "sidebar-link-text">Team Chat</div></button>
+	</div>
+</div>
+<div class = "product-subpage-wrapper">
+	<div class = "sidebar-wrapper product-sidebar-wrapper">
+		<div class = "sticky" id = "team-hub-sidebar">
+			<div class = "sidebar-links">
+				<button class = "sidebar-link team-creation-section-link" id = "team-creation-section-link" onclick = "jumpTo('#team-creation-section')"><div class = "sidebar-link-text">Team Creation</div></button>
+				<button class = "sidebar-link team-home-section-link" id = "team-home-section-link" onclick = "jumpTo('#team-home-section')"><div class = "sidebar-link-text">Home Page</div></button>
+				<button class = "sidebar-link team-chat-section-link" id = "team-chat-section-link" onclick = "jumpTo('#team-chat-section')"><div class = "sidebar-link-text">Team Chat</div></button>
+
+			</div>
+		</div>
+	</div>
+	<div id = "team-hub-content" class = 'product-subpage-content'>
+		<div class = "product-subpage-descr">
+				With ATeam Team Hub, you have a social space to share plays, stats and more with players. Invite players and others to join ATeam and take your team online. A home page gives you an overview of the most important content. A team chat allows you to communicate with your players easily. Team settings give you the ability to customize your team. 
+		</div>
+		<div class = "product-subpage-section-wrapper" id = "team-creation-section">
+			<div class = "product-subpage-heading">Team Creation</div>
+			<div class = "product-subpage-content-section">
+
+				<div class = "product-subpage-text">Once you have joined ATeam, the first step is to create a team. First enter general info about your team including team name, team colors, period type and period length.</div>
+
+				<div class = "product-subpage-img-wrapper">
+					<%=video_tag("team-hub-vids/team-create-info.mp4", :alt => "teame-create-info", controls: true, muted: true, preolad: "metadata",  :class => "product-subpage-img")%> 
+				</div>
+
+				<div class = "product-subpage-text">
+					The next step is to add team members. There are 3 default team member kinds: players, coaches and managers. By default coaches have full edit and view access to everything, whereas players and managers have only view access. Naturally stats are collected for players and not managers. You may also create custom permissions. Notice by default, team members are given access to the team chat.
+				</div>
+
+				<div class = "product-subpage-text">
+					If you do not know the players when you are creating your team, you can always add them later. Similarly if you do not yet know player number or email you can leave those blank. When you add an email, an email is sent to the address with a link and instructions on how to join the team. 
+				</div>
+
+				<div class = "product-subpage-img-wrapper">
+					<%=video_tag("team-hub-vids/player-create.mp4", :alt => "player-create", controls: true, muted: true,  :class => "product-subpage-img")%> 
+				</div>
+
+				<div class = "product-subpage-text">
+					The last step is to select the stats you would like to collect for the team. A number of stats are default and essential in order to keep score. Others you can choose to keep if you wish. The more stats you collect, the more advanced stats the application will automatically calculate for you. We recommend starting with more stats than less. You can always choose to stop collecting stats at a later point. 
+				</div>
+
+				<div class = "product-subpage-img-wrapper">
+					<%=video_tag("team-hub-vids/stat-select.mp4", :alt => "stat-select", controls: true, muted: true,  :class => "product-subpage-img")%> 
+				</div>
+
+				<div class = "product-subpage-text">
+					Once you have created your team, you can modify all of the information on the settings page.
+				</div>
+			</div>
+		</div>
+		<div class = "product-subpage-section-wrapper" id = "team-home-section">
+			<div class = "product-subpage-heading">Home Page</div>
+			<div class = "product-subpage-content-section">
+				<div class = "product-subpage-text">
+					Once you create a team you will be redirected to your team's home page. Below is an example home page for the Celtics.
+				</div>
+
+				<div class = "product-subpage-text">
+					On the top right you have the team's record, and schedule information. On the bottom left there are links to recently viewed plays. In the middle there is a statistical overview and information from the previous game. Finally on the right there is a team chat.
+				</div>
+
+				<div class = "product-subpage-img-wrapper">
+					<%=image_tag("team-hub-vids/team-hub-cap.png", :alt => "team-hub-example",  :class => "product-subpage-img")%> 
+				</div>
+
+				<div class = "product-subpage-text">
+					In the stats section you can toggle between shooting percentages, efficiency ratings and top performing lineups.
+				</div>
+
+				<div class = "product-subpage-img-wrapper">
+					<%=video_tag("team-hub-vids/team-hub-stats.mp4", :alt => "team-hub-stats", controls: true, muted: true,  :class => "product-subpage-img")%>
+				</div>
+
+			</div>
+		</div>
+		<div class = "product-subpage-section-wrapper" id = "team-chat-section">
+			<div class = "product-subpage-heading">Team Chat</div>
+			<div class = "product-subpage-content-section">
+				<div class = "product-subpage-text">
+					The Team Chat allows you to easily communicate with your players outside of the gym. Post updates, links or anything you would like to relay to your team.
+				</div>
+
+				<div class = "product-subpage-img-wrapper">
+					<%=video_tag("team-hub-vids/team-chat.mp4", :alt => "team-chat", controls: true, muted: true,  :class => "product-subpage-img")%>
+				</div>
+
+				<div class = "product-subpage-text">
+					As mentioned above, you can easily manage which team members have access to the chat. Restrict write and/or read access for any team member in settings.
+				</div>
+
+			</div>
+		</div>
+		
+</div>
+
+<style></style>
+<script>
+	var jumping = false;
+	$(".portal-button-2").addClass("portal-button-2-alt")
+
+	// $("#play-diagramming-content").css("left", $("#play-diagramming-sidebar").width())
+	$("#team-hub-sidebar").css("top", $("#logged-in-header").outerHeight() + 30)
+	$(".mobile-product-sidebar-wrapper").css("top", $("#logged-in-header").outerHeight() -1)
+
+	$("#team-hub-sidebar").css("height", $(window).outerHeight() - $("#logged-in-header").outerHeight())
+
+</script>

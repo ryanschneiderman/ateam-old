@@ -1,0 +1,10 @@
+<%=render "layouts/small_header"%>
+<% content_for(:body_attributes) do %>
+    data-turbolinks="false"
+ <% end %>
+
+ <%= render show_games_partial_path(@played)%>
+
+
+
+

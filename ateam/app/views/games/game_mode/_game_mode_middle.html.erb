@@ -1,0 +1,74 @@
+<div id = "gm-middle">
+<!-- 	<div id = "gm-middle-inner"> -->
+		<div id = "stat-added-alert-container">
+			
+		</div>
+		<div class = "stat-added-alert">
+			<div id = "stat-added-player-name" class = "stat-added-alert-elem"></div>
+			<div id = "stat-added-name" class = "stat-added-alert-elem"></div>
+			<div id = "stat-added-username"></div>
+			<div id = "stat-added-undo"></div>
+		</div>
+		<div id = "canvas-wrapper">
+			<div id = "canvas-w-label">
+				<canvas id ="c" class = "show-canvas gm-canvas"></canvas>
+				<div id = "canvas-label"><%= @team_name%></div>
+			</div>
+		</div>
+		<div id = "gm-stat-tables" style = "display: none;">
+			<div class = "flex-row center-justified gm-stat-table-heading">Team Stats</div>
+			<div id = "gm-table-buttons">
+				<button class = "gm-table-button active-table" onclick = "toggle_gm_table(0, this)">Team Totals</button>
+				<button class = "gm-table-button inactive-table-label" onclick = "toggle_gm_table(1, this)">First Half</button>
+				<button class = "gm-table-button inactive-table-label" onclick = "toggle_gm_table(2, this)">Second Half</button>
+				<% if @season.num_periods ==4%>
+					<button class = "gm-table-button inactive-table-label" onclick = "toggle_gm_table(3, this)">Q1</button>
+					<button class = "gm-table-button inactive-table-label" onclick = "toggle_gm_table(4, this)">Q2</button>
+					<button class = "gm-table-button inactive-table-label" onclick = "toggle_gm_table(5, this)">Q3</button>
+					<button class = "gm-table-button inactive-table-label" onclick = "toggle_gm_table(6, this)">Q4</button>
+				<%end%>
+			</div>
+			<div id = "team-stat-tables">
+				<table class = "gm-stats-table" id = "gm-team-stats-table">	
+				</table>
+				<table class = "gm-stats-table" id = "half-1-table" style = "display: none;">	
+				</table>
+				<table class = "gm-stats-table" id = "half-2-table" style = "display: none;">	
+				</table>
+				<% if @season.num_periods ==4%>
+				<table class = "gm-stats-table" id = "quarter-1-table" style = "display: none;">	
+				</table>
+				<table class = "gm-stats-table" id = "quarter-2-table" style = "display: none;">	
+				</table>
+				<table class = "gm-stats-table" id = "quarter-3-table" style = "display: none;">	
+				</table>
+				<table class = "gm-stats-table" id = "quarter-4-table" style = "display: none;">	
+				</table>
+				<%end%>
+			</div>
+			<div class = "flex-row center-justified gm-stat-table-heading">Player Stats</div>
+			<table class = "gm-stats-table" id = "player-stats-table">
+			</table>
+			
+
+		</div>
+		<div id = "gm-log-wrapper" style = "display: none;">
+			<table class = "gm-log" id = "gm-log">
+				<tr class = "gm-log-header">
+					<th>Player</th>
+					<th>Stat</th>
+					<th>Timestamp</th>
+					<th>Edit/Save</th>
+					<th>Delete</th>
+				</tr>
+			</table>
+		</div>
+		<div id = "gm-toggle-wrapper">
+			<div id = "gm-toggle-buttons">
+				<button class ="gm-toggle-button" onclick = "to_stat_tables()">Show Stats</button>
+				<button class ="gm-toggle-button" onclick = "to_shot_chart()">Show Shot Chart</button>
+				<button class ="gm-toggle-button" onclick = "to_log()">Show Game Log</button>
+			</div>
+		</div>
+<!-- 	</div> -->
+</div>

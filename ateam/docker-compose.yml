@@ -1,0 +1,18 @@
+version: '3'
+services:
+  db:
+    platform: linux/amd64
+    image: postgres
+    environment:
+      POSTGRES_PASSWORD: Yk^w?S9KL!byDB6J
+  web:
+    platform: linux/amd64
+    depends_on:
+      - db
+    build: 
+      context: .
+    ports:
+      - "8080:8080"
+    image: ateam_app
+    volumes:
+      - ".:/workdir"

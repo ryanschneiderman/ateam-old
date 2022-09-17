@@ -1,0 +1,384 @@
+	$(document).on('turbolinks:load ', function(){
+		if($(".standard_section")[0]){
+			align_parallax_elements()
+			$(document).scroll(function(){
+				scParallaxScrollTop()
+				analyticsScrollTop()
+			})
+			analyticsScrollTop()
+		}
+	});
+
+	//viewport: .8; y: -16vw, 8vw; x: 20vw,70vw;
+	
+
+
+	function align_court_wrapper_dims(){
+		$("#play-diagramming-wrapper").css("min-height" , $("#front-court").height() + 200)
+	}
+
+	function scParallaxScrollTop(){
+		var st = $(this).scrollTop();
+		var offset_height = $("#header-outer").outerHeight()
+		var stat_section_start = $("#stat-collection-descr-wrapper").offset().top
+		var stat_section_end = $("#stat-collection-descr-wrapper").offset().top + $("#stat-collection-descr-wrapper").height()
+		var change_step = parseInt($("#stat-collection-descr-wrapper").height() /14);
+		if((st+offset_height) > stat_section_start && (st+offset_height) < stat_section_end){
+			var diff = (st+offset_height) - stat_section_start;
+			get_sc_num(diff, change_step)
+		}
+	}
+
+	function analyticsScrollTop(){
+		var st = $(this).scrollTop();
+		var analytics_section_start = $("#analytics-container").offset().top
+
+		if(st + window.outerHeight > analytics_section_start){
+			if(this._analytics_paused){
+				resume_analytics_particles()
+			}
+		}
+		else{
+			if(!this._analytics_paused){
+				pause_analytics_particles()
+			}
+		}
+	}
+
+	function pause_analytics_particles(){
+	      this._tempFn = window.pJSDom[0].pJS.fn.vendors.draw
+	      this._analytics_paused = true;
+	      window.pJSDom[0].pJS.fn.vendors.draw = () => {}
+	}
+
+	function resume_analytics_particles(){
+		this._analytics_paused = false;
+		window.pJSDom[0].pJS.fn.vendors.draw = this._tempFn
+     	window.pJSDom[0].pJS.fn.vendors.draw()
+	}
+
+	function get_sc_num(diff, change_step){
+		if(diff > change_step){
+			if($("#stat-collection-assists").data("incremented")== 0){
+				increment_number_parallax("#stat-collection-assists", 4)
+				$("#stat-collection-assists").data("incremented", 1);
+			}
+		}
+		else{
+			if($("#stat-collection-assists").data("incremented") == 1){
+				increment_number_parallax("#stat-collection-assists", 3)
+				$("#stat-collection-assists").data("incremented", 0);
+			}
+		}
+		if(diff > change_step * 2){
+			if($("#stat-collection-off-reb").data("incremented")== 0){
+				increment_number_parallax("#stat-collection-off-reb", 3)
+				$("#stat-collection-off-reb").data("incremented", 1);
+			}
+		}
+		else{
+			if($("#stat-collection-off-reb").data("incremented") == 1){
+				increment_number_parallax("#stat-collection-off-reb", 2)
+				$("#stat-collection-off-reb").data("incremented", 0);
+			}
+		}
+		if(diff > change_step * 3){
+			if($("#stat-collection-points").data("incremented")== 0){
+				increment_number_parallax("#stat-collection-points", 10)
+				$("#stat-collection-points").data("incremented", 1);
+			}
+		}
+		else{
+			if($("#stat-collection-points").data("incremented") == 1){
+				increment_number_parallax("#stat-collection-points", 9)
+				$("#stat-collection-points").data("incremented", 0);
+			}
+		}
+		if(diff > change_step * 4){
+			if($("#stat-collection-turnovers").data("incremented")== 0){
+				increment_number_parallax("#stat-collection-turnovers", 3)
+				$("#stat-collection-turnovers").data("incremented", 1);
+			}
+		}
+		else{
+			if($("#stat-collection-turnovers").data("incremented") == 1){
+				increment_number_parallax("#stat-collection-turnovers", 2)
+				$("#stat-collection-turnovers").data("incremented", 0);
+			}
+		}
+		if(diff > change_step * 5){
+			if($("#stat-collection-steals").data("incremented")== 0){
+				increment_number_parallax("#stat-collection-steals", 2)
+				$("#stat-collection-steals").data("incremented", 1);
+			}
+			
+		}
+		else{
+			if($("#stat-collection-steals").data("incremented") == 1){
+				increment_number_parallax("#stat-collection-steals", 1)
+				$("#stat-collection-steals").data("incremented", 0);
+			}
+			
+		}
+		if(diff > change_step * 6){
+			if($("#stat-collection-blocks").data("incremented")== 0){
+				increment_number_parallax("#stat-collection-blocks", 1)
+				$("#stat-collection-blocks").data("incremented", 1);
+			}
+		}
+		else{
+			if($("#stat-collection-blocks").data("incremented") == 1){
+				increment_number_parallax("#stat-collection-blocks", 0)
+				$("#stat-collection-blocks").data("incremented", 0);
+			}
+		}
+		if(diff > change_step * 7){
+			if($("#stat-collection-def-reb").data("incremented")== 0){
+				increment_number_parallax("#stat-collection-def-reb", 6)
+				$("#stat-collection-def-reb").data("incremented", 1);
+			}
+		}
+		else{
+			if($("#stat-collection-def-reb").data("incremented") == 1){
+				increment_number_parallax("#stat-collection-def-reb", 5)
+				$("#stat-collection-def-reb").data("incremented", 0);
+			}
+		}
+	}
+
+
+
+	function increment_number_parallax(id, new_val){
+		var num = $(id).find(".stat-collection-number")
+		var text = $(id).find(".stat-collection-name")
+		num.text(parseInt(new_val))
+		num.css("text-shadow", "0px 0px 12px " + num.css("color"));
+		text.css('color', 'white')
+		
+		setTimeout( function() {
+			num.css("transition", "2s");
+			num.css('text-shadow','none');
+			text.css('transition', '2s')
+			text.css('color', '#b3b3b3')
+
+		}, 100);
+		setTimeout( function() {
+			num.css("transition", "none");
+			text.css("transition", "none");
+
+		}, 1000);
+	}
+
+
+
+	function align_court_parallax_mobile(){
+		var player_1 = UIkit.parallax('#player-piece-1', {
+		    viewport: .8,
+		    y: '-60, 10',
+		    x: '50, 140'
+		});
+		// uk-parallax="viewport: .8; y: 35vw, 35vw; x: 32vw,45vw"
+		var player_2 = UIkit.parallax('#player-piece-2', {
+		    viewport: .8,
+		    y: '220, 220',
+		    x: '100, 250'
+		});
+		// uk-parallax="viewport: .8; y: 3vw, 7vw; x: 11vw,22vw"
+		var player_3 = UIkit.parallax('#player-piece-3', {
+		    viewport: .8,
+		    y: '20, 40',
+		    x: '30, 100'
+		});
+		// uk-parallax="viewport: .8; y: 23vw, 32vw; x: 23vw,28vw"
+		var player_4 = UIkit.parallax('#player-piece-4', {
+		    viewport: .8,
+		    y: '100, 150',
+		    x: '60, 150'
+		});
+		// uk-parallax="viewport: .8; y: 33vw, 22vw; x: 5vw,7vw;"
+		var player_5 = UIkit.parallax('#player-piece-5', {
+		    viewport: .8,
+		    y: '170, 130',
+		    x: '30, 45'
+		});
+	}
+
+	function align_court_parallax(){
+		var width_ratio = window.innerWidth/1280
+
+		var player_1 = UIkit.parallax('#player-piece-1', {
+		    viewport: .8,
+		    x: (200 * width_ratio) + ',' + (600*width_ratio),
+		    y: (-70* width_ratio) +','+ (50* width_ratio)
+		});
+		// uk-parallax="viewport: .8; y: 35vw, 35vw; x: 32vw,45vw"
+		var player_2 = UIkit.parallax('#player-piece-2', {
+		    viewport: .8,
+		    y: (420 * width_ratio) + ','+ (420 *width_ratio),
+		    x: (width_ratio *300)  +',' + (600 * width_ratio)
+		});
+		// uk-parallax="viewport: .8; y: 3vw, 7vw; x: 11vw,22vw"
+		var player_3 = UIkit.parallax('#player-piece-3', {
+		    viewport: .8,
+		    y: (width_ratio *50) + ',' + (150 * width_ratio),
+		    x: (width_ratio *120) + ',' + (340 * width_ratio)
+		});
+		// uk-parallax="viewport: .8; y: 23vw, 32vw; x: 23vw,28vw"
+		var player_4 = UIkit.parallax('#player-piece-4', {
+		    viewport: .8,
+		    y: (270 * width_ratio) + ',' + (350 * width_ratio),
+		    x: (270 * width_ratio) + ',' + (450 * width_ratio)
+		});
+		// uk-parallax="viewport: .8; y: 33vw, 22vw; x: 5vw,7vw;"
+		var player_5 = UIkit.parallax('#player-piece-5', {
+		    viewport: .8,
+		    y: (width_ratio * 370) + ',' + (300 * width_ratio),
+		    x: (width_ratio * 80) + ',' + (180 * width_ratio)
+		});
+	}
+
+	function align_sc_parallax_mobile(){
+		var points = UIkit.parallax('#stat-collection-points', {
+			target: '#stat-collection-descr',
+		    viewport: 1.5,
+		    y: '500, 900',
+		    x: '-350, -350'
+		});
+
+		// uk-parallax="target: #stat-collection-descr; y: 240, 640; x: -290,-290; viewport: 1.5;"
+		var off_reb = UIkit.parallax('#stat-collection-off-reb', {
+			target: '#stat-collection-descr',
+		    viewport: 1.5,
+		    y: '470, 870',
+		    x: '-200, -200'
+		});
+
+		// uk-parallax="target: #stat-collection-descr; y: 170, 580; x: -390,-390; viewport: 1.5;"
+		var assists = UIkit.parallax('#stat-collection-assists', {
+			target: '#stat-collection-descr',
+		    viewport: 1.5,
+		    y: '440, 840',
+		    x: '-300, -300'
+		});
+
+		// uk-parallax="target: #stat-collection-descr; y: 630, 930; x: -390,-390; viewport: 1.5;"
+		var turnovers = UIkit.parallax('#stat-collection-turnovers', {
+			target: '#stat-collection-descr',
+		    viewport: 1.5,
+		    y: '570, 970',
+		    x: '-300, -300'
+		});
+
+		// uk-parallax="target: #stat-collection-descr; y: 400, 790; x: -390,-390; viewport: 1.5;"
+		var steals = UIkit.parallax('#stat-collection-steals', {
+			target: '#stat-collection-descr',
+		    viewport: 1.5,
+		    y: '640, 1040',
+		    x: '-325, -325'
+		});
+
+		// uk-parallax="target: #stat-collection-descr; y: 530, 930; x: -180,-180; viewport: 1.5;"
+		var blocks = UIkit.parallax('#stat-collection-blocks', {
+			target: '#stat-collection-descr',
+		    viewport: 1.5,
+		    y: '660, 1060',
+		    x: '-150, -150'
+		});
+
+		// uk-parallax="target: #stat-collection-descr; y: 490, 890; x: -500,-500; viewport: 1.5;"
+		var def_reb  = UIkit.parallax('#stat-collection-def-reb', {
+			target: '#stat-collection-descr',
+		    viewport: 1.5,
+		    y: '730, 1130',
+		    x: '-275, -275'
+		});
+	}
+
+	function align_sc_parallax(){
+		var points = UIkit.parallax('#stat-collection-points', {
+			target: '#stat-collection-descr',
+		    viewport: 1.5,
+		    y: '300, 700',
+		    x: '-530, -530'
+		});
+
+		// uk-parallax="target: #stat-collection-descr; y: 240, 640; x: -290,-290; viewport: 1.5;"
+		var off_reb = UIkit.parallax('#stat-collection-off-reb', {
+			target: '#stat-collection-descr',
+		    viewport: 1.5,
+		    y: '240, 640',
+		    x: '-290, -290'
+		});
+
+		// uk-parallax="target: #stat-collection-descr; y: 170, 580; x: -390,-390; viewport: 1.5;"
+		var assists = UIkit.parallax('#stat-collection-assists', {
+			target: '#stat-collection-descr',
+		    viewport: 1.5,
+		    y: '170, 580',
+		    x: '-390, -390'
+		});
+
+		// uk-parallax="target: #stat-collection-descr; y: 630, 930; x: -390,-390; viewport: 1.5;"
+		var def_reb = UIkit.parallax('#stat-collection-def-reb', {
+			target: '#stat-collection-descr',
+		    viewport: 1.5,
+		    y: '630, 1030',
+		    x: '-390, -390'
+		});
+
+		// uk-parallax="target: #stat-collection-descr; y: 400, 790; x: -390,-390; viewport: 1.5;"
+		var turnovers = UIkit.parallax('#stat-collection-turnovers', {
+			target: '#stat-collection-descr',
+		    viewport: 1.5,
+		    y: '400, 790',
+		    x: '-390, -390'
+		});
+
+		// uk-parallax="target: #stat-collection-descr; y: 530, 930; x: -180,-180; viewport: 1.5;"
+		var blocks = UIkit.parallax('#stat-collection-blocks', {
+			target: '#stat-collection-descr',
+		    viewport: 1.5,
+		    y: '530, 930',
+		    x: '-180, -180'
+		});
+
+		// uk-parallax="target: #stat-collection-descr; y: 490, 890; x: -500,-500; viewport: 1.5;"
+		var steals = UIkit.parallax('#stat-collection-steals', {
+			target: '#stat-collection-descr',
+		    viewport: 1.5,
+		    y: '490, 890',
+		    x: '-500, -500'
+		});
+	}
+
+	function setPlayerPieceHeight(){
+		var width_ratio = window.innerWidth/1280
+		// $(".player-piece").each(function(){
+		// 	$(this).attr("height", 100 * width_ratio)
+		// 	$(this).attr("width", 100 * width_ratio)
+		// })
+	}
+
+	function align_parallax_elements(){
+		var small_portrait = window.matchMedia('(min-device-width : 300px) and (max-device-width : 1024px) and (orientation : portrait)'); 
+		var mid_portrait = window.matchMedia('(min-device-width : 700px) and (max-device-width : 1024px) and (orientation : portrait)')
+		var mid_landscape = window.matchMedia('(min-device-width : 700px) and (max-device-width : 1024px) and (orientation : landscape)')
+
+		if (small_portrait.matches && !mid_portrait.matches){
+			align_court_parallax_mobile()
+			align_sc_parallax_mobile()
+			
+		}
+		else {
+			align_court_parallax()
+			align_sc_parallax()
+			align_court_wrapper_dims();
+			
+		}
+		setPlayerPieceHeight()
+	}
+	
+
+	
+
+	

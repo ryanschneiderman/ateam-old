@@ -1,0 +1,222 @@
+@media only screen 
+and (min-device-width : 150px) 
+and (max-device-width : 1024px)
+and (orientation : portrait) { 
+	#mobile-chat{
+		position: fixed;
+	    right: 20px;
+	    background-color: #35383a;
+	    /* height: 40px; */
+	    width: 400px;
+	    border-bottom-right-radius: 10px;
+	    border-bottom-left-radius: 10px;
+	    z-index: 4;
+    	box-shadow: 0 0 10px #889298;
+	}
+
+	#no-chat-access {
+	    margin: 20px;
+	    font-size: 20px;
+	    font-style: italic;
+	}
+
+	#mobile-chat-header{
+		display: grid;
+		grid-template-columns: 1fr 1fr;
+		padding-top: 20px;
+	    padding-bottom: 20px;
+	    align-items: center;
+	}
+
+	.mobile-chat-expanded{
+		display: block !important;
+	}
+
+	#mobile-chat-container{
+	    padding-bottom: 20px;
+	    border-bottom: 1px solid grey;
+	    position: relative;
+	}
+
+	#mobile-chat-inner{
+		padding-bottom: 40px;
+	    height: 0px;
+	    overflow: scroll;
+	    transition: .2s ease;
+	}
+
+	#mobile-chat-wrapper{
+		position: absolute;
+		top: 0;
+		right: 20px;
+		display: block;
+	}
+	#season-main-wrapper{
+		grid-template-columns: 1fr; 
+    	grid-template-rows: 1fr 1fr 1fr 1fr;
+    	grid-row-gap: 25px;
+    	margin: 25px;
+	}
+
+	.mobile-chat-dropdown-container{
+		display: flex;
+	    justify-content: center;
+	}
+
+	.mobile-chat-dropdown{
+		width: 120px;
+	    display: flex;
+	    justify-content: flex-end;
+	}
+
+	.mobile-chat-header-text{
+		font-size: 25px;
+	    font-weight: 600;
+	    padding-left: 20px;
+	}
+
+	.date-info{
+		padding-bottom: 5px;
+	}
+
+	.season-home-stat-content{
+		margin-bottom: 40px;
+	}
+
+	#schedule-info{
+		width: 70%;
+		margin-top: 55px;
+	}
+
+	.season-home-container{
+		padding: 30px;
+	}
+
+	#season-home-grid{
+		grid-template-columns: 2fr 1fr;
+	}
+
+	#season-home-grid {
+	    grid-template-columns: 1fr;
+	}
+
+	#team-chat-wrapper{
+		display: none;
+	}
+
+	.post-content{
+		font-size: 20px;
+	}
+
+	.season-home-team-name{
+		font-size: 70px;
+	}
+
+	.season-home-record{
+		font-size: 45px;
+	}
+
+	.day-week{
+		font-size: 30px;
+	}
+
+	.date-date{
+		font-size: 45px;
+	}
+
+	.month-year{
+		font-size: 25px;
+	}
+
+	.game-title{
+		font-size: 35px;
+	}
+
+	.season-home-plays .play-img {
+    	width: 25vw;
+    }
+
+    .season-home-heading{
+    	font-size: 45px;
+    	padding-bottom: 30px;
+    }
+
+    #season-home-stats{
+    	height: initial;
+    }
+
+    .season-home-advanced-text{
+    	font-size: 35px;
+    }
+
+    .season-home-stat-circles .percentage-circle-header {
+	    font-size: 3vw !important;
+	    padding-bottom: 10px;
+	}
+
+	.season-home-stat-circles .player-circle-text {
+	    font-size: 2.5vw !important;
+	}
+
+	.season-home-lineup-members .lineup-member {
+	    font-size: 35px;
+	}
+
+	.season-home-lineup-stats .lineup-slider-header {
+	    font-size: 20px;
+	}
+
+	.season-home-lineup-wrapper{
+		width: 100%;
+	}
+
+	.season-home-lineup-stats {
+	    display: grid;
+	    grid-template-columns: 1fr 1fr;
+	    width: 100%;
+	}
+	.season-home-lineup-stats .lineup-slider-header {
+	    font-size: 30px;
+	}
+	.season-home-lineup-members {
+	    margin-bottom: 40px;
+	}
+
+	.season-home-footer-link{
+		font-size: 18px;
+	}
+
+	.season-home-plays .play-link-text a {
+	    margin-top: 10px;
+	    font-size: 30px;
+	}
+
+	.previous-game-text{
+		font-size: 35px;
+	}
+
+	#leaders-header{
+		font-size: 35px;
+	}
+	.previous-game-leader-text{
+		font-size: 25px;
+	}
+
+	#previous-game-leaders{
+		padding-top: 40px;
+	}
+}
+
+@media only screen 
+and (min-device-width : 300px) 
+and (max-device-width : 1024px)
+and (orientation : landscape) { 
+	.season-home-team-name{
+		font-size: 30px;
+	}
+
+	.location-time{
+		font-size: 13px;
+	}
+
+}

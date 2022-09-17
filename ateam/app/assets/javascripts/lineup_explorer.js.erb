@@ -1,0 +1,734 @@
+
+	function initialize_lineup_stat_array(){
+		lineup_stats = gon.lineup_objs;
+		var num_lineups = lineup_stats.length
+		for(var i = 0; i < num_lineups;i++){
+			var num_stats = lineup_stats[i].stats.length;
+			for(var j = 0; j < num_stats; j++){
+				if(lineup_stats[i].stats[j].stat_list_id == 16){
+					lineup_stats[i].minutes = lineup_stats[i].stats[j].value
+					lineup_stats[i].stats[j].value = (lineup_stats[i].stats[j].value/60).toFixed(1)
+				}
+			}
+		}
+	}
+
+	function populate_basic_stat_table_columns(){
+		display_stats = gon.stat_table_columns
+	}
+
+	function is_desired_off_stat(stat){
+		return desired_off_stats.includes(stat.stat_list_id)
+	}
+
+	// inserts modules for each lineup into the parent html
+	function insert_lineup_modules(lineup_arr){
+		var len = lineup_arr.length
+		for (var i = 0; i < len; i++){
+			var module_html = create_lineup_module(lineup_arr[i], i)
+		}
+		establish_hover_rules()
+	}
+
+	function create_lineup_players_html(lineup_obj){
+		var lineup_members = $("<div class = 'lineup-members'></div>")
+		for(var i = 0; i < 4; i++){
+			var player_html = $("<div class = 'lineup-member'>"+ lineup_obj.lineup_members[i].name + ",</div>")
+			var nbsp = $("<div>&nbsp;&nbsp;</div>")
+			lineup_members.append(player_html).append(nbsp)
+		}
+		var player_html = $("<div class = 'lineup-member'>"+ lineup_obj.lineup_members[i].name + "</div>")
+		lineup_members.append(player_html)
+		return lineup_members
+	}
+
+	function get_display_stat_name(stat_id){
+		switch(stat_id){
+			case 16 : return "Minutes";
+			case 18 : return "eFG%";
+			case 19 : return "TS%";
+			case 29 : return "Off Rating";
+			case 30 : return "Def Rating";
+			case 32 : return "OReb%";
+			case 33 : return "DReb%";
+			case 25 : return "Net Rating"
+			case 37 : return "TOV%";
+			case 21 : return "FTAr"
+		}
+	}
+
+	function find_stat(search_array, stat_id){
+		var len = search_array.length
+		for(var i = 0; i < len; i++){
+			if(search_array[i].stat_list_id == stat_id){
+				return search_array[i]
+			}
+		}
+	}
+
+	function create_stat_box(stat_array, stat_list_id, is_advanced, default_stat){
+		var stat_obj = find_stat(stat_array, stat_list_id)
+		var stat_container = $('<div class = "lineup-stat stat-module"></div>')
+		if(!default_stat){
+			stat_container.addClass("non-default-stat")
+			stat_container.addClass("lineup-stat-inactive")
+		} 
+		var stat_label = $('<div class = "lineup-stat-label">'+ get_display_stat_name(stat_list_id) +'</div>')
+		if(stat_list_id == 29) stat_label.addClass("lineup-off-rtg")
+		else if(stat_list_id == 30) stat_label.addClass("lineup-def-rtg")
+		else if (stat_list_id == 16) $(stat_container).addClass("lineup-minutes")
+		var stat_value = $('<div class = "lineup-stat-value">' + stat_obj.value + '</div>')
+		stat_container.append(stat_label).append(stat_value)
+		return stat_container
+	}
+
+	function adv_stat_exists(stat_id){
+		var len = lineup_stats[0].advanced_stats.length;
+		for(var i = 0; i < len; i++){
+			if(stat_id == lineup_stats[0].advanced_stats[i].stat_list_id){
+				return true;
+			}
+		}
+		return false;
+	}
+
+	function create_adv_html_arr(lineup_obj){
+		var adv_arr = []
+		
+		if(adv_stat_exists(18)) {
+			var efg_wrapper = "<div class = 'lineup-slider-wrapper'></div>"
+			var efg_header = "<div class = 'lineup-slider-header'>EFG%</div>"
+			var efg_value = '<div class = "lineup-slider-value" id = "lineup-'+lineup_obj.lineup_id+'-value-18"></div>'
+			var efg_tooltip = '<div class = "lineup-slider-tooltip" id = "lineup-'+lineup_obj.lineup_id+'-tooltip-18"></div>'
+			var efg_slider = '<div class = "lineup-adv-slider" id = "lineup-'+lineup_obj.lineup_id+'-adv-slider-18"></div>'
+			var efg_html =  $(efg_wrapper).append(efg_header).append(efg_slider).append(efg_value).append(efg_tooltip)
+			adv_arr.push(efg_html)
+		}
+		if(adv_stat_exists(37)) {
+			var tov_wrapper = "<div class = 'lineup-slider-wrapper'></div>"
+			var tov_header = "<div class = 'lineup-slider-header'>TOV%</div>"
+			var tov_value = '<div class = "lineup-slider-value" id = "lineup-'+lineup_obj.lineup_id+'-value-37"></div>'
+			var tov_tooltip = '<div class = "lineup-slider-tooltip" id = "lineup-'+lineup_obj.lineup_id+'-tooltip-37"></div>'
+			var tov_slider = '<div class = "lineup-adv-slider" id = "lineup-'+lineup_obj.lineup_id+'-adv-slider-37"></div>'
+			var tov_html =  $(tov_wrapper).append(tov_header).append(tov_slider).append(tov_value).append(tov_tooltip)
+			adv_arr.push(tov_html)
+		}
+		if(adv_stat_exists(19)) {
+			var ts_wrapper = "<div class = 'lineup-slider-wrapper'></div>"
+			var ts_header = "<div class = 'lineup-slider-header'>TS%</div>"
+			var ts_value = '<div class = "lineup-slider-value" id = "lineup-'+lineup_obj.lineup_id+'-value-19"></div>'
+			var ts_tooltip = '<div class = "lineup-slider-tooltip" id = "lineup-'+lineup_obj.lineup_id+'-tooltip-19"></div>'
+			var ts_slider = '<div class = "lineup-adv-slider" id = "lineup-'+lineup_obj.lineup_id+'-adv-slider-19"></div>'
+			var ts_html =  $(ts_wrapper).append(ts_header).append(ts_slider).append(ts_value).append(ts_tooltip)
+			adv_arr.push(ts_html)
+		}
+		if(adv_stat_exists(32)) {
+			var oreb_wrapper = "<div class = 'lineup-slider-wrapper'></div>"
+			var oreb_header = "<div class = 'lineup-slider-header'>OREB%</div>"
+			var oreb_value = '<div class = "lineup-slider-value" id = "lineup-'+lineup_obj.lineup_id+'-value-32"></div>'
+			var oreb_tooltip = '<div class = "lineup-slider-tooltip" id = "lineup-'+lineup_obj.lineup_id+'-tooltip-32"></div>'
+			var oreb_slider = '<div class = "lineup-adv-slider" id = "lineup-'+lineup_obj.lineup_id+'-adv-slider-32"></div>'
+			var oreb_html =  $(oreb_wrapper).append(oreb_header).append(oreb_slider).append(oreb_value).append(oreb_tooltip)
+			adv_arr.push(oreb_html)
+		}
+		if(adv_stat_exists(21)) {
+			var ftar_wrapper = "<div class = 'lineup-slider-wrapper'></div>"
+			var ftar_header = "<div class = 'lineup-slider-header'>FTAr</div>"
+			var ftar_value = '<div class = "lineup-slider-value" id = "lineup-'+lineup_obj.lineup_id+'-value-21"></div>'
+			var ftar_tooltip = '<div class = "lineup-slider-tooltip" id = "lineup-'+lineup_obj.lineup_id+'-tooltip-21"></div>'
+			var ftar_slider = '<div class = "lineup-adv-slider" id = "lineup-'+lineup_obj.lineup_id+'-adv-slider-21"></div>'
+			var ftar_html =  $(ftar_wrapper).append(ftar_header).append(ftar_slider).append(ftar_value).append(ftar_tooltip)
+			adv_arr.push(ftar_html)
+		}
+		if(adv_stat_exists(33)) {
+			var dreb_wrapper = "<div class = 'lineup-slider-wrapper'></div>"
+			var dreb_header = "<div class = 'lineup-slider-header'>DREB%</div>"
+			var dreb_value = '<div class = "lineup-slider-value" id = "lineup-'+lineup_obj.lineup_id+'-value-33"></div>'
+			var dreb_tooltip = '<div class = "lineup-slider-tooltip" id = "lineup-'+lineup_obj.lineup_id+'-tooltip-33"></div>'
+			var dreb_slider = '<div class = "lineup-adv-slider" id = "lineup-'+lineup_obj.lineup_id+'-adv-slider-33"></div>'
+			var dreb_html =  $(dreb_wrapper).append(dreb_header).append(dreb_slider).append(dreb_value).append(dreb_tooltip)
+			adv_arr.push(dreb_html)
+		}
+		
+		return adv_arr
+	}
+
+	function get_lineup_efficiency_stats(lineup_obj){
+		if(adv_stat_exists(29)){
+			var off_eff_wrapper = "<div class = 'lineup-slider-wrapper'></div>"
+			var off_eff_header = "<div class = 'lineup-slider-header'>Offensive Rating</div>"
+			var off_eff_value = '<div class = "lineup-slider-value" id = "lineup-'+lineup_obj.lineup_id+'-value-29"></div>'
+			var off_eff_tooltip = '<div class = "lineup-slider-tooltip" id = "lineup-'+lineup_obj.lineup_id+'-tooltip-29"></div>'
+			var off_eff_slider = '<div class = "lineup-adv-slider" id = "lineup-'+lineup_obj.lineup_id+'-adv-slider-29"></div>'
+			var off_eff_html =  $(off_eff_wrapper).append(off_eff_header).append(off_eff_slider).append(off_eff_value).append(off_eff_tooltip)
+			
+			var def_eff_wrapper = "<div class = 'lineup-slider-wrapper'></div>"
+			var def_eff_header = "<div class = 'lineup-slider-header'>Defensive Rating</div>"
+			var def_eff_value = '<div class = "lineup-slider-value" id = "lineup-'+lineup_obj.lineup_id+'-value-30"></div>'
+			var def_eff_tooltip = '<div class = "lineup-slider-tooltip" id = "lineup-'+lineup_obj.lineup_id+'-tooltip-30"></div>'
+			var def_eff_slider = '<div class = "lineup-adv-slider" id = "lineup-'+lineup_obj.lineup_id+'-adv-slider-30"></div>'
+			var def_eff_html =  $(def_eff_wrapper).append(def_eff_header).append(def_eff_slider).append(def_eff_value).append(def_eff_tooltip)
+
+			var net_wrapper = "<div class = 'lineup-slider-wrapper'></div>"
+			var net_header = "<div class = 'lineup-slider-header'>Net Rating</div>"
+			var net_value = '<div class = "lineup-slider-value" id = "lineup-'+lineup_obj.lineup_id+'-value-25"></div>'
+			var net_tooltip = '<div class = "lineup-slider-tooltip" id = "lineup-'+lineup_obj.lineup_id+'-tooltip-25"></div>'
+			var net_slider = '<div class = "lineup-adv-slider" id = "lineup-'+lineup_obj.lineup_id+'-adv-slider-25"></div>'
+			var net_html =  $(net_wrapper).append(net_header).append(net_slider).append(net_value).append(net_tooltip)
+
+			return {"off_eff_html" : off_eff_html, "def_eff_html" : def_eff_html, "net_html" : net_html}  
+		} 
+		else return false;
+	}
+
+	function insert_other_advanced_html(available_containers, stat_arr){
+		var cont_len = available_containers.length
+		var stat_len = stat_arr.length
+		for(var i = 0; i < stat_len; i++){
+			available_containers[i%cont_len].append(stat_arr[i])
+		}
+
+	}
+
+	function create_stat_html(lineup_obj){
+		var lineup_stats = $('<div class = "lineup-stats"></div>')
+		var lineup_container1 = $('<div class = "lineup-stat-container" id = "lineup-stat-container1"></div>')
+		var lineup_container2 = $('<div class = "lineup-stat-container" id = "lineup-stat-container2"></div>')
+		var lineup_container3 = $('<div class = "lineup-stat-container" id = "lineup-stat-container3"></div>')
+
+		var efficiency_stats = get_lineup_efficiency_stats(lineup_obj)
+
+		var adv_arr = create_adv_html_arr(lineup_obj)
+		if(efficiency_stats){
+			lineup_container1.append(efficiency_stats.off_eff_html).append(efficiency_stats.def_eff_html).append(efficiency_stats.net_html)
+			insert_other_advanced_html([lineup_container2, lineup_container3], adv_arr)
+		}
+		else{
+			insert_other_advanced_html([lineup_container1, lineup_container2, lineup_container3], adv_arr)
+		}
+
+
+		// efficiency_stats.append(adv_arr[0]).append(adv_arr[1]).append(adv_arr[2])
+		// for (var i = 3; i < adv_arr.length; i++){
+		// 	other_advanced_stats.append(adv_arr[i])
+		// }
+
+		lineup_stats.append(lineup_container1).append(lineup_container2).append(lineup_container3)
+		
+		return lineup_stats;
+	}
+
+
+	function expand_module(){
+		console.log("expanding module")
+		//"rgb(10, 208, 228);"
+	}
+
+	function makeSVG(tag, attrs) {
+		var el= document.createElementNS('http://www.w3.org/2000/svg', tag);
+		for (var k in attrs)
+			el.setAttribute(k, attrs[k]);
+		return el;
+	}
+
+	function create_less_link(index){
+		var circle= makeSVG('circle', {cx: 18, cy: 18, r:17, stroke: '#ababbb', 'stroke-width': 1.5, fill: 'none', class: "more-circle"});
+		var rect1 = makeSVG('rect', {x: 25.5, y: 15.9, width:1.5, height:8.15, transform: "translate(-11.63 18.6) rotate(-45)" , fill: '#ababbb', class: "more-arrow"})
+		var rect2 = makeSVG('rect', {x: 19.8, y: 10.6, width:8.15, height:1.5, transform: "translate(-9.81 22.99) rotate(-45)" , fill: '#ababbb', class: "more-arrow"})
+		var rect3 = makeSVG('rect', {x: 17.4, y: 10.75, width:1.5, height:15, fill: '#ababbb', class: "more-arrow"})
+		document.getElementById('less-link-'+index).appendChild(circle);
+		document.getElementById('less-link-'+index).appendChild(rect1);
+		document.getElementById('less-link-'+index).appendChild(rect2);
+		document.getElementById('less-link-'+index).appendChild(rect3);
+	}
+
+	function create_more_link(index){
+		var circle= makeSVG('circle', {cx: 18, cy: 18, r:17, stroke: '#ababbb', 'stroke-width': 1.5, fill: 'none', class: "more-circle"});
+		var rect1 = makeSVG('rect', {x: 14.89, y: 18.26, width:1.5, height:8.15, transform: "translate(-11.63 18.6) rotate(-45)" , fill: '#ababbb', class: "more-arrow"})
+		var rect2 = makeSVG('rect', {x: 17.77, y: 21.59, width:8.15, height:1.5, transform: "translate(-9.81 22.99) rotate(-45)" , fill: '#ababbb', class: "more-arrow"})
+		var rect3 = makeSVG('rect', {x: 17.6, y: 11.75, width:1.5, height:15, fill: '#ababbb', class: "more-arrow"})
+		document.getElementById('more-link-'+index).appendChild(circle);
+		document.getElementById('more-link-'+index).appendChild(rect1);
+		document.getElementById('more-link-'+index).appendChild(rect2);
+		document.getElementById('more-link-'+index).appendChild(rect3);
+	}
+
+	function toggle_table(index, is_per_minute){
+		var lineup_table_container = $("#lineup-tables-"+index);
+		var minutes_table = lineup_table_container.find(".minutes-table")
+		var totals_table = lineup_table_container.find(".totals-table")
+		var minutes_header = lineup_table_container.find(".per-minute-link")
+		var totals_header = lineup_table_container.find(".totals-link")
+		if(is_per_minute){
+			$(minutes_table).removeClass("inactive-table")
+			$(totals_table).addClass("inactive-table")
+			$(totals_header).css("font-weight", "normal")
+			$(minutes_header).css("font-weight", "bold")
+		}
+		else{
+			$(totals_table).removeClass("inactive-table")
+			$(minutes_table).addClass("inactive-table")
+			$(totals_header).css("font-weight", "bold")
+			$(minutes_header).css("font-weight", "normal")
+		}
+	}
+
+	function create_table_html(lineup_obj, index){
+		var table_container = $("<div class = 'lineup-table-container lineup-stat-inactive' id = 'lineup-tables-"+index+"'></div>");
+		var table_headers =  $("<div class = 'lineup-table-headers'></div>");
+		var per_minute_header =  $("<button class = 'lineup-table-link per-minute-link' onclick = 'toggle_table("+index+", true)'>Per "+gon.minutes_factor+" Minutes</button>");
+		var total_header =  $("<button class = 'lineup-table-link totals-link' onclick = 'toggle_table("+index+", false)'>Totals</button>");
+
+	
+		var per_minute_table = create_stat_table(lineup_obj, true)
+		var totals_table = create_stat_table(lineup_obj, false)
+		table_container.append(table_headers.append(per_minute_header).append(total_header)).append(per_minute_table).append(totals_table)
+		$(totals_table).addClass("inactive-table").addClass("totals-table")
+		$(per_minute_table).addClass("minutes-table")
+		return table_container
+	}
+
+	function lineup_minutes_container(lineup_obj, index){
+		var minutes_container = $('<div class="minutes-container"></div>')
+		var minutes_stat_box = create_stat_box(lineup_obj.stats, 16, false, true);
+		var flex_end_container = $('<div class="flex-end-container" id = "more-link-wrapper"></div>')
+		var more_link_container = $('<button class="expand-container more-link-container" onclick = "expand_module('+index+')"></button>')
+		var more_link = $('<svg class = "more-link" height="36px" width = "36px" id="more-link-'+index+'" xmlns="http://www.w3.org/2000/svg"/>')
+		var more_text = $('<div class="more-text">MORE</div>')
+		var less_link_container = $('<div class="expand-container less-link-container lineup-stat-inactive"></div>')
+		var less_link = $('<svg class = "less-link" height="36px" width = "36px" id="less-link-'+index+'" xmlns="http://www.w3.org/2000/svg"/>')
+		var less_text = $('<div class="more-text">LESS</div>')
+
+		flex_end_container.append(more_link_container.append(more_link).append(more_text)).append(less_link_container.append(less_link).append(less_text))
+
+		minutes_container.append(minutes_stat_box).append(flex_end_container)
+		return minutes_container
+	}
+
+	function create_right_module(lineup_obj, index){
+		var module_right = $("<div class = 'lineup-module-right'></div>");
+		var minutes_container = lineup_minutes_container(lineup_obj, index)
+
+		module_right.append(minutes_container)
+		return module_right
+	}
+
+	function is_desired_lineup_adv(stat_id){
+		return (stat_id == 29 || stat_id == 30 || stat_id == 18 || stat_id == 19 || stat_id == 32 || stat_id == 33 || stat_id == 25 || stat_id == 37 || stat_id == 21 || stat_id == 25)
+	}
+
+	function is_sortable_advanced(stat_id){
+		switch(stat_id){
+			case 18 : return true;
+			case 19 : return true;
+			case 21 : return true;
+			case 29 : return true;
+			case 30 : return true;
+			case 32 : return true;
+			case 33 : return true;
+			case 37 : return true;
+			case 25 : return true;
+		}
+		return false
+	}
+
+	function insert_lineup_advanced_links(){
+		console.log("lineup_stats")
+		console.log(lineup_stats)
+		var adv_len = lineup_stats[0].advanced_stats.length;
+		for (var i = 0; i < adv_len; i++){
+			if(is_sortable_advanced(lineup_stats[0].advanced_stats[i].stat_list_id) && lineup_stats[0].advanced_stats[i].is_opponent == false){
+				
+				var link_string =get_display_stat_name(lineup_stats[0].advanced_stats[i].stat_list_id)
+		    	var advanced_link = "<option class='flex-row toolbar-dropdown-button' data-is-advanced = 'true'  value = '"+ lineup_stats[0].advanced_stats[i].stat_list_id+"'>"+link_string+"</option>"
+				$("#lineup-select").append(advanced_link)
+			}
+			
+		}
+	}
+
+	function insert_lineup_offensive_links(){
+		var len = lineup_stats[0].stats.length
+		for (var i = 0; i < len; i++){
+			if(lineup_stats[0].stats[i].stat_kind == 1){
+				var link_string = lineup_stats[0].stats[i].stat
+		    	var off_link = "<option class='flex-row toolbar-dropdown-button' data-is-advanced = 'true'  value = '"+ lineup_stats[0].stats[i].stat_list_id+"'>"+link_string+"</option>"
+				$("#lineup-select").append(off_link)
+			}
+		}
+	}
+
+	function insert_lineup_defensive_links(){
+		var len = lineup_stats[0].stats.length
+		for (var i = 0; i < len; i++){
+			if(lineup_stats[0].stats[i].stat_kind == 2 && lineup_stats[0].stats[i].is_opponent == false){
+				
+				var link_string = lineup_stats[0].stats[i].stat
+		    	var def_link = "<option class='flex-row toolbar-dropdown-button' data-is-advanced = 'true'  value = '"+ lineup_stats[0].stats[i].stat_list_id+"'>"+link_string+"</option>"
+				$("#lineup-select").append(def_link)
+
+			}
+		}
+
+	}
+
+	function insert_lineup_order_links(){
+		insert_lineup_advanced_links()
+		insert_lineup_offensive_links()
+		insert_lineup_defensive_links()
+	}
+
+
+	function find_stat_index(stat_id, is_advanced){
+		if(is_advanced){
+			var stat_array = lineup_stats[0].advanced_stats;
+		}
+		else{
+			var stat_array = lineup_stats[0].stats
+		}
+		var len = stat_array.length;
+		for(var i = 0; i < len; i++){
+			if(stat_array[i].stat_list_id==stat_id){
+				return i;
+			}
+		}
+	}
+
+	
+
+	function create_stat_table(lineup_obj, is_per_minute){
+		var table = document.createElement("TABLE");
+		$(table).addClass("lineup-stat-table stats-table")
+		insert_basic_stat_header(table)
+		var row = table.insertRow(1)
+		row.classList.add("lineup-table-row-dark")
+		insert_basic_data(row, lineup_obj, is_per_minute, false, "Lineup")
+		var opponent_row = table.insertRow(2)
+		insert_basic_data(opponent_row, lineup_obj, is_per_minute, true, "Opponent")
+		return table;
+	}
+
+	function insert_basic_stat_header(table){
+		var insert_index = 0;
+		var header = table.createTHead();
+		var row = header.insertRow(0);
+		row.classList.add("lineup-table-header")
+		var col = row.insertCell(insert_index)
+		col.innerHTML = "Team";
+		insert_index++;
+		var num_stats = display_stats.length
+		for(i = 0; i < num_stats; i++){
+			if(display_stats[i].stat_list_id!= 16){
+				var col = row.insertCell(insert_index)
+				col.innerHTML += "<div>" + display_stats[i].stat_name + "</div>";
+				if(display_stats[i].display_type == "fraction"){
+					insert_index++;
+					var pct_col = row.insertCell(insert_index);
+					pct_col.innerHTML = "<div>" + display_stats[i].percentage_string + "</div>"; 
+				}
+				insert_index++;
+			}
+		}
+	}
+
+	// this function is for inserting a row of data for a single lineup. 
+	// when doing this, we should be passing the lineup_obj so we can have access to important info on the lineup like minutes, games_played etc. 
+	function insert_basic_data(row, lineup_obj, is_per_minute, is_opponent, team_name){
+		var insert_index = 0;
+		var num_stats = display_stats.length
+		var col = row.insertCell(insert_index)
+		col.innerHTML = team_name;
+		insert_index++;
+		for(j = 0 ;j < num_stats; j++){
+			if (display_stats[j].display_type != "minutes"){
+				if(row.cells.length <= insert_index) var col = row.insertCell(insert_index);
+				else var col = row.cells[insert_index];
+
+				if(display_stats[j].display_type == "fraction"){
+					if(is_opponent){
+						var pct = insert_fraction_data(row, col, display_stats[j].stat_list_id, ++insert_index, lineup_obj.opponent_stats, lineup_obj, true, false, is_per_minute, true);
+					}
+					else{
+						var pct = insert_fraction_data(row, col, display_stats[j].stat_list_id, ++insert_index, lineup_obj.stats, lineup_obj, true, false, is_per_minute, true);
+					}
+					
+					insert_percentage_data(row, pct, insert_index)
+				}
+				else{
+					insert_standard_lineup_data(col, display_stats[j].stat_list_id, lineup_obj, is_per_minute, is_opponent)
+				}
+				insert_index++;
+			}	
+		}	
+	}
+
+
+	function insert_standard_lineup_data(col, stat_list_id,lineup_obj, is_per_minute, is_opponent){
+
+		var stat_total = find_lineup_stat(stat_list_id, lineup_obj, is_opponent)
+		var insert_value = (is_per_minute) ? (stat_total * (gon.minutes_factor/(lineup_obj.minutes/60))).toFixed(1) : stat_total;
+		col.innerHTML = insert_value;
+	}
+
+
+	function establish_hover_rules(){
+		console.log("establishing hover rules")
+		$( ".expand-container" ).hover(
+		  function() {
+			$( this ).find(".more-text").css("color", "white") ;
+			$( this ).find(".more-circle").css("stroke", "white") ;
+			$( this ).find(".more-arrow").css("fill", "white") ;
+		  }, function() {
+			$( this ).find(".more-text").css("color", "#ababbb") ;
+			$( this ).find(".more-circle").css("stroke", "#ababbb") ;
+			$( this ).find(".more-arrow").css("fill", "#ababbb") ;
+		  }
+		);
+
+		$( ".expand-container").click(function(){
+			var parent = $(this).parents(".lineup-module")
+			$(this).addClass("lineup-stat-inactive")
+			 if(parent.hasClass("expanded")){
+			 	parent.removeClass("expanded")
+				parent.find(".lineup-table-container").addClass("lineup-stat-inactive")
+				parent.find(".less-link-container").addClass("lineup-stat-inactive")
+				parent.find(".more-link-container").removeClass("lineup-stat-inactive")
+				parent.find(".lineup-slider-value").hide()
+			 }
+			 else{
+			 	parent.addClass("expanded")
+				parent.find(".lineup-table-container").removeClass("lineup-stat-inactive")
+				parent.find(".less-link-container").removeClass("lineup-stat-inactive")
+				parent.find(".more-link-container").addClass("lineup-stat-inactive")
+				parent.find(".lineup-slider-value").show()
+			 }
+
+		});
+	}
+
+	function find_lineup_stat(stat_list_id, lineup_obj, is_opponent){
+		if(is_opponent){
+			var stat_arr = lineup_obj.opponent_stats
+		}
+		else{
+			var stat_arr = lineup_obj.stats;
+		}
+		var len = stat_arr.length
+		
+		for(var i = 0; i < len; i++){
+			if(stat_arr[i].stat_list_id == stat_list_id){
+				var return_value = stat_arr[i].value 
+				return return_value
+			}
+		}
+	}
+
+
+
+	function insert_slider(stat_obj, container, width, radius){
+
+		var width = width;
+		var height =  50
+		var transform_x = 10
+		var transform_y = 10
+		var percentile = stat_obj.percentile_rank
+
+		var svg = d3.select(container).append("svg")
+			.attr("width", width)
+			.attr("height", height)
+
+		var x_start = 0
+
+		var json = {"nodes":[
+		  {"x":x_start, "r":radius, "percentile": stat_obj.percentile_rank}, 
+		]}
+
+		if(stat_obj.percentile_rank > 85 || stat_obj.percentile_rank < 15){
+			var text_color = "white"
+		}
+		else{
+			var text_color = "black"
+		}
+
+		var slider_width = width * .8
+
+
+	    /* Define the data for the circles */
+	    var elem = svg.selectAll("g")
+	        .data(json.nodes)
+
+	    /*Create and place the "blocks" containing the circle and the text */  
+	    var elemEnter = elem.enter()
+	        .append("g")
+	        .attr("transform", function(d){return "translate("+transform_x+","+transform_y+")"})
+
+	    var rectangle = elemEnter.append("rect")
+	                            .attr("x", 0)
+	                            .attr("y", 15)
+	                            .attr("width", slider_width)
+	                            .attr("height", 4)
+	                            .attr("fill", "grey")
+
+	    /*Create the circle for each block */
+	    var circle = elemEnter.append("circle")
+	        .attr("r", function(d){return d.r} )
+	        .attr("stroke","black")
+	        .attr("fill", function(d){return  getSliderColor(d.percentile)})
+	        .attr("transform", function(d){return "translate("+(d.percentile *0.01 * slider_width - d.r/2)+",15)"})
+	        .style("pointer-events", "all")
+	        .on("mouseover", function(d,i) {
+	        	$("#lineup-"+stat_obj.lineup_id + "-tooltip-"+stat_obj.stat_list_id).show()
+			})
+			.on("mouseout", function(){
+				$("#lineup-"+stat_obj.lineup_id + "-tooltip-"+stat_obj.stat_list_id).hide()
+			});
+
+
+	    	    /* Create the text for each block */
+	    elemEnter.append("text")
+	        .attr("text-anchor", "middle")
+	        .attr("dy", function(d){return 5})
+	        .text(function(d){return d.percentile})
+	        .attr("class", "slider-text")
+	        .attr("fill", text_color)
+	        .attr("transform", function(d){return "translate("+(d.percentile *0.01 * slider_width - d.r/2)+",15)"})
+
+
+		$("#lineup-"+stat_obj.lineup_id + "-tooltip-"+stat_obj.stat_list_id).text(stat_obj.percentile_rank + getPercentileSuffix(stat_obj.percentile_rank) + " percentile")
+		$("#lineup-"+stat_obj.lineup_id + "-tooltip-"+stat_obj.stat_list_id).css("left", percentile *0.01 * slider_width +25)
+		$('#lineup-'+stat_obj.lineup_id+'-value-'+stat_obj.stat_list_id).text("Value: " + stat_obj.value.toFixed(1))
+
+
+	}
+
+	function getPercentileSuffix(num){
+		switch(num % 10){
+			case 1:
+				if (num < 10 || num > 20){
+					return "st"
+				}
+				else return "th"
+				
+				break;
+			case 2:
+				if (num < 10 || num > 20){
+					return "nd"
+				}
+				else return "th"
+				break;
+			case 3:
+				if (num < 10 || num > 20){
+					return "rd"
+				}
+				else return "th"
+				break;
+			default:
+				return "th"
+		}
+	}
+
+
+	function getSliderColor(percentile){
+		var colors =  ['#0057d4','#0057d4', '#125ad5', '#1e5dd7', '#2661d8', '#2e64da', '#3467db', '#3a6add', '#406dde', '#4571df', '#4a74e1', '#4f77e2', '#537be3', '#587ee5', '#5c81e6', '#6184e7', '#6588e8', '#698be9', '#6e8eeb', '#7292ec', '#7695ed', '#7a98ee', '#7e9cef', '#829ff0', '#86a2f1', '#8ba6f2', '#8fa9f3', '#93acf4', '#97b0f4', '#9bb3f5', '#9fb6f6', '#a3baf7', '#a8bdf8', '#acc1f8', '#b0c4f9', '#b4c7f9', '#b9cbfa', '#bdcefb', '#c1d1fb', '#c6d5fb', '#cad8fc', '#cedbfc', '#d3dffd', '#d7e2fd', '#dce6fd', '#e0e9fd', '#e5ecfd', '#eaf0fd', '#eff3fd', '#f3f6fd', '#f8fafd', '#fff9f7', '#fff5f2', '#fff1ec', '#ffede7', '#ffe9e2', '#ffe5dc', '#ffe1d7', '#ffddd2', '#ffd9cd', '#ffd5c7', '#ffd1c2', '#ffcdbd', '#ffc9b7', '#ffc5b2', '#ffc1ad', '#ffbda8', '#ffb8a2', '#ffb49d', '#ffb098', '#ffac92', '#ffa78d', '#ffa388', '#ff9e82', '#ff9a7d', '#ff9578', '#ff9072', '#ff8b6d', '#ff8667', '#ff8162', '#ff7c5c', '#ff7757', '#ff7151', '#ff6b4b', '#ff6545', '#ff5f3f', '#fe5a3a', '#fc5435', '#fa4f31', '#f84a2c', '#f64428', '#f43f23', '#f2391f', '#f0331a', '#ed2c16', '#ea2611', '#e81e0c', '#e41607', '#e10d04', '#dd0401', '#d90000']
+
+		return colors[percentile]
+	}
+
+	function create_lineup_sliders(lineup_obj){
+		var len = lineup_obj.advanced_stats.length
+		var width = $(window).innerWidth() * .2
+		for(var i = 0; i < len; i++){
+			if(is_desired_lineup_adv(lineup_obj.advanced_stats[i].stat_list_id) && lineup_obj.advanced_stats[i].is_opponent == false){
+				insert_slider(lineup_obj.advanced_stats[i], "#lineup-"+lineup_obj.lineup_id+"-adv-slider-"+lineup_obj.advanced_stats[i].stat_list_id, width, 15)
+			}
+		}
+	}
+
+	function create_lineup_module(lineup_obj, index){
+		var module_container = $("<div class = 'lineup-module' id = 'lineup-module-" + index + "'></div>") 
+		var module_main = $("<div class = 'lineup-module-main'></div>")
+		var lineup_members = create_lineup_players_html(lineup_obj)
+		var stat_html = create_stat_html(lineup_obj)
+		var module_right = create_right_module(lineup_obj, index)
+		var table_container= create_table_html(lineup_obj, index)
+
+		// $(module_container).append(module_main.append(lineup_members).append("<div class = 'percentile-ranking-header'>Percentile Rankings</div>").append(stat_html).append(table_container)).append(module_right)
+		$(module_container).append(module_main.append(lineup_members).append(stat_html).append(table_container)).append(module_right)
+		lineup_obj.html = $(module_container)
+		$("#lineups-container").append(module_container)
+
+		create_lineup_sliders(lineup_obj)
+		create_more_link(index)
+		create_less_link(index)
+	}
+
+	function sort_lineups(button, stat_id, is_advanced){
+		var is_advanced = button.options[button.selectedIndex].dataset.isAdvanced
+		$("#show-lineup-explorer-dropdown").hide()
+		$("#lineup-explorer-current").text($(button).find(".dropdown-action").text())
+		var stat_index = find_stat_index(stat_id, is_advanced)
+		
+		var url = '/teams/'+gon.team_id + '/seasons/'+gon.season_id + '/load_more_lineups'
+		lineups_page=1;
+		$.ajax({
+			url: url,
+			beforeSend: function(xhr) {xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))},
+			method: "get",
+			data_type: 'json',
+			data: {page: 1, sorting_stat: stat_id, reload: true},
+			success: function(result){
+				$("#lineups-container").empty()
+				var lineup_objs = result.lineup_objs
+				//console.log(lineup_objs)
+				var num_lineups = lineup_objs.length
+				for(var i = 0; i < num_lineups;i++){
+					var num_stats = lineup_objs[i].stats.length;
+					for(var j = 0; j < num_stats; j++){
+						if(lineup_objs[i].stats[j].stat_list_id == 16){
+							lineup_objs[i].minutes = lineup_objs[i].stats[j].value
+							lineup_objs[i].stats[j].value = (lineup_objs[i].stats[j].value/60).toFixed(1)
+						}
+					}
+				}
+				insert_lineup_modules(lineup_objs)
+				load_bool = true;
+			}
+
+		});
+		curr_lineup_sorting = stat_id;
+	}
+
+
+	function load_more_lineups(){
+		console.log("loading more lineups")
+		var url = '/teams/'+gon.team_id + '/seasons/'+gon.season_id + '/load_more_lineups'
+		lineups_page+=1;
+		$.ajax({
+			url: url,
+			beforeSend: function(xhr) {xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))},
+			method: "get",
+			data_type: 'json',
+			data: {page: lineups_page, sorting_stat: curr_lineup_sorting, reload: false},
+			success: function(result){
+				var lineup_objs = result.lineup_objs
+				var num_lineups = lineup_objs.length
+				for(var i = 0; i < num_lineups;i++){
+					var num_stats = lineup_objs[i].stats.length;
+					for(var j = 0; j < num_stats; j++){
+						if(lineup_objs[i].stats[j].stat_list_id == 16){
+							lineup_objs[i].minutes = lineup_objs[i].stats[j].value
+							lineup_objs[i].stats[j].value = (lineup_objs[i].stats[j].value/60).toFixed(1)
+						}
+					}
+				}
+				insert_lineup_modules(lineup_objs)
+				load_bool = true;
+			}
+
+		});
+	}
+
+
+
+
+

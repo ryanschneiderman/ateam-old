@@ -1,0 +1,28 @@
+<!-- <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0"> -->
+
+<div id = "logged-in-header">
+  <div id = "logo-section">
+    <%= link_to root_path, {:id => "logo"} do %> 
+        <img class="logged-in-logo" alt="ATeam" src="<%= asset_path 'logo-grey-small.png' %>" srcset="<%= asset_path 'logo-grey-small.png' %> 1x,<%= asset_path 'logo-grey-small.png' %> 2x" />
+    <%end %> 
+  </div>
+  <div id = "page-links-section">
+    <%=render collapsible_links_partial_path(@small_header)%>
+  </div>
+  <div id = "extras-section">
+    <%=render header_extras_path%>
+  </div>
+</div>
+
+<%=render slide_out_area_path%>
+
+
+
+
+
+<script>
+  $("body").addClass("material")
+   $("header#top #logo img").css("height", "41px")
+</script>
+
+

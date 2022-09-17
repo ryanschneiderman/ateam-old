@@ -1,0 +1,478 @@
+	$(document).on('turbolinks:load ', function(){
+		if($("body").hasClass("games") && $("body").hasClass("index")){
+			if(gon.games_read){
+				console.log(gon.game_events)
+				alignCalendarDOM()
+				init_event_array()
+				initCalendar()
+				populate_opponent_selection()
+				check_remove_needs_input()
+
+			}
+		}
+	});
+
+	function parseScheduleTime(str){
+		var substring = str.substr(str.indexOf('T')+1); 
+		var military_time = substring.substr(0,substring.indexOf('.'));
+		return military_time
+	}
+
+	function readableTime(str){
+		var length = str.length;
+		var seconds_stripped = str.substr(0,length - 3);
+		var military_hours = seconds_stripped.substr(0,seconds_stripped.indexOf(":"))
+		var minutes = seconds_stripped.substr(seconds_stripped.indexOf(":")+1)
+		var hours = military_hours % 12;
+		var suffix = (military_hours > 12) ? " PM" : " AM";
+		return hours + ":" + minutes + suffix
+	}
+
+	function init_event_array(){
+		var game_events_len = gon.game_events.length;
+		for (var i = 0; i < game_events_len; i++) {
+			var military_time = parseScheduleTime(gon.game_events[i].time)
+			var time = readableTime(military_time)
+			if(gon.game_events[i].played){
+				if(gon.game_events[i].stats[0].is_opponent){
+					var opponent_score = gon.game_events[i].stats[0].value
+					var team_score = gon.game_events[i].stats[1].value
+				}
+				else{
+					var opponent_score = gon.game_events[i].stats[1].value
+					var team_score = gon.game_events[i].stats[0].value
+				}
+				event_arr.push({id : gon.game_events[i].id, played: gon.game_events[i].played,  kind: "game", date_info: gon.game_events[i].date, title: "Game vs "+gon.game_events[i].name, date: gon.game_events[i].date,  game_id: gon.game_events[i].game_id, opponent_id: gon.game_events[i].opponent_id, location: gon.game_events[i].place, time: military_time, readable_time: time, opponent_score: opponent_score, team_score: team_score})
+			}
+			else{
+				event_arr.push({id : gon.game_events[i].id, played: gon.game_events[i].played, kind: "game", date_info: gon.game_events[i].date, title: "Game vs "+gon.game_events[i].name, date: gon.game_events[i].date,  game_id: gon.game_events[i].game_id, opponent_id: gon.game_events[i].opponent_id, location: gon.game_events[i].place, time: military_time, readable_time: time})
+			}
+			
+		}
+		var practice_events_len = gon.practice_events.length;
+		for (var i = 0; i < practice_events_len; i++) {
+			if(gon.practice_events[i].is_scrimmage){
+				var military_time = parseScheduleTime(gon.practice_events[i].time)
+				var time = readableTime(military_time)
+				event_arr.push({id : gon.practice_events[i].id, date_info: gon.practice_events[i].date, kind: "scrimmage", title: "Scrimmage", date: gon.practice_events[i].date, practice_id: gon.practice_events[i].practice_id, date: gon.practice_events[i].date, location: gon.practice_events[i].place, time: military_time})
+			}
+			else{
+				var military_time = parseScheduleTime(gon.practice_events[i].time)
+				var time = readableTime(military_time)
+				if(gon.practice_events[i].place){
+					practice_title = "Practice @ "+gon.practice_events[i].place+", "
+				}
+				else{
+					practice_title = "Practice "
+				}
+				event_arr.push({id : gon.practice_events[i].id, date_info: gon.practice_events[i].date, kind: "practice",  title: practice_title + time , date: gon.practice_events[i].date, practice_id: gon.practice_events[i].practice_id, date: gon.practice_events[i].date, location: gon.practice_events[i].place, time: military_time})
+			}
+		}
+	}
+
+	function alignCalendarDOM(){
+		$("#calendar").css("margin-top", $("#header-outer").outerHeight() +15)
+	}
+
+	function populate_opponent_selection(){
+		var len = gon.opponents.length;
+		for (var i = 0; i < len; i++) {
+			$("#select-previous-opponent").append('<option value="'+gon.opponents[i].id+'">'+gon.opponents[i].name+'</option>')
+			$("#select-previous-opponent-edit").append('<option value="'+gon.opponents[i].id+'">'+gon.opponents[i].name+'</option>')
+		}
+	}
+
+
+
+	function show_new_game_modal(){
+		$("#new-game-overlay").show()
+		$("#new-game-modal").show()
+		console.log("showing new game modal")
+	}
+
+	function show_new_practice_modal(){
+		$("#new-practice-overlay").show()
+		$("#new-practice-modal").show()
+	}
+
+	function hide_practice_modal(){
+		$("#new-practice-overlay").hide()
+		$("#new-practice-modal").hide()
+	}
+
+	function hide_edit_practice_modal(){
+		$("#edit-practice-overlay").hide()
+		$("#edit-practice-modal").hide()
+	}
+
+	function hide_new_game_modal(){
+		$("#new-game-overlay").hide()
+		$("#new-game-modal").hide()
+	}
+
+	function hide_edit_game_modal(){
+		$("#opponent-exists-edit").prop("checked", true)
+		$("#edit-game-time-wrapper").show()
+		$(".re-enter-stats-wrapper").hide()
+		$("#select-previous-opponent-edit").show()
+      	$("#new-game-opponent-edit").hide()
+		$("#edit-game-overlay").hide()
+		$("#edit-game-modal").hide()
+
+
+		check_remove_needs_input()
+	}
+
+	function initCalendar(){
+		var calendarEl = document.getElementById('calendar');
+		calendar = new FullCalendar.Calendar(calendarEl, {
+	        plugins: [ 'interaction', 'dayGrid' ],
+			defaultView: 'dayGridMonth',
+			aspectRatio : 1.75,
+			fixedWeekCount: false,
+			selectable: true,
+			dateClick: function(info) {
+			    
+			},
+			header: {
+			    left: 'title',
+			    center: 'newGame, newPractice, editSchedule',
+			    right: 'today prev,next'
+			},
+			events: event_arr,
+		    eventRender: function(info) {
+		    	var schedule_event_wrapper = "<div class = 'schedule-event'></div>";
+		    	var schedule_event_edit_wrapper = "<div class = 'flex-row center-justified event-edit-delete-wrapper' style = 'display:none;'></div>"
+		    	
+		    	if(info.event.extendedProps.kind == "practice" || info.event.title == "scrimmage"){
+		    		var delete_link ="<button class = 'delete-schedule-event edit-delete-schedule-event' onclick = 'delete_practice_confirm("+info.event.extendedProps.practice_id+")'>delete</button>";
+		    		console.log(info.event.extendedProps)
+		    		var edit_link = "<button class = 'edit-schedule-event edit-delete-schedule-event' onclick = 'edit_practice("+info.event.extendedProps.practice_id+",  `"+info.event.extendedProps.location+"`, `"+info.event.extendedProps.date_info+"`, `"+info.event.extendedProps.time+"`)'>edit</button>";;
+		    		return $(schedule_event_wrapper).append('<div class = "schedule-event-link schedule-event-elem">' +info.event.title + '</div>').append($(schedule_event_edit_wrapper).append(edit_link).append(delete_link));
+		    	}
+		    	else if (info.event.id != "new"){
+
+		    		var delete_link ="<button class = 'delete-schedule-event edit-delete-schedule-event' onclick = 'delete_game_confirm("+info.event.extendedProps.game_id+")'>delete</button>";
+		    		var edit_link = "<button class = 'edit-schedule-event edit-delete-schedule-event' onclick = 'edit_game("+info.event.extendedProps.opponent_id+", "+info.event.extendedProps.game_id+",  `"+info.event.extendedProps.location+"`, `"+info.event.extendedProps.date_info+"`, `"+info.event.extendedProps.time+"`, "+info.event.extendedProps.played+")'>edit</button>";
+		    		var game_wrapper = '<a class = "schedule-event-link" href="/teams/' + gon.team_id + "/seasons/"+gon.season_id+'/games/'+ info.event.extendedProps.game_id +'"></a>'
+		    		var game_heading = "<div class = 'game-heading schedule-event-elem'></div>"
+		    		var game_vs = "<div class = 'game-vs'>"+info.event.title+"</div>"
+		    		var game_loc = "<div class = 'game-loc'>@ "+info.event.extendedProps.location+"</div>"
+		    		if(info.event.extendedProps.played){
+		    			var game_content = "<div class = 'game-score-wrapper schedule-event-elem'></div>"
+		    			if (info.event.extendedProps.team_score > info.event.extendedProps.opponent_score){
+		    				var team_score = "<div class = 'schedule-score schedule-score-win'> W "+info.event.extendedProps.team_score+"</div><div> - </div>"
+		    			}
+		    			else{
+		    				var team_score = "<div class = 'schedule-score schedule-score-loss'> L "+info.event.extendedProps.team_score+"</div><div> - </div>"
+		    			}
+		    			
+		    			var opponent_score = "<div class = 'schedule-score'>"+info.event.extendedProps.opponent_score+"</div>"
+		    			
+		    			return $(schedule_event_wrapper).append($(game_wrapper).append($(game_heading).append(game_vs).append(game_loc)).append($(game_content).append(team_score).append(opponent_score))).append($(schedule_event_edit_wrapper).append(edit_link).append(delete_link));
+		    		}
+		    		else{
+		    			var game_content = "<div class = 'game-time schedule-event-elem'>Time: "+info.event.extendedProps.readable_time+"</div>"
+		    			return $(schedule_event_wrapper).append($(game_wrapper).append($(game_heading).append(game_vs).append(game_loc)).append(game_content)).append($(schedule_event_edit_wrapper).append(edit_link).append(delete_link));
+		    		}
+		    		
+		    		// return $(schedule_event_wrapper).append('<a class = "schedule-event-link" href="/teams/' + gon.team_id + "/seasons/"+gon.season_id+'/games/'+ info.event.extendedProps.game_id +'">' +info.event.title + '</a>').append($(schedule_event_edit_wrapper).append(edit_link).append(delete_link));
+		    		
+		    	}
+			  }
+        });
+        if(gon.schedule_edit_permission){
+        	calendar.setOption('customButtons', {
+			    newGame: {
+			      text: 'Create New Game',
+			      click: function() {
+			        show_new_game_modal()
+			      }
+			    },
+			    newPractice: {
+			      text: "New Practice",
+			      click: function() {
+			        show_new_practice_modal()
+			      }
+			    },
+			    editSchedule:{
+			    	text: 'Edit Schedule',
+			    	click: function(){
+			    		edit_schedule()
+			    	}
+			    }
+			})
+        }
+        
+        var evento = calendar.getEventById("new")
+        calendar.render();
+	}
+
+	function delete_game_confirm(game_id){
+		var r = confirm("Are you sure you want to delete this game? If you have submitted stats for this game they will be deleted.");
+		if (r == true) {
+			delete_game(game_id)
+		} else {
+		  return;
+		}
+	}
+
+	function delete_practice_confirm(practice_id){
+		var r = confirm("Are you sure you want to delete this practice?");
+		if (r == true) {
+			delete_practice(practice_id)
+		} else {
+		  return;
+		}
+	}
+
+	function delete_practice(practice_id){
+		var url =  "/teams/" + gon.team_id + "/seasons/"+gon.season_id+"/practices/" + practice_id 
+		$.ajax({
+	        url: url,
+	        beforeSend: function(xhr) {xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))},
+	        type: "DELETE",
+	        data_type: 'json',
+	    });
+	}
+
+	function delete_game(game_id){
+		var url =  "/teams/" + gon.team_id + "/seasons/"+gon.season_id+"/games/" + game_id 
+		$.ajax({
+	        url: url,
+	        beforeSend: function(xhr) {xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))},
+	        type: "DELETE",
+	        data_type: 'json',
+	    });
+	}
+
+	function edit_practice(practice_id, location, date, time){
+		$("#edit-practice-overlay").show()
+		$("#edit-practice-modal").show()
+		$("#edit-practice-location").val(location)
+		$('#edit-practice-date').val(date)
+		$('#edit-practice-time').val(time)
+		$("#update-practice").data("practice-id", practice_id);
+	}
+
+
+
+	function edit_game(opponent_id, game_id, location, date, time, played){
+		if(played){
+			$('#edit-game-time-wrapper').hide()
+			$(".re-enter-stats-wrapper").show()
+			var re_enter_stats_button = "<a class = 're-enter-stats' href = '/teams/"+gon.team_id+"/seasons/"+gon.season_id+"/games/"+game_id+"/game_mode'>Re-enter stats</a>"
+			$(".re-enter-stats-wrapper").empty()
+			$(".re-enter-stats-wrapper").append(re_enter_stats_button)
+			// $(".re-enter-stats").data("game-id", game_id)
+		}
+		$("#edit-game-overlay").show()
+		$("#edit-game-modal").show()
+		$("#select-previous-opponent-edit").val(opponent_id);
+		$("#edit-game-location").val(location)
+		$('#edit-game-date').val(date);
+		$('#edit-game-time').val(time)
+		$("#update-game").data("game-id", game_id);
+	}
+
+	function re_enter_stats(button){
+		
+	}
+
+	function edit_schedule(){
+		calendar.setOption('customButtons',{
+			newGame: {
+		      text: 'Create New Game',
+		      click: function() {
+		        show_new_game_modal()
+		      }
+		    },
+		    newPractice: {
+		      text: "New Practice",
+		      click: function() {
+		        show_new_practice_modal()
+		      }
+		    },
+		    editSchedule:{
+		    	text: 'Update Schedule',
+		    	click: function(){
+		    		update_schedule()
+		    	}
+		    }
+		})
+		$(".event-edit-delete-wrapper").show()
+		calendar.updateSize()
+	}
+
+	function update_schedule(){
+		calendar.setOption('customButtons',{
+			newGame: {
+		      text: 'Create New Game',
+		      click: function() {
+		        show_new_game_modal()
+		      }
+		    },
+		    newPractice: {
+		      text: "New Practice",
+		      click: function() {
+		        show_new_practice_modal()
+		      }
+		    },
+		    editSchedule:{
+		    	text: 'Edit Schedule',
+		    	click: function(){
+		    		edit_schedule()
+		    	}
+		    }
+		})
+	}
+
+	function check_remove_needs_input(){
+		$(".opponent-selection").on('input', function() {
+		    $(".needs-opponent-new").hide()
+			$(".needs-opponent-choose").hide()
+		});
+		$("#new-game-location").on('input', function() {
+			$(".needs-location").hide()
+		})
+		$("#new-game-date").on('input', function() {
+			$(".needs-game-date").hide()
+		})
+		$("#new-game-time").on('input', function() {
+			$(".needs-game-time").hide()
+		})
+	}
+	function needs_game_input(opponent, location, date, time, is_new_opponent){
+		if(opponent == ""){
+			if(is_new_opponent){
+				$(".needs-opponent-new").show()
+			}
+			else{
+				$(".needs-opponent-choose").show()
+			}
+		}
+		if(location == ""){
+			$(".needs-location").show()
+		}
+		if(date == ""){
+			$(".needs-game-date").show()
+		}
+		if(time == ""){
+			$(".needs-game-time").show()
+		}
+	}
+
+
+
+
+	function newGame(){
+		var opponent_radio = $("input:radio[name='select-opponent']:checked").val()
+		var is_new_opponent = false;
+		var location = $("#new-game-location").val()
+		var date = $("#new-game-date").val()
+		var time = $("#new-game-time").val()
+		if(opponent_radio == "opponent-exists"){
+			var opponent = $("#select-previous-opponent option:selected").val()
+		}
+		else{
+			var opponent = $("#new-game-opponent").val()
+			is_new_opponent = true;
+		}
+		if(opponent != "" && location != "" && date != "" && time != ""){
+
+			var data = {opponent: opponent, date: date, time: time, location: location, is_new_opponent: is_new_opponent}
+
+			var url =  "/teams/" + gon.team_id + "/seasons/"+gon.season_id+"/games/" 
+			$.ajax({
+		        url: url,
+		        beforeSend: function(xhr) {xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))},
+		        type: "POST",
+		        data_type: 'json',
+		        data: data
+		    });
+		}
+		else{
+			needs_game_input(opponent, location, date, time, is_new_opponent)
+		}
+	}
+
+	function updateGame(button){
+		var opponent_radio = $("input:radio[name='select-opponent-edit']:checked").val()
+		var is_new_opponent = false;
+		var location = $("#edit-game-location").val()
+		var date = $("#edit-game-date").val()
+		var time = $("#edit-game-time").val()
+		var game_id = $(button).data("game-id")
+		if(opponent_radio == "opponent-exists-edit"){
+			var opponent = $("#select-previous-opponent-edit option:selected").val()
+		}
+		else{
+			var opponent = $("#new-game-opponent-edit").val()
+			is_new_opponent = true;
+		}
+		if(opponent != "" && location != "" && date != "" && time != ""){
+
+			var data = {opponent: opponent, date: date, time: time, location: location, is_new_opponent: is_new_opponent,}
+
+			var url =  "/teams/" + gon.team_id + "/seasons/"+gon.season_id+"/games/" + game_id 
+			$.ajax({
+		        url: url,
+		        beforeSend: function(xhr) {xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))},
+		        type: "PATCH",
+		        data_type: 'json',
+		        data: data
+		    });
+		}
+		else{
+			needs_game_input(opponent, location, date, time, is_new_opponent)
+		}
+	}
+
+
+	function newPractice(){
+		var location = document.getElementById('new-practice-location').value
+		var date = document.getElementById('new-practice-date').value
+		var time = document.getElementById('new-practice-time').value
+
+
+		var url =  "/teams/" + gon.team_id + "/seasons/"+gon.season_id+"/practices/" 
+		$.ajax({
+	        url: url,
+	        beforeSend: function(xhr) {xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))},
+	        type: "POST",
+	        data_type: 'json',
+	        data: {date: date, time: time, location: location}
+	    });
+	}
+
+	function updatePractice(button){
+		var location = document.getElementById('edit-practice-location').value
+		var date = document.getElementById('edit-practice-date').value
+		var time = document.getElementById('edit-practice-time').value
+		var practice_id = $(button).data("practice-id")
+
+
+		var url =  "/teams/" + gon.team_id + "/seasons/"+gon.season_id+"/practices/" +practice_id
+		$.ajax({
+	        url: url,
+	        beforeSend: function(xhr) {xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))},
+	        type: "PATCH",
+	        data_type: 'json',
+	        data: {date: date, time: time, location: location}
+	    });
+	}
+        
+       
+
+       
+
+        
+
+
+
+
+        
+
+
+
+

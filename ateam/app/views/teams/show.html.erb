@@ -1,0 +1,190 @@
+<%=render "layouts/small_header"%>
+<div id = "main">
+	<div id = "content-grid">
+		<div id = "col1">
+			<div id = "schedule-info">
+					<%=link_to team_season_games_path(@team_id, @season_id) do %>
+					<div id = "date-info" class = "schedule-info">
+						<div id = "date-wrapper">
+							<div class = "day-week"><%=@day_of_week%></div>
+							<div class = "day-date"><%=@day_number%></div>
+							<div class = "month-year"><%=@month_string%> <%=@year%></div>
+						</div>
+					</div>
+					<%end%>
+				<div id = "schedule-event-wrapper" class = "schedule-info">
+						<%=render get_schedule_event%>
+				</div>
+			</div>
+			<div id = "feed" class = "full-column">
+				<div class = "new-post-wrapper post">
+					<div class = "new-post-author" id = <%=@curr_member.id%>>
+						<%=@curr_member.nickname%>:
+					</div>
+					<div class = "new-post-content">
+						<div class = "post-placeholder" id = "post-placeholder">What's on your mind...</div>
+						<div class = "new-post textbox-nostyle" contenteditable="true" role = "textbox"></div>
+					</div>
+					<div class = "new-post-toolbar">
+						<button class = "send-post send-post-inactive" onclick = "send_post()">Send</button>
+					</div>
+				</div>
+				
+				<div class = "posts">
+					<%@post_objs.each do |post_obj|%>
+						<div class = "post-wrapper post" id = '<%=post_obj[:post].post_id%>'>
+							<div class = "author-content">
+								<div class = "post-author"><%=post_obj[:post].nickname%>
+									<span class = "post-ago"><%=time_ago_in_words(post_obj[:post].post_created_at)%></span>
+
+								</div>
+								<div class = "post-content"><%=post_obj[:post].content%></div>
+							</div>
+							<div class = "comment-section">
+								<button class="comment-button" onclick="show_comments(this)">
+									<svg height="20" viewBox="0 0 20 20" width="20"><g>
+									<path class="comment-icon" transform="scale(.01116)" d="M896 384q-204 0-381.5 69.5t-282 187.5-104.5 255q0 112 71.5 213.5t201.5 175.5l87 50-27 96q-24 91-70 172 152-63 275-171l43-38 57 6q69 8 130 8 204 0 381.5-69.5t282-187.5 104.5-255-104.5-255-282-187.5-381.5-69.5zm896 512q0 174-120 321.5t-326 233-450 85.5q-70 0-145-8-198 175-460 242-49 14-114 22h-5q-15 0-27-10.5t-16-27.5v-1q-3-4-.5-12t2-10 4.5-9.5l6-9 7-8.5 8-9q7-8 31-34.5t34.5-38 31-39.5 32.5-51 27-59 26-76q-157-89-247.5-220t-90.5-281q0-174 120-321.5t326-233 450-85.5 450 85.5 326 233 120 321.5z"></path></g></svg>
+									<%if post_obj[:comments].length > 0%>
+										<div class = "num-comments"><%=post_obj[:comments].length%></div>
+									<% end%>
+								</button>
+								
+								<div class = "comments">
+									<div class = "member-comments" id = "member-comments-<%=post_obj[:post].post_id%>">
+										<%post_obj[:comments].each do |comment|%>
+											<div class="comment-wrapper comment" id="<%=comment.comment_id%>">
+												<div class="author-content">
+													<div class="comment-author"><%=comment.nickname%>: </div>
+													<div class="comment-content"><%=comment.content%></div>
+												</div>
+											</div>
+										<%end%>
+									</div>
+									<div class="enter-comment">
+										<div class="post-placeholder" data-post-id="<%=post_obj[:post].post_id%>" id="comment-placeholder-<%=post_obj[:post].post_id%>">Add comment...</div>
+										<div class="textbox-nostyle comment-text" contenteditable="true" data-post-id="<%=post_obj[:post].post_id%>" id="comment-section-<%=post_obj[:post].post_id%>" role="textbox"></div>
+									</div>
+								</div>
+							</div>
+						</div>
+					<%end%>
+				</div>
+			</div>
+		</div>
+		<div id = "col2">
+			<%= link_to  team_season_games_path(@team_id, @season_id) do %>
+				<div id = "schedule" class = "big-box"> 
+					<div class = "team-page-link">Schedule</div>
+				</div>	
+			<%end%>	
+			
+			<%= link_to team_season_stats_path(@team_id, @season_id) do %>
+				<div id = "stats" class = "big-box">
+					<div class = "team-page-link">Stats</div>
+				</div>
+			<%end%>
+		</div>
+		<div id = "col3">
+			<%= link_to team_season_plays_path(@team_id, @season_id) do %>
+				<div id = "plays" class = "big-box ">
+					<div class = "team-page-link">Plays</div>
+				</div>
+			<%end%>
+			
+			<%= link_to  team_lineups_path(@team_id) do%>
+				<div id = "lineups" class = "big-box">
+					<div class = "team-page-link">Lineup Explorer</div>
+				</div>	
+			<%end%>
+		</div>
+	</div>
+</div>
+
+
+<%=render "/teams/show_team_js"%>
+<script>
+	var member_to_join; 
+	var curr_button;
+	var posts = []
+	var svg_comment = '<svg height="20" viewBox="0 0 20 20" width="20"><g><path class = "comment-icon" transform="scale(.01116)" d="M896 384q-204 0-381.5 69.5t-282 187.5-104.5 255q0 112 71.5 213.5t201.5 175.5l87 50-27 96q-24 91-70 172 152-63 275-171l43-38 57 6q69 8 130 8 204 0 381.5-69.5t282-187.5 104.5-255-104.5-255-282-187.5-381.5-69.5zm896 512q0 174-120 321.5t-326 233-450 85.5q-70 0-145-8-198 175-460 242-49 14-114 22h-5q-15 0-27-10.5t-16-27.5v-1q-3-4-.5-12t2-10 4.5-9.5l6-9 7-8.5 8-9q7-8 31-34.5t34.5-38 31-39.5 32.5-51 27-59 26-76q-157-89-247.5-220t-90.5-281q0-174 120-321.5t326-233 450-85.5 450 85.5 326 233 120 321.5z"/></g></svg>'
+	var window_height = $(window).height() - $("#header-outer").outerHeight();
+	$("#main").css("margin-top", $("#header-outer").outerHeight() +2);
+	var big_box_height = (window.innerHeight - $(".big-box").offset().top)/2
+
+	$(".posts").height(window.innerHeight - $(".posts").offset().top - 11)
+	$(".big-box").height(big_box_height -5);
+
+	$(".send-post").prop("disabled",true);
+	
+
+    $('body').on('focus', '[contenteditable]', function() {
+	    const $this = $(this);
+	    $this.data('before', $this.html());
+	}).on('blur keyup paste input', '[contenteditable]', function() {
+	    const $this = $(this);
+	    if($this.hasClass("new-post")){
+	    	if ($this.data('before') !== $this.html()) {
+		    	if($(".new-post").is(':empty')){
+			    	$("#post-placeholder").show()
+			    	$(".send-post").addClass("send-post-inactive")
+			    	$(".send-post").prop("disabled",true);
+			    }
+			    else{
+			    	$("#post-placeholder").hide()
+			    	$(".send-post").removeClass("send-post-inactive")
+			    	$(".send-post").prop("disabled",false);
+			    }
+		    	
+		        $this.data('before', $this.html());
+		        $this.trigger('change');
+		    }
+	    }
+	    else if($this.hasClass("comment-text")){
+	    	var post_id = $this.data("postId")
+	    	if ($this.data('before') !== $this.html()) {
+		    	if($("#comment-section-"+post_id).is(':empty')){
+			    	$("#comment-placeholder-"+post_id).show()
+			    }
+			    else{
+			    	$("#comment-placeholder-"+post_id).hide()
+			    }
+		    	
+		        $this.data('before', $this.html());
+		        $this.trigger('change');
+		    }
+	    }
+	    
+	});
+
+	$('body').on('keypress', '.comment-text', function(event) {
+		  if (event.keyCode === 13) {
+		    submit_comment($(this))
+		    return false;
+		  }
+	})
+
+	$(".new-post").width($(".new-post-wrapper").width() - $(".new-post-author").width() - 30)
+	$(".post-ago").each(function(){
+		$(this).text(convert_date_string($(this)))
+	})
+
+	$(window).on("resize", function() {
+    	var window_height = $(window).height() - $("#header-outer").outerHeight();
+    	var big_box_height = (window.innerHeight - $(".big-box").offset().top)/2
+	    $(".big-box").height(big_box_height - 5);
+		$(".posts").height(window.innerHeight - $(".posts").offset().top - 11)
+	});
+
+	if(<%=params.has_key?(:joined_team)%> && "<%=@curr_member%>" == ""){
+		$(".modal-overlay").show()
+		$(".new-box").show()
+	}
+   	
+
+	//populate_schedule_info()
+	populate_posts_with_extras()
+	classify_current_member()
+
+	
+
+</script>

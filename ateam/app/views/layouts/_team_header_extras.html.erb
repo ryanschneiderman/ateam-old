@@ -1,0 +1,69 @@
+<div id = "team-header-buttons">
+  <div class = "header-buttons-right">
+    <%if@season.present?%>
+      <div class = "flex-row end-aligned dropdown header-right-container" id = "seasons-dropdown">
+        <button class = "season-dropdown-container flex-row center-aligned" onclick = "season_dropdown()">
+
+          <div class = "current-season"><%=@season.team_name%> '<%=get_year_digits(@season.year1)%><%if @season.year2%>/<%=get_year_digits(@season.year2) %><%end%></div>
+          <object data='<%=asset_path("down-dark.svg")%>' type="image/svg+xml" class = "sort-img season-dropdown">
+                      <%= image_tag("down-dark.png", :alt => "sort", :class => "sort-img season-dropdown") %> 
+                 </object>
+        </button>
+        
+      </div>  
+  <%end%>
+    <div class = "flex-row center-aligned dropdown header-right-container">
+      <button id="notifications-button" class="dropdown-toggle flex-row" data-toggle="dropdown" onclick = "click_notifications()">
+          <%= render 'layouts/navigation/collapsible_elements/notif_bell'%>
+        </button>
+        <div id = "notifications" class = "dropdown-menu" role="menu">
+          <div id = "notifications-header">Notifications</div>
+          <div class = "box-nub" id = "notifications-nub"></div>
+          <div id = "notifications-container"></div>
+        </div>
+    </div> 
+    <div class = "flex-row center-aligned dropdown header-right-container" id = "user-dropdown">
+      <button class = "season-dropdown-container flex-row center-aligned" onclick = "user_dropdown()">
+        <div class = "current-season"><%=current_user.first_name%></div>
+        <object data='<%=asset_path("down-dark.svg")%>' type="image/svg+xml" class = "sort-img season-dropdown">
+              <%= image_tag("down-dark.png", :alt => "sort", :class => "sort-img season-dropdown") %> 
+         </object>
+      </button>
+        <div>
+          <%if@season.present?%>
+            <div class = "header-sub-menu" id = "user-dropdown-sub-menu">
+              <%= link_to edit_user_registration_path(:season_id => @season.id) do %>
+                <div class = "header-sub-menu-item">Edit Profile  </div>
+              <%end%>
+              <%= link_to destroy_user_session_path, method: :delete do %>
+                <div class = "header-sub-menu-item"> Log Out  </div>
+              <%end%>
+              
+            </div>
+          <%end%>
+      </div>
+    </div> 
+    <div class = "flex-row" id = "team-slide-out">
+      <div class="slide-out-widget-area-toggle mobile-icon fullscreen" data-icon-animation="simple-transform">
+        <div> <a href="#sidewidgetarea" class="closed"> <span> <i class="lines-button x2"> <i class="lines"></i> </i> </span> </a> </div> 
+      </div>
+    </div>
+  </div>
+</div>
+
+<%if@season.present?%>
+  <div class = "toolbar-dropdown" id = "seasons-dropdown-content" style = "display: none;">
+    <div id = "seasons-dropdown-container"></div>
+    <div id = "new-season-wrapper" class = "toolbar-no-close">
+      <div class = "dropdown-action" id = "new-season-container">
+        <%=link_to new_season_path(@team_id, @season.id), :class => 'flex-row center-aligned' do %>
+          <div id = "new-season-text">New Season</div>
+        <%end%>
+      </div>
+    </div>
+  </div>
+<%end%>
+
+
+
+

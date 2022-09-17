@@ -1,0 +1,177 @@
+<%=render "layouts/small_header"%>
+<div class = "page-banner-wrapper" id = "play-banner-wrapper">
+	<div class = "dark-background page-banner"></div>
+	<div id = "play-diagramming-banner-img" class = "page-banner"><%=image_tag("play-diagramming-banner2.jpg", :class=>"play-diagramming-banner")%></div>
+	<div class = "page-landing-banner page-banner flex-row center-aligned center-justified" id = "play-diagramming-banner">
+		<div class = "page-banner-heading">Play Diagramming</div>
+	</div>
+</div>
+<div class = "mobile-product-sidebar-wrapper">
+	<div class = "mobile-product-sidebar">
+		<button class = "sidebar-link play-creation-section-link" id = "play-creation-section-link" onclick = "jumpTo('#play-creation-section')"><div class = "sidebar-link-text">Play Creation</div></button>
+		<button class = "sidebar-link progressions-animation-section-link" id = "progressions-animation-section-link" onclick = "jumpTo('#progressions-animation-section')"><div class = "sidebar-link-text">Progressions/Animation</div></button>
+		<button class = "sidebar-link  playlists-section-link" id = "playlists-section-link"  onclick = "jumpTo('#playlists-section')"><div class = "sidebar-link-text ">Playlists</div></button>
+		<button class = "sidebar-link edit-delete-plays-section"id = "edit-delete-plays-section-link" onclick = "jumpTo('#edit-delete-plays-section')"><div class = "sidebar-link-text">Edit/Delete Plays</div></button>
+	</div>
+</div>
+<div class = "product-subpage-wrapper">
+	<div class = "sidebar-wrapper product-sidebar-wrapper">
+		<div class = "sticky" id = "play-diagramming-sidebar">
+			<div class = "sidebar-links">
+				<button class = "sidebar-link play-creation-section-link" id = "play-creation-section-link" onclick = "jumpTo('#play-creation-section')"><div class = "sidebar-link-text">Play Creation</div></button>
+				<button class = "sidebar-link progressions-animation-section-link" id = "progressions-animation-section-link" onclick = "jumpTo('#progressions-animation-section')"><div class = "sidebar-link-text">Progressions/Animation</div></button>
+				<button class = "sidebar-link  playlists-section-link" id = "playlists-section-link"  onclick = "jumpTo('#playlists-section')"><div class = "sidebar-link-text ">Playlists</div></button>
+				<button class = "sidebar-link edit-delete-plays-section-link"id = "edit-delete-plays-section-link" onclick = "jumpTo('#edit-delete-plays-section')"><div class = "sidebar-link-text">Edit/Delete Plays</div></button>
+
+			</div>
+		</div>
+	</div>
+	<div id = "play-diagramming-content" class = 'product-subpage-content'>
+		<div class = "product-subpage-descr">
+				With ATeam play diagramming, you have the ability to create, edit, and organize plays in an online library. The play home page can be accessed by both you and your players, however only you and whoever you designate (assistant coaches, managers etc.) can create and edit plays.
+		</div>
+		<div class = "product-subpage-section-wrapper" id = "play-creation-section">
+			<div class = "product-subpage-heading">Play Creation</div>
+			<div class = "product-subpage-content-section">
+
+				<div class = "product-subpage-text">Play creation is at the core of ATeam play diagramming. The first step is to click on the "New Play" button at the top of the Plays home page. Here you will name your play, select between a fullcourt and halfcourt template, and add the new play to any of your playlists. After clicking the "Create Play" button you will be taken to the play diagramming application.</div>
+
+				<div class = "product-subpage-img-wrapper">
+					<%=video_tag("play-diagramming-vids/play-creation.mp4", :alt => "play-creation", playsinline: true, controls: true, muted: true,  :class => "product-subpage-img")%> 
+				</div>
+
+				<div class = "product-subpage-text">
+					To move a player, simply click and drag to a desired location. The drawing buttons work in two ways: by clicking a player first and then a drawing button, or by clicking on a drawing button then a player. To move the endpoint of the line, simply click on the endpoint and drag.
+				</div>
+
+				<div class = "product-subpage-img-wrapper">
+					<%=video_tag("play-diagramming-vids/play-diagramming.mp4", :alt => "draw-line", playsinline: true, controls: true, muted: true,  :class => "product-subpage-img")%> 
+				</div>
+
+				<div class = "product-subpage-text">
+					Each line will have a small green circle at the center which allows you to curve the line. Simply click on the green circle and drag to form your curve.
+				</div>
+
+				<div class = "product-subpage-img-wrapper">
+					<%=video_tag("play-diagramming-vids/curving.mp4", :alt => "curve-line", playsinline: true, controls: true, muted: true,  :class => "product-subpage-img")%> 
+				</div>
+
+				<div class = "product-subpage-text">
+					Clicking off the line will deselect it. To reselect a line, click on its endpoint. 
+				</div>
+
+				<div class = "product-subpage-img-wrapper">
+					<%=video_tag("play-diagramming-vids/select-line.mp4", :alt => "select-line", playsinline: true, controls: true, muted: true,  :class => "product-subpage-img")%> 
+				</div>
+
+				<div class = "product-subpage-text">
+					You may also create lines off of existing lines to indicate successive actions. 
+				</div>
+
+				<div class = "product-subpage-img-wrapper">
+					<%=video_tag("play-diagramming-vids/line-off-line.mp4", :alt => "line-off-line", playsinline: true, controls: true, muted: true,  :class => "product-subpage-img")%> 
+				</div>
+
+				<div class = "product-subpage-text">
+					To designate who has the ball, simply click on a player and click on the Has Ball button (or the other way around). If you draw a pass line and you haven't yet designated who has the ball, it will happen automatically. To save a play, simply click the save button on the toolbar.
+				</div>
+
+				<div class = "product-subpage-img-wrapper">
+					<%=video_tag("play-diagramming-vids/has-ball-save.mp4", :alt => "has-ball-save", playsinline: true, controls: true, muted: true,  :class => "product-subpage-img")%> 
+				</div>
+			</div>
+		</div>
+		<div class = "product-subpage-section-wrapper" id = "progressions-animation-section">
+			<div class = "product-subpage-heading">Progressions/Animation</div>
+			<div class = "product-subpage-content-section">
+				<div class = "product-subpage-text">
+					ATeam Play Diagramming allows you to split a play into multiple progressions and animate between progressions. This feature make your plays easier to read and understand by avoiding clutter. 
+					<br><br>
+					Click the green plus button to create a new progression. Notice the players automatically move to their new positions on the court to start the new progression. After you finish diagramming your progression, a thumbnail of the new progression will appear. 
+				</div>
+
+				<div class = "product-subpage-img-wrapper">
+					<%=video_tag("play-diagramming-vids/new-progression.mp4", :alt => "new-progression", playsinline: true, controls: true, muted: true,  :class => "product-subpage-img")%> 
+				</div>
+
+				<div class = "product-subpage-text">
+					To animate a progression, click the blue Play button. To delete a progression click the red Discard button. 
+				</div>
+
+				<div class = "product-subpage-img-wrapper">
+					<%=video_tag("play-diagramming-vids/animate-delete.mp4", :alt => "animate-delete", playsinline: true, controls: true, muted: true,  :class => "product-subpage-img")%>
+				</div>
+
+			</div>
+		</div>
+		<div class = "product-subpage-section-wrapper" id = "playlists-section">
+			<div class = "product-subpage-heading">Playlists</div>
+			<div class = "product-subpage-content-section">
+				<div class = "product-subpage-text">
+					ATeam Playlists make it easy to organize plays into a dynamic library. Your library comes with a few default playlists, but you can create as many as you like. To create a new playlist, simply click on the New Playlist button on the home page. A window will open showing all of your existing plays. Select the plays you would like to add to the playlist, name the playlist, and click the blue "create playlist" button at the bottom.
+				</div>
+
+				<div class = "product-subpage-img-wrapper">
+					<%=video_tag("play-diagramming-vids/new-playlist.mp4", :alt => "new-playlist", playsinline: true, controls: true, muted: true,  :class => "product-subpage-img")%>
+				</div>
+
+				<div class = "product-subpage-text">
+					Your playlists can be found under the View Playlists tab. To edit a playlist click on the button in the top right corner. You can easily add or remove plays from a playlist. 
+				</div>
+
+				<div class = "product-subpage-img-wrapper">
+					<%=video_tag("play-diagramming-vids/edit-playlist.mp4", :alt => "edit-playlist", playsinline: true, controls: true, muted: true,  :class => "product-subpage-img")%>
+				</div>
+			</div>
+		</div>
+		<div class = "product-subpage-section-wrapper" id = "edit-delete-plays-section">
+			<div class = "product-subpage-heading">Edit/Delete Plays</div>
+			<div class = "product-subpage-content-section">
+				<div class = "product-subpage-text">
+					If you want to make a change to a play, simply click on the play to open it. You can now begin editing. Just make sure to click the save button to finalize edits. 
+				</div>
+
+				<div class = "product-subpage-img-wrapper">
+					<%=video_tag("play-diagramming-vids/edit-play.mp4", :alt => "edit-play", playsinline: true, controls: true, muted: true,  :class => "product-subpage-img")%>
+				</div>
+
+				<div class = "product-subpage-text">
+					To delete a play, enter the editing mode by clicking the button in the top right corner of the All Plays page. Then simply click on the play.
+				</div>
+
+				<div class = "product-subpage-img-wrapper">
+					<%=video_tag("play-diagramming-vids/delete-play.mp4", :alt => "delete-play", playsinline: true, controls: true, muted: true,  :class => "product-subpage-img")%>
+				</div>
+
+				<div class = "product-subpage-text">
+					Any time you delete a play, it will remain accessible for 30 days. In Deleted Plays you can delete a play fully, or recover it back to your active plays.
+				</div>
+
+				<div class = "product-subpage-img-wrapper">
+					<%=video_tag("play-diagramming-vids/recover-play.mp4", :alt => "recover-play", playsinline: true, controls: true, muted: true,  :class => "product-subpage-img")%>
+				</div>
+
+				<div class = "product-subpage-text">
+					By default you are the only person able to edit and delete plays. If you want others to have this ability, simply manage their permissions in your team settings.
+				</div>
+
+				<div class = "product-subpage-img-wrapper">
+					<%=video_tag("play-diagramming-vids/play-permissions.mp4", :alt => "play-permissions", playsinline: true, controls: true, muted: true,  :class => "product-subpage-img")%>
+				</div>
+
+
+			</div>
+		</div>
+</div>
+
+<style></style>
+<script>
+	var jumping = false;
+	$(".portal-button-2").addClass("portal-button-2-alt")
+
+	// $("#play-diagramming-content").css("left", $("#play-diagramming-sidebar").width())
+	$("#play-diagramming-sidebar").css("top", $("#logged-in-header").outerHeight() + 30)
+
+	$("#play-diagramming-sidebar").css("height", $(window).outerHeight() - $("#logged-in-header").outerHeight())
+
+</script>

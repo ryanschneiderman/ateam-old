@@ -1,0 +1,154 @@
+<%=render "layouts/small_header"%>
+<div class = "page-banner-wrapper" id = "play-banner-wrapper">
+	<div class = "dark-background page-banner"></div>
+	<div id = "analytics-banner-img" class = "page-banner"></div>
+	<div class = "page-landing-banner page-banner flex-row center-aligned center-justified" id = "analytics-banner">
+		<div class = "page-banner-heading">Analytics</div>
+	</div>
+</div>
+<div class = "mobile-product-sidebar-wrapper">
+	<div class = "mobile-product-sidebar">
+			<button class = "sidebar-link game-review-section-link" id = "game-review-section-link" onclick = "jumpTo('#game-review-section')"><div class = "sidebar-link-text">Game Reviews</div></button>
+			<button class = "sidebar-link season-stats-section-link" id = "season-stats-section-link" onclick = "jumpTo('#season-stats-section')"><div class = "sidebar-link-text">Season Stats</div></button>
+			<button class = "sidebar-link trends-section-link" id = "trends-section-link"  onclick = "jumpTo('#trends-section')"><div class = "sidebar-link-text ">Trends</div></button>
+			<button class = "sidebar-link player-profiles-section"id = "player-profiles-section-link" onclick = "jumpTo('#player-profiles-section')"><div class = "sidebar-link-text">Player Profiles</div></button>
+			<button class = "sidebar-link lineup-explorer-section"id = "lineup-explorer-section-link" onclick = "jumpTo('#lineup-explorer-section')"><div class = "sidebar-link-text">Lineup Explorer</div></button>
+	</div>
+</div>
+<div class = "product-subpage-wrapper">
+	<div class = "sidebar-wrapper product-sidebar-wrapper">
+		<div class = "sticky" id = "analytics-sidebar">
+			<div class = "sidebar-links">
+				<button class = "sidebar-link game-review-section-link" id = "game-review-section-link" onclick = "jumpTo('#game-review-section')"><div class = "sidebar-link-text">Game Reviews</div></button>
+				<button class = "sidebar-link season-stats-section-link" id = "season-stats-section-link" onclick = "jumpTo('#season-stats-section')"><div class = "sidebar-link-text">Season Stats</div></button>
+				<button class = "sidebar-link trends-section-link" id = "trends-section-link"  onclick = "jumpTo('#trends-section')"><div class = "sidebar-link-text ">Trends</div></button>
+				<button class = "sidebar-link player-profiles-section"id = "player-profiles-section-link" onclick = "jumpTo('#player-profiles-section')"><div class = "sidebar-link-text">Player Profiles</div></button>
+				<button class = "sidebar-link lineup-explorer-section"id = "lineup-explorer-section-link" onclick = "jumpTo('#lineup-explorer-section')"><div class = "sidebar-link-text">Lineup Explorer</div></button>
+			</div>
+		</div>
+	</div>
+	<div id = "analytics-content" class = 'product-subpage-content'>
+		<div class = "product-subpage-descr">
+			ATeam Analytics offers a blend of advanced stats and data visualization to give you insights into your team's performance. Explore trends, player profiles, shot charts, lineup data and more. 
+		</div>
+		<div class = "product-subpage-section-wrapper" id = "game-review-section">
+			<div class = "product-subpage-heading">Game Review</div>
+			<div class = "product-subpage-content-section">
+				<div class = "product-subpage-text">
+					After submitting stats from a game, you will be redirected to a game review. This is real data from the Boston Celtics vs. Memphis Grizzlies on August 11. The first thing you'll notice are team stats. Shooting stats, team and opponent stats, and advanced stats give you a balanced assessment of your team's performance against your opponent. Notice <a class = "main-link" href = "https://squared2020.com/2017/09/05/introduction-to-olivers-four-factors/">Dean Oliver's Four Factors</a>, the 4 stats most correlated to winning. 
+				</div>
+				<div class = "product-subpage-img-wrapper">
+					<%=video_tag("analytics-vids/game-review-team.mp4", :alt => "game-review-team", controls: true, muted: true,  :class => "product-subpage-img")%>
+				</div>
+
+				<div class = "product-subpage-text">
+					Next is a standard box score table. Toggle between totals, per minute, and advanced stats. To sort by a stat, click on the header.
+				</div>
+				<div class = "product-subpage-img-wrapper">
+					<%=video_tag("analytics-vids/box-score.mp4", :alt => "box-score", controls: true, muted: true,  :class => "product-subpage-img")%>
+				</div>
+				<div class = "product-subpage-text">
+					An effective field goal percentage shot chart tells you where your team was most efficient shooting the ball. See shot charts for team, opponent, and players.
+				</div>
+				<div class = "product-subpage-img-wrapper">
+					<%=video_tag("analytics-vids/shot-charts.mp4", :alt => "shot-charts", controls: true, muted: true,  :class => "product-subpage-img")%>
+				</div>
+			</div>
+		</div>
+
+		<div class = "product-subpage-section-wrapper" id = "season-stats-section">
+			<div class = "product-subpage-heading">Season Stats</div>
+			<div class = "product-subpage-content-section">
+				<div class = "product-subpage-text">
+					To see season stats click on the Stat link on the header or front page. 
+				</div>
+				<div class = "product-subpage-img-wrapper">
+					<%=video_tag("analytics-vids/season-stats.mp4", :alt => "season-stats", controls: true, muted: true,  :class => "product-subpage-img")%>
+				</div>
+				<div class = "product-subpage-text">
+					You will see the same format as the stats review page with a few extra sections including trends, player profiles and a lineup explorer.
+				</div>
+			</div>
+		</div>
+
+		<div class = "product-subpage-section-wrapper" id = "trends-section">
+			<div class = "product-subpage-heading">Trends</div>
+			<div class = "product-subpage-content-section">
+				<div class = "product-subpage-text">
+					ATeam Trends give you the ability to track performance throughout the year. Toggle between team, opponent, and players. Select among all available stats.
+				</div>
+				<div class = "product-subpage-img-wrapper">
+					<%=video_tag("analytics-vids/trends.mp4", :alt => "trends", controls: true, muted: true,  :class => "product-subpage-img")%>
+				</div>
+			</div>
+		</div>
+
+		<div class = "product-subpage-section-wrapper" id = "player-profiles-section">
+			<div class = "product-subpage-heading">Player Profiles</div>
+			<div class = "product-subpage-content-section">
+				<div class = "product-subpage-text">
+					ATeam Player Profiles give you the ability to dig deeper into a player's impact on the game. It starts with basic shooting stats.
+				</div>
+				<div class = "product-subpage-img-wrapper">
+					<%=video_tag("analytics-vids/player-profile.mp4", :alt => "player-profile", controls: true, muted: true,  :class => "product-subpage-img")%>
+				</div>
+
+				<div class = "product-subpage-text">
+					A game log allows you to track performance on numerous stats throughout the year.
+				</div>
+
+				<div class = "product-subpage-img-wrapper">
+					<%=video_tag("analytics-vids/player-profile-game-log.mp4", :alt => "player-profile-game-log", controls: true, muted: true,  :class => "product-subpage-img")%>
+				</div>
+
+				<div class = "product-subpage-text">
+					Player advanced stats give you an insight into the strengths and weakness of a player. The redder the color, the better a player ranks in the team; the bluer the color, the worse. To see a description of each advanced stat, simply hover over the stat.
+				</div>
+				<div class = "product-subpage-img-wrapper">
+					<%=video_tag("analytics-vids/player-profile-advanced.mp4", :alt => "player-profile-advanced", controls: true, muted: true,  :class => "product-subpage-img")%>
+				</div>
+
+
+			</div>
+		</div>
+
+
+		<div class = "product-subpage-section-wrapper" id = "lineup-explorer-section">
+			<div class = "product-subpage-heading">Lineup Explorer</div>
+			<div class = "product-subpage-content-section">
+				<div class = "product-subpage-text">
+					ATeam Lineup Explorer allows you to find your most effective lineups for different criteria.  See various advanced stats, and their percentile rank relative to the rest of the team's lineup. 
+				</div>
+				<div class = "product-subpage-img-wrapper">
+					<%=video_tag("analytics-vids/lineup-explorer-1.mp4", :alt => "lineup-explorer-1", controls: true, muted: true,  :class => "product-subpage-img")%>
+				</div>
+
+				<div class = "product-subpage-text">
+					Sort lineups by any number of available stats. For example, if you would like to see your most efficient offensive lineups, sort by offensive rating. By default, lineups are sorted by minutes played.
+				</div>
+				<div class = "product-subpage-img-wrapper">
+					<%=video_tag("analytics-vids/lineup-explorer-2.mp4", :alt => "lineup-explorer-2", controls: true, muted: true,  :class => "product-subpage-img")%>
+				</div>
+
+				<div class = "product-subpage-text">
+					It is important to contextualize lineups by the situations they are used in games. For example, high minutes lineups will generally play against more difficult competition, and end of bench lineups will generally play against weaker competition. However, the Lineup Explorer can give you an indication of which lineups are overperforming and underperforming relative to expectation. 
+				</div>
+
+
+			</div>
+		</div>
+
+
+</div>
+
+<style></style>
+<script>
+	var jumping = false;
+	$(".portal-button-2").addClass("portal-button-2-alt")
+
+	$("#analytics-content").css("left", $("#analytics-sidebar").width())
+	$(".mobile-product-sidebar-wrapper").css("top", $("#logged-in-header").outerHeight() -1)
+	$("#analytics-sidebar").css("top", $("#logged-in-header").outerHeight() + 30)
+	$("#analytics-sidebar").css("height", $(window).outerHeight() - $("#logged-in-header").outerHeight())
+
+</script>

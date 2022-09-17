@@ -1,0 +1,88 @@
+
+
+function align_home_player_dropdown(){
+	$("#user-dropdown-content").css("top", $("#header-outer").outerHeight() -20)
+  	$("#user-dropdown-content").css("left", $(".player-dropdown").offset().left + $(".player-dropdown").outerWidth() - $("#user-dropdown-content").outerWidth())
+}
+
+
+function show_user_dropdown(){
+	$("#user-dropdown-content").show()
+	$('body').on("mousedown", function(e){
+		if(!$(e.target).hasClass("dropdown-action") && !$(e.target).hasClass("toolbar-dropdown-button") && !$(e.target).parents(".dropdown-action").length > 0 && !$(e.target).parents(".toolbar-no-close").length > 0){
+			$("#user-dropdown-content").hide()
+		}
+	})
+}
+
+function test_function(){
+	console.log("test")
+}
+
+function sign_in_page_modal(){
+	$("#sign-up-modal").show()
+ 	$("#sign-in-modal").hide()
+}
+
+function sign_in_modal(){
+	$("#sign-in-overlay").show()
+ 	$("#sign-in-modal").show()
+ 	// DOESNT WORK ON SAFARI MOBILE
+	$("form#new_user").on("ajax:success", receiveAJAXData)
+}
+
+function receiveAJAXData(event, data){
+	$("#sign-up-overlay").hide()
+ 	$("#sign-up-modal").hide()
+	if(event.detail[0].success){
+		insertUserInHeader();
+		loggedInHeaderButtons();
+		createJoinTeamModal()
+	}
+}
+
+function closeCreateJoinModal(){
+	$("#create-join-team-overlay").hide()
+	$("#create-join-team-modal").hide()
+}
+
+function createJoinTeamModal(){
+	$("#create-join-team-overlay").show()
+	$("#create-join-team-modal").show()
+}
+
+
+
+function insertUserInHeader(){
+	$(".player-dropdown-text").text($("#user_first_name").val())
+	$(".player-dropdown").show()
+}
+
+function loggedInHeaderButtons(){
+	$(".button_logged_out").hide()
+	$(".button_logged_in").show()
+	$(".button_logged_out button").addClass("header-button-deactivated")
+	$(".button_logged_in button").removeClass("header-button-deactivated")
+
+}
+
+
+function showCreateJoinTeam(){
+	$("#create-account-wrapper").addClass("signup-deactivated")
+	$("#join-create-team-wrapper").removeClass("signup-deactivated")
+	$("#signup-back-button").removeClass("signup-deactivated")
+}
+
+function back_to_signup(){
+	$("#create-account-wrapper").removeClass("signup-deactivated")
+	$("#join-create-team-wrapper").addClass("signup-deactivated")
+	$("#signup-back-button").addClass("signup-deactivated")
+}
+
+
+
+
+    
+
+
+

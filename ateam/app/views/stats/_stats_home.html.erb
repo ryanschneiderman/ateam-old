@@ -1,0 +1,452 @@
+
+	<div id = "stats-index" class = "page-index">
+		<div class = "stats-index-sidebar-wrapper">
+			<div class = "sidebar" id = "stats-index-sidebar">
+				<div class = "sidebar-links" id = 'stats-index-sidebar-links'>
+					<button class = "sidebar-link team-stats-index-link" id = "team-stats-index-link" onclick = "jumpTo('#team-stats-index')"><div class = "sidebar-link-text">Team Stats</div></button>
+					<button class = "sidebar-link stat-tables-index-link " id = "stat-tables-index-link"  onclick = "jumpTo('#stat-tables-index')"><div class = "sidebar-link-text ">Box Score</div></button>
+					<button class = "sidebar-link shot-charts-index-link"id = "shot-charts-index-link" onclick = "jumpTo('#shot-charts-index')"><div class = "sidebar-link-text">Shot Charts</div></button>
+					<button class = "sidebar-link trends-index-link" id = "trends-index-link" onclick = "jumpTo('#trends-index')"><div class = "sidebar-link-text">Trends</div></button>
+					<button class = "sidebar-link player-profiles-index-link" id = "player-profiles-index-link" onclick = "jumpTo('#player-profiles-index')"><div class = "sidebar-link-text">Player Profiles</div></button>
+					<button class = "sidebar-link lineup-explorer-index-link" id = "lineup-explorer-index-link" onclick = "jumpTo('#lineup-explorer-index')"><div class = "sidebar-link-text">Lineup Explorer</div></button>
+				</div>
+			</div>
+		</div>
+		<div class = "stats-index-content">
+			<div class = "team-stats-header" id = "team-stats-header"><%=@team_name%> '<%=get_year_digits(@season.year1)%><%if @season.year2%>/<%=get_year_digits(@season.year2) %><%end%> Stats</div>
+			<div class = "mobile-product-sidebar-wrapper" id = "stats-mobile-sidebar-wrapper">
+				<div class = "mobile-product-sidebar" id = "stats-mobile-sidebar">
+						<button class = "sidebar-link team-stats-index-link" id = "team-stats-index-link" onclick = "jumpTo('#team-stats-index')"><div class = "sidebar-link-text">Team Stats</div></button>
+						<button class = "sidebar-link stat-tables-index-link " id = "stat-tables-index-link"  onclick = "jumpTo('#stat-tables-index')"><div class = "sidebar-link-text ">Box Score</div></button>
+						<button class = "sidebar-link shot-charts-index-link"id = "shot-charts-index-link" onclick = "jumpTo('#shot-charts-index')"><div class = "sidebar-link-text">Shot Charts</div></button>
+						<button class = "sidebar-link trends-index-link" id = "trends-index-link" onclick = "jumpTo('#trends-index')"><div class = "sidebar-link-text">Trends</div></button>
+						<button class = "sidebar-link player-profiles-index-link" id = "player-profiles-index-link" onclick = "jumpTo('#player-profiles-index')"><div class = "sidebar-link-text">Player Profiles</div></button>
+						<button class = "sidebar-link lineup-explorer-index-link" id = "lineup-explorer-index-link" onclick = "jumpTo('#lineup-explorer-index')"><div class = "sidebar-link-text">Lineup Explorer</div></button>
+				</div>
+			</div>
+			<div class = "stats-index-content-wrapper " id = "team-stats-index">
+				<div id = "team-stats-wrapper">
+					
+					<div class = "sticky-spacer-middle"></div>
+					<div class = "team-stats-basic-wrapper team-stats-wrapper">
+						
+						<div class = "team-stats-container" id = "basic-team-stats">
+							<div class = "team-stats-heading team-basic-heading">Shooting Stats</div>
+							<div class = "basic-team-stat-circles">
+								<div class = "flex-column center-justified center-aligned  percentage-circle-wrapper">
+									<div class = "percentage-circle-header">FG%</div>
+									<div class = "fg-percentage-circle percentage-circle" id = "team-fg-percentage-circle"></div>
+								</div>
+								<div class = "flex-column center-justified center-aligned percentage-circle-wrapper">
+									<div class = "percentage-circle-header">FT% </div>
+									<div class = "ft-percentage-circle percentage-circle" id = "team-ft-percentage-circle"></div>
+								</div>
+								<div class = "flex-column center-justified center-aligned percentage-circle-wrapper">
+									<div class = "percentage-circle-header">3PT%</div>
+									<div class = "three-pt-percentage-circle percentage-circle" id = "team-three-pt-percentage-circle"></div>
+								</div>
+							</div>
+							<div class = "team-stats-heading team-basic-heading">Basic Stats</div>
+							<div class = "team-stat-table-wrapper">
+								<table class = "stats-table" id = "team-stats-table" cellpadding="0" cellspacing="0">
+									
+								</table>
+							</div>
+						</div>
+					</div>
+					<div class = "sticky-spacer-middle" id = "team-basic-advanced-spacer"></div>
+					<div id = "team-advanced-wrapper" class = "grid">
+						<div class = "team-advanced-wrapper sticky team-advanced-sticky" id = "team-advanced-container">
+							<div id = "team-advanced-stats" class = "team-stats-container team-advanced">
+								
+									<div class ="team-stats-heading" id = "team-advanced-heading">
+										Team Advanced
+									</div>
+									<div class = "team-advanced-stats">
+										<div class = "team-advanced-ratings team-advanced-container">
+											<div id = "offensive-rating" class = "flex-column">
+												<div class = "flex-row">
+													<div id = "offensive-rating-heading" class = "offensive-rating team-stats-text team-rating-heading">Offensive Rating</div>
+												</div>
+												<div id = "offensive-rating-value" class = "offensive-rating team-stats-text team-rating-value"></div>
+											</div>
+											<div id = "defensive-rating" class = "flex-column;">
+												<div class = "flex-row">
+													<div id = "defensive-rating-heading" class = "defensive-rating team-stats-text team-rating-heading">Defensive Rating</div>
+												</div>
+												<div id = "defensive-rating-value" class = "defensive-rating team-stats-text team-rating-value"></div>
+											</div>
+										</div>
+										<div class = "team-other-advanced team-advanced-container">
+											<div class = "team-stats-text other-advanced-heading">Other Advanced</div>
+											<div class = "other-advanced-container">
+												
+											</div>
+										</div>
+									</div>
+								
+							</div>
+						</div>
+						<div class = "team-advanced-wrapper team-advanced-sticky">
+							<div id = "team-four-factors" class = "team-stats-container team-advanced">
+								<div class ="team-stats-heading">
+									Four Factors
+								</div>
+								<div class = "four-factors-teams">
+									<div class = "flex-row center-justified"><%=@team_name%></div>
+									<div class = "flex-row center-justified">Opponents</div>
+								</div>
+								<div id = "team-shooting-stats-grid" class = "grid">
+									<div class = "flex-column four-factors-row-wrapper">
+										<div class = "four-factors-heading">Effective FG%</div>
+										<div class = "grid four-factors-row">
+											<div id = "team-efg" class = "flex-row center-justified"></div>
+											<div id = "opponent-efg" class = "flex-row center-justified"></div>
+										</div>
+									</div>
+									<div class = "flex-column four-factors-row-wrapper">
+										<div class = "four-factors-heading">Turnover %</div>
+										<div class = "grid four-factors-row">
+											<div id = "team-tov" class = "flex-row center-justified"></div>
+											<div id = "opponent-tov" class = "flex-row center-justified"></div>
+										</div>
+									</div>
+									<div class = "flex-column four-factors-row-wrapper">
+										<div class = "four-factors-heading">Offensive Rebound %</div>
+										<div class = "grid four-factors-row">
+											<div id = "team-orb" class = "flex-row center-justified"></div>
+											<div id = "opponent-orb" class = "flex-row center-justified"></div>
+										</div>
+									</div>
+									<div class = "flex-column four-factors-row-wrapper">
+										<div class = "four-factors-heading">FT/FGA</div>
+										<div class = "grid four-factors-row">
+											<div id = "team-ftr" class = "flex-row center-justified"></div>
+											<div id = "opponent-ftr" class = "flex-row center-justified"></div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class = "sticky-spacer-bottom"></div>
+				</div>
+		</div>
+
+		<div class = "section-spacer" id = "team-box-score-spacer"></div>
+
+		<div class = "stats-index-content-wrapper" id = "stat-tables-index">
+			<div class = "player-stat-tables-wrapper">
+				<div class = "stats-index-header grid center-aligned team-stats-header-spaced" id = "box-score-index-header">
+					<div class = "team-stats-header flex-row center-justified" id = "box-score-page-title"> Box Score</div>
+					<div class = "flex-row center-justified">
+						<div class = "stat-index-toggle-button-wrapper">
+							<select class = "center-aligned stat-index-toggle-button" id = "box-score-button" onchange="toggle_player_table(value);" >
+								<option class="flex-row toolbar-dropdown-button" value = "per_game" >Per Game</option>
+								<option class="flex-row toolbar-dropdown-button" value = "per_minute" >Per <%=@per_minutes%> Minutes</option>
+
+								<option class="flex-row toolbar-dropdown-button" value = "advanced" >Advanced</option>
+
+							</select>
+						</div>
+					</div>
+
+				</div>
+				
+				<div class = "player-stat-tables-container">
+					<div class = "player-table-wrapper">
+						<table class = "stats-table player-stats-table" id = "per-game-table"></table>
+					</div>
+					<div class = "player-table-wrapper">
+						<table class = "stats-table player-stats-table" id = "adv-player-stats-table"></table>
+					</div>
+					<div class = "player-table-wrapper">
+						<table class = "stats-table player-stats-table" id = "per-minute-table"></table>
+					</div>
+				</div>
+			</div>
+
+		</div>
+
+
+		<div class = "stats-index-content-wrapper " id = "shot-charts-index">
+			<div class = "stats-index-header grid center-aligned team-stats-header-spaced" id = "shot-chart-index-header">
+				<div class = "flex-row center-justified">
+					<div class = "stat-index-toggle-button-wrapper">
+						<select class = "center-aligned stat-index-toggle-button" id = "box-score-button" onchange="show_shot_chart(value);" >
+							<option class="flex-row toolbar-dropdown-button" value = "team-<%=@team_id%>" ><%=@team_name%></option>
+							<option class="flex-row toolbar-dropdown-button" value = "opponent">Opponents</option>
+							<%@players.each do |data|%>
+								<option class="flex-row toolbar-dropdown-button" value = "<%=data[:id]%>"><%=data[:nickname]%></option>
+							<%end%>
+
+						</select>
+					</div>
+				</div>
+				<div class = "flex-row center-justified team-stats-header" id = "shot-chart-page-title"> Shot Charts</div>
+				
+			</div>
+			<div class = " flex-row center-justified center-aligned" id = "shot-charts-wrapper">
+				<div class = "shot-charts">
+					<div id = "shot-trends-team-<%=@team_id%>" class = "index-shot-chart"></div>
+					<div id = "shot-trends-opponent" class = "index-shot-chart"></div>
+					<%@players.each do |data|%>
+					<div id = "shot-trends-<%=data[:id]%>" class = "index-shot-chart"></div>
+					<%end%>
+				</div>
+				<div class = "color-key" id = "main-color-key">
+					<div class="calibration" role="calibration">
+						<div id = "color-key-header">EFG%</div>
+				        <div class="group" role="example">
+				          <svg>
+				          </svg>
+				                
+				        </div>
+				    </div>
+				</div>
+			</div>
+			
+		</div>
+
+
+		<div class = "stats-index-content-wrapper " id = "trends-index">
+			<div class = "stats-index-header team-stats-header-spaced grid center-aligned" id = "trends-index-header">
+				<div class = "team-stats-header flex-row center-justified" id = "trends-page-title"> Trends</div>
+				<div class = "flex-row end-justified stats-header-buttons">
+					<div class = "stat-index-toggle-button-wrapper team-trend-button-wrapper">
+						<select class = "center-aligned stat-index-toggle-button team-trend-button" onchange="team_trend_button(value);" >
+							<option class="flex-row toolbar-dropdown-button"><%=@team_name%></option>
+							<%@players.each do |player|%>
+								<option class="flex-row toolbar-dropdown-button" value = "<%=player.id%>" ><%=player.nickname%></option>
+							<%end%>
+
+						</select>
+					</div>
+
+					<div class = "stat-index-toggle-button-wrapper team-trend-button-wrapper" id = "trend-player-stats-wrapper" style = "display: none;">
+						<select class = "center-aligned stat-index-toggle-button team-trend-button" id = "trend-player-stats" onchange="stat_trend_button(value, this)" >
+							<option class="flex-row toolbar-dropdown-button" value = "15">Points</option>
+
+						</select>
+					</div>
+
+					<div class = "stat-index-toggle-button-wrapper team-trend-button-wrapper" id = "trend-team-stats-wrapper">
+						<select class = "center-aligned stat-index-toggle-button team-trend-button" id = "trend-team-stats" onchange="stat_trend_button(value, this)" >
+							<option class="flex-row toolbar-dropdown-button" value = "15">Points</option>
+
+						</select>
+					</div>
+
+					
+				</div>
+			</div>
+			<div id = "trends-wrapper">
+				<div id = "trends-chart">	
+				</div>
+			</div>
+		</div>
+
+		<div class = "stats-index-content-wrapper " id = "player-profiles-index">
+			<div class = "team-stats-header team-stats-header-spaced" id = "player-profiles-page-title"> Player Profiles</div>
+			<div class = "flex-row" id = "player-profile-links">
+				<%counter = 1%>
+				<%@players.each do |player|%>
+					<button class = "player-profile-block" onclick = "get_player_profile(<%=player.id%>, false)">
+						<div class = "player-profile-link player-profile-link-style-<%=counter%>">
+							<div class = "player-profile-link-text" ><%=player.nickname%></div>
+						</div>
+					</button>
+					<%counter > 6 ? counter = 1 : counter += 1%>
+				<%end%>
+			</div>
+		</div>
+
+
+		<div class = "stats-index-content-wrapper stats-index-deactivated" id = "player-profile-index">
+			<div class = "stats-index-header grid center-aligned" id = "player-profile-index-header">
+				<div class = "flex-row end-justified stats-header-buttons">
+					<div class = "stat-index-toggle-button-wrapper team-trend-button-wrapper">
+						<select class = "center-aligned stat-index-toggle-button" id = "player-profile-toggle" onchange="get_player_profile(value);" >
+							<%@players.each do |player|%>
+								<option class="flex-row toolbar-dropdown-button" value = "<%=player.id%>" ><%=player.nickname%></option>
+							<%end%>
+
+						</select>
+					</div>
+				</div>
+			</div>
+
+			<div id = "player-profile-wrapper">
+				<div class = "player-profile-wrapper">
+					<div class = "team-stats-container" id = "player-profile-stats">
+						<div class = "team-stats-heading team-basic-heading">Shooting Stats</div>
+						<div class = "player-percentage-circles">
+							<div class = "flex-column center-justified  percentage-circle-wrapper">
+								<div class = "percentage-circle-header">FG%</div>
+								<div class = "fg-percentage-circle percentage-circle player-percentage-circle flex-row center-justified" id = "player-fg-percentage-circle"></div>
+							</div>
+							<div class = "flex-column center-justified percentage-circle-wrapper">
+								<div class = "percentage-circle-header">FT% </div>
+								<div class = "ft-percentage-circle percentage-circle player-percentage-circle flex-row center-justified" id = "player-ft-percentage-circle"></div>
+							</div>
+							<div class = "flex-column center-justified percentage-circle-wrapper">
+								<div class = "percentage-circle-header">3PT%</div>
+								<div class = "three-pt-percentage-circle percentage-circle player-percentage-circle flex-row center-justified" id = "player-three-pt-percentage-circle"></div>
+							</div>
+						</div>
+					</div>
+					<div class = "team-stats-container" id = "game-log-container">
+						<div class = "team-stats-heading team-basic-heading">Game Log</div>
+						<div class = "player-game-log flex-row center-justified">
+							<div class = "player-game-log-wrapper flex-row center-aligned">
+								<div class = "player-game-log-container">
+									<table class = "player-stats-table stats-table player-game-log-table">
+										<thead>
+											<tr class = "team-table-header" id = "player-game-log-header">
+											
+											</tr>
+										</thead>
+										<tbody class = "player-game-log-body" id = "player-game-log-body">
+										</tbody>
+										<tfoot>
+											<tr class = "game-log-per-game">
+											
+											</tr>
+											<tr class = "game-log-per-minute">
+											
+											</tr>
+											<tr class = "game-log-totals">
+											
+											</tr>
+										</tfoot>
+									</table>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class = "sticky-spacer-middle"></div>
+				<div class = "player-profile-grid grid">
+					<div class = "player-profile-sticky" id = "player-shot-chart-wrapper">
+						<div class = "player-profile-container" id = "player-shot-chart-container">
+							<div class = "team-stats-heading team-basic-heading">Shot Chart</div>
+							<div class = "player-shot-chart flex-row center-aligned center-justified">
+								
+							</div>
+						</div>
+					</div>
+					<div class = "player-profile-sticky" id = "player-advanced-wrapper">
+						<div class = "player-profile-container" id = "player-advanced-container">
+							<div class = "team-stats-heading team-basic-heading">Player Advanced</div>
+							<div class = "flex-row center-aligned">
+								<%=image_tag("color-scale.png", class: "color-scale")%>
+							</div>
+							<div class = "player-advanced-stats grid">
+								
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class = "sticky-spacer-bottom"></div>
+			</div>
+		</div>
+
+
+		<div class = "stats-index-content-wrapper " id = "lineup-explorer-index">
+			<div class = "stats-index-header grid center-aligned" id = "lineups-index-header">
+				<div class = "team-stats-header flex-row center-justified" id = "trends-page-title"> Lineup Explorer</div>
+
+				<div class = "flex-row end-justified stats-header-buttons">
+					<div class = "stat-index-toggle-button-wrapper team-trend-button-wrapper">
+						<select class = "center-aligned stat-index-toggle-button" id = "lineup-select" onchange="sort_lineups(this, value);" >
+							<option class="flex-row toolbar-dropdown-button" id = "lineup-explorer-current" disabled selected hidden>Sort By</option>
+							<option class="flex-row toolbar-dropdown-button" data-is-advanced = "false" value = "16">Minutes</option>
+						</select>
+					</div>
+				</div>
+			</div>
+
+			<div id = "lineups-wrapper">
+				<div id = "lineups-container">
+					
+				</div>
+			</div>
+		</div>
+
+	</div>
+</div>
+
+
+	<script>
+
+		$('#ajax-loading-screen').css({'opacity':0, 'display':'none'})
+        $('#ajax-loading-screen .loading-icon').css({'opacity':0}) 
+        // $(".sticky-spacer-middle").css("top", $("#logged-in-header").outerHeight() + $("#stats-mobile-sidebar-wrapper")[0].offsetHeight)
+
+		var team_stats_table = $("#team-stats-table")[0];
+		var per_game_table = $("#per-game-table")[0];
+		var per_minute_table = $("#per-minute-table")[0];
+		var adv_stats_player_table = $("#adv-player-stats-table")[0];
+		var adv_stats_team_table = $("#adv-team-stats-table")[0];
+		var curr_basic_button = $("#basic-trend-buttons").children(".trend-button-0")[0]
+		var curr_basic_index = 0;
+
+		var total_games = <%=@num_games%>;
+
+		var display_stats = [];
+		var display_stats_adv = []
+		var display_stats_team_adv = []
+		var minutes_factor = <%=@per_minutes%>;
+
+		var player_stats = [];
+		var per_game_stats = [];
+		var per_minute_stats = [];
+
+		var team_stat_array = [];
+		var team_advanced_stat_array = [];
+		var opponent_stat_array = [];
+
+		var team_adv_display_stats = []
+		var off_display_stats = []
+		var def_display_stats = []
+		var curr_player;
+		var curr_stat;
+		var team_is_opponent = false;
+		var trends_chart;
+		var team_trend = true;
+		var jumping = false;
+
+
+		var lineup_stats = [];
+		var desired_off_stats = [15, 27, 7, 3, 29, 28]
+
+
+		var court_margin = { left: 0, right: 0, top: 0, bottom: 0};
+		var portrait = window.matchMedia( "(orientation : portrait)" );
+		var court_width = getCourtWidth();
+	    
+	    var court_height = court_width * 0.7
+	    var inner_width = court_width - court_margin.left - court_margin.right;
+	    var inner_height = court_height - court_margin.top - court_margin.bottom;
+
+	    var x_offset = court_width / 179;
+	    var y_offset = court_width / 716;
+
+	    var region_spacing = court_width / 179
+
+	    var color_array = ["#d10002", "#de2429", "#e7767b", "#f0aaad", "#f7d3d4", "#e4eaf4", "#abbddd" ,"#7c98ca" ,"#5176b8", "#3661ad", "#bdbdbd"]
+
+	    var shot_charts = []
+
+	    var lineups_page = 1;
+
+	    var curr_lineup_sorting = 16;
+
+	    var load_bool = true;
+	    
+	    $(".index-shot-chart").addClass("shot-chart-deactivated")
+	    $("#shot-trends-team-<%=@team_id%>").removeClass("shot-chart-deactivated")
+
+
+	</script>
+

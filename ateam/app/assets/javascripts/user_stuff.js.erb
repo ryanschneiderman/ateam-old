@@ -1,0 +1,147 @@
+
+$(document).on('turbolinks:load ', function(){
+
+	$('.signup-email').on('input', function() {
+	    console.log("input hide")
+	    $("#email-taken").hide()
+	});
+
+	$('.signup-pass').on('input', function() {
+	    $("#password-no-match").hide()
+	});
+
+	// REALLY CONVOLUTED but basically trying to wait until the input has stopped before checking to see if passwords match
+	var check_password = false;
+	var end_pass_input = false;
+	$('.signup-pass-conf').on('input', function() {
+		start_pass_input = false;
+		end_pass_input = false;
+		$("#password-no-match").hide()
+		setTimeout(function(){
+	   		$("#password-no-match").hide()
+	   		start_pass_input = true;
+	   		if(end_pass_input && start_pass_input){
+	   			var password = $("#sign-up-modal #user_password").val()
+				var conf_password = $("#sign-up-modal #user_password_confirmation").val()
+				if(conf_password!= password){
+					console.log("should show")
+					$("#password-no-match").show()
+				}
+				checkSignupFilled()
+	   		}
+	   		end_pass_input = true;
+	   		
+		}, 1500);
+	});
+
+	$(".signup-email").focusout(function(){
+		console.log("in")
+	    var url = '/verify_email_unique'
+	    var email = $("#sign-up-modal #user_email").val()
+	    $.ajax({
+	        url: url,
+	        beforeSend: function(xhr) {xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))},
+	        method: "post",
+	        data_type: 'json',
+	        data: {email: email},
+	        success: function(result){
+	            email_verified = result.unique
+	            if(!email_verified){
+	                $("#email-taken").show()
+	            }
+	            checkSignupFilled()
+	        }
+	    })
+	})
+
+});	
+
+
+function sign_up_modal(){
+	$("#sign-up-overlay").show()
+ 	$("#sign-up-modal").show()
+ 	// DOESNT WORK ON SAFARI MOBILE
+ 	$("#firstname-input").select();
+ 	$('.signup-modal-input').on('input', function() {
+	    checkSignupFilled()
+	});
+	$("form#new_user").on("ajax:success", receiveAJAXData)
+}
+
+
+function sign_up_page_modal(){
+ 	$("#sign-up-modal").show()
+ 	$("#sign-in-modal").hide()
+ 	// DOESNT WORK ON SAFARI MOBILE
+ 	$("#firstname-input").select();
+ 	$('.signup-modal-input').on('input', function() {
+	    checkSignupFilled()
+	});
+}
+
+
+function show_password_reset(){
+	$("#sign-in-overlay").hide()
+	$("#sign-in-modal").hide()
+	$("#forgot-password-overlay").show()
+	$("#forgot-password-modal").show()
+}
+
+function password_email_result(result){
+	if(result.email_found){
+		$("#email-sent").show()
+	}
+	else{
+		$("#email-not-found").show()
+	}
+}
+
+function close_signup_modal(){
+	console.log("closing_signup modal")
+	$("#sign-up-overlay").hide()
+ 	$("#sign-up-modal").hide()
+ 	// TODO: CLEAR ALL INPUT
+}
+
+function close_signin_modal(){
+	$("#sign-in-overlay").hide()
+ 	$("#sign-in-modal").hide()
+ 	// TODO: CLEAR ALL INPUT
+}
+
+function checkSignupFilled(){
+	var first_name = $("#sign-up-modal #user_first_name").val()
+	var last_name = $("#sign-up-modal #user_last_name").val()
+	var email = $("#sign-up-modal #user_email").val()
+	var password = $("#sign-up-modal #user_password").val()
+	var conf_password = $("#sign-up-modal #user_password_confirmation").val()
+
+	if(first_name  && last_name && email && password && conf_password && (conf_password == password) && email_verified){
+		$("#signup-submit").prop("disabled", false)
+		$("#signup-submit").removeClass("modal-submit-button-deactivated")
+	}
+	else{
+		$("#signup-submit").prop("disabled", true)
+		$("#signup-submit").addClass("modal-submit-button-deactivated")
+	}
+}
+
+
+
+
+function send_recovery_email(){
+	var email = $("#recovery-email").val()
+	var url = "/send_password_email";
+	$("#email-sent").hide()
+	$("#email-not-found").hide()
+	$.ajax({
+		url: url,
+		beforeSend: function(xhr) {xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))},
+		method: "post",
+		data_type: 'json',
+		data: {email: email},
+		success: function(result){
+			password_email_result(result)
+		}
+	})
+}

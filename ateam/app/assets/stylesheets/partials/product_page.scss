@@ -1,0 +1,225 @@
+#products-banner{
+	height: 350px;
+    background-color: #c34800;
+    position: relative;
+}
+
+.page-banner-heading{
+	color: white;
+    font-size: 80px;
+    font-weight: 600;
+}
+
+.page-banner-heading-dark{
+	color: black !important;
+}
+
+#product-grid{
+	grid-template-columns: 1fr 1fr;
+}
+
+.product-box-wrapper{
+	height: 350px;
+}
+
+.product-box{
+	width: 85%;
+    height: 75%;
+    position: relative;
+    padding: 30px;
+}
+
+.mobile-product-sidebar{
+	display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+}
+
+.mobile-product-sidebar-wrapper{
+	display: none;
+}
+
+.product-box-wrapper:hover{
+	background-color: #efefef;
+}
+
+.product-box-label{
+	font-size: 35px;
+	font-weight: 600;
+    font-family: Montserrat;
+	padding-bottom: 15px;
+}
+
+.product-box-see-more{
+	position: absolute;
+    bottom: 30px;
+    right: 30px;
+    font-size: 15px;
+    font-family: Montserrat;
+    text-transform: uppercase;
+}
+
+.product-box-descr{
+	font-size: 17px;
+	font-family: Playfair Display;
+}
+
+.product-box-border-right{
+	border-right: 1px solid #d8d8d8;
+}
+
+.product-box-border-bottom{
+	border-bottom: 1px solid #d8d8d8;; 
+}
+
+.page-banner-wrapper{
+	height: 400px;
+	position: relative;
+}
+
+.dark-background{
+	background-color: black; 
+}
+
+.page-banner{
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+}
+
+.product-subpage-wrapper{
+	position: relative;
+	display: flex;
+}
+
+.product-sidebar-wrapper{
+	min-width: 200px;
+}
+
+#play-diagramming-banner-img{
+    background: url(asset-path('play-diagramming-banner2.jpg'));
+    background-size: cover;
+    opacity: .5
+}
+
+.play-diagramming-banner{
+	height: 100%;
+	width: 100%;
+}
+
+#team-hub-banner-img{
+	background: url(asset-path('team-hub-banner.png'));
+    background-size: cover;
+    opacity: .4;
+    background-position: center;
+}
+
+#stat-collection-banner-img{
+    background: url(asset-path('stat-collection-banner.png'));
+    background-size: cover;
+    opacity: .5
+}
+
+#analytics-banner-img{
+    background: url(asset-path('analytics-banner.jpg'));
+    background-size: cover;
+    opacity: .5
+}
+
+#in-development-background{
+	background: url(asset-path('in-dev-wallpaper.jpg'));
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	background-size: cover;
+	opacity: .7;
+}
+
+#in-development-content{
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	color: white;
+	font-size: 40px;
+	font-weight: 600
+}
+
+#in-development-dark{
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	background-color: black;
+}
+
+
+
+#play-diagramming-sidebar, #analytics-sidebar, #stat-collection-sidebar, #team-hub-sidebar{
+	position: sticky;
+	top: 0;
+	padding-right: 20px;
+    border-right: 1px solid #d8d8d8;
+}
+
+.product-subpage-descr{
+	font-size: 28px;
+    font-weight: 300;
+    padding-top: 40px;
+    line-height: 45px;
+    /* font-family: Playfair Display; */
+    font-family: helvetica neue;
+}
+
+#play-diagramming-content{
+
+}
+
+.product-subpage-content{
+    margin-left: 60px;
+    margin-right: 60px;
+}
+
+.product-sidebar-wrapper{
+
+}
+
+.product-subpage-heading{
+	font-size: 25px;
+	font-weight: 600;
+	padding-top: 60px;
+}
+
+.product-subpage-img{
+    border-radius: 5px;
+    box-shadow: 0px 0px 5px #c3c3c3;
+}
+
+.product-subpage-text{
+	margin-top: 30px;
+    margin-bottom: 30px;
+    font-size: 17px;
+}
+
+.product-subpage-img-wrapper{
+	display: flex;
+	justify-content: center;
+	padding-bottom: 40px;
+}
+
+
+@media only screen 
+and (min-device-width : 300px) 
+and (max-device-width : 1024px) 
+and (orientation : portrait) { 
+
+	#product-grid {
+	    grid-template-columns: 1fr;
+	}
+
+}

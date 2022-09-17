@@ -1,0 +1,165 @@
+<%=render "layouts/small_header"%>
+<div class = "page-banner-wrapper" id = "play-banner-wrapper">
+	<div class = "dark-background page-banner"></div>
+	<div id = "stat-collection-banner-img" class = "page-banner"></div>
+	<div class = "page-landing-banner page-banner flex-row center-aligned center-justified" id = "stat-collection-banner">
+		<div class = "page-banner-heading">Stat Collection</div>
+	</div>
+</div>
+<div class = "mobile-product-sidebar-wrapper">
+	<div class = "mobile-product-sidebar">
+			<button class = "sidebar-link game-mode-setup-section-link" id = "game-mode-setup-section-link" onclick = "jumpTo('#game-mode-setup-section')"><div class = "sidebar-link-text">Game Mode Setup</div></button>
+				<button class = "sidebar-link stat-collection-basics-section-link" id = "stat-collection-basics-section-link" onclick = "jumpTo('#stat-collection-basics-section')"><div class = "sidebar-link-text">Stat Collection Basics</div></button>
+				<button class = "sidebar-link shot-charts-section-link " id = "shot-charts-section-link"  onclick = "jumpTo('#shot-charts-section')"><div class = "sidebar-link-text ">Shot Chart</div></button>
+				<button class = "sidebar-link game-log-section-link"id = "game-log-section-link" onclick = "jumpTo('#game-log-section')"><div class = "sidebar-link-text">Game Log</div></button>
+				<button class = "sidebar-link submit-section-link"id = "submit-section-link" onclick = "jumpTo('#submit-section')"><div class = "sidebar-link-text">Submit</div></button>
+	</div>
+</div>
+<div class = "product-subpage-wrapper">
+	<div class = "sidebar-wrapper product-sidebar-wrapper">
+		<div class = "sticky" id = "stat-collection-sidebar">
+			<div class = "sidebar-links">
+				<button class = "sidebar-link game-mode-setup-section-link" id = "game-mode-setup-section-link" onclick = "jumpTo('#game-mode-setup-section')"><div class = "sidebar-link-text">Game Mode Setup</div></button>
+				<button class = "sidebar-link stat-collection-basics-section-link" id = "stat-collection-basics-section-link" onclick = "jumpTo('#stat-collection-basics-section')"><div class = "sidebar-link-text">Stat Collection Basics</div></button>
+				<button class = "sidebar-link shot-charts-section-link " id = "shot-charts-section-link"  onclick = "jumpTo('#shot-charts-section')"><div class = "sidebar-link-text ">Shot Chart</div></button>
+				<button class = "sidebar-link game-log-section-link"id = "game-log-section-link" onclick = "jumpTo('#game-log-section')"><div class = "sidebar-link-text">Game Log</div></button>
+				<button class = "sidebar-link submit-section-link"id = "submit-section-link" onclick = "jumpTo('#submit-section')"><div class = "sidebar-link-text">Submit</div></button>
+			</div>
+		</div>
+	</div>
+	<div id = "stat-collection-content" class = 'product-subpage-content'>
+		<div class = "product-subpage-descr">
+			ATeam Stat Collection gives you the ability to track in-game stats and turn them into useful insights. An intuitive interface makes it easy to plot shot chart data, see stats in tabular form and fix mistakes. 
+		</div>
+		<div class = "product-subpage-section-wrapper" id = "game-mode-setup-section">
+			<div class = "product-subpage-heading">Game Mode Setup</div>
+			<div class = "product-subpage-content-section">
+				<div class = "product-subpage-text">
+					Start by creating a game on the schedule page. After entering all the necessary data, a link will be available to enter Game Mode and begin tracking stats.
+				</div>
+
+				<div class = "product-subpage-img-wrapper">
+					<%=video_tag("game-mode-vids/game-creation.mp4", :alt => "game-creation", controls: true, muted: true,  :class => "product-subpage-img")%>
+				</div>
+
+				<div class = "product-subpage-text">
+					Once you enter game mode your first step is to indicate whether any players are inactive, and to select your starters.
+				</div>
+
+				<div class = "product-subpage-img-wrapper">
+					<%=video_tag("game-mode-vids/player-selection.mp4", :alt => "game-creation", controls: true, muted: true,  :class => "product-subpage-img")%>
+				</div>
+			</div>
+
+		</div>
+		<div class = "product-subpage-section-wrapper" id = "stat-collection-basics-section">
+			<div class = "product-subpage-heading">Stat Collection Basics</div>
+			<div class = "product-subpage-content-section">
+				<div class = "product-subpage-text">
+					To track a stat simply click on a player and click on the stat, in either order. If the stat is a field goal make or field goal miss, click to plot on the shot chart. You can track stats by player number or player name.
+				</div>
+				<div class = "product-subpage-img-wrapper">
+					<%=video_tag("game-mode-vids/stat-collection.mp4", :alt => "stat-collection", controls: true, muted: true,  :class => "product-subpage-img")%>
+				</div>
+
+				<div class = "product-subpage-text">
+					You can only add stats for players that are "In Game". To substitute a player from the Bench to In Game, click on one player and then the other.
+				</div>
+
+				<div class = "product-subpage-img-wrapper">
+					<%=video_tag("game-mode-vids/player-switch.mp4", :alt => "player-swap", controls: true, muted: true,  :class => "product-subpage-img")%>
+				</div>
+
+				<div class = "product-subpage-text">
+					Many of the advanced stats require opponent stats as well as team stats, so make sure to track opponent stats as well.
+				</div>
+
+				<div class = "product-subpage-img-wrapper">
+					<%=video_tag("game-mode-vids/opponent-stats.mp4", :alt => "opponent-stats", controls: true, muted: true,  :class => "product-subpage-img")%>
+				</div>
+
+				<div class = "product-subpage-text">
+					Throughout the game you can view your team's stats and opponent stats to evaluate performance and make in-game adjustments. To see the stats in tabular view, click on the Show Stats button. 
+				</div>
+				<div class = "product-subpage-img-wrapper">
+					<%=video_tag("game-mode-vids/stat-table.mp4", :alt => "stat-table", controls: true, muted: true,  :class => "product-subpage-img")%>
+				</div>
+			</div>
+
+		</div>
+		<div class = "product-subpage-section-wrapper" id = "shot-chart-section">
+			<div class = "product-subpage-heading">Shot Chart</div>
+			<div class = "product-subpage-content-section">
+				<div class = "product-subpage-text">
+					Shot chart data is also available during the game. You can see shot charts for the opposing team, and individual players. The shot chart defaults to your team's cumulative chart. You can see individual player shot charts by checking "Show Player Shot Charts".
+				</div>
+
+				<div class = "product-subpage-img-wrapper">
+					<%=video_tag("game-mode-vids/toggle-charts.mp4", :alt => "toggle-charts", controls: true, muted: true,  :class => "product-subpage-img")%>
+				</div>
+				
+				<div class = "product-subpage-text">
+					When plotting on the shot chart, the score of the game will update depending on if you plot inside or outside the three point line. You can drag the shot and update its location.
+				</div>
+
+				<div class = "product-subpage-img-wrapper">
+					<%=video_tag("game-mode-vids/toggle-three.mp4", :alt => "toggle-three", controls: true, muted: true,  :class => "product-subpage-img")%>
+				</div>
+
+				
+
+
+			</div>
+		</div>
+		<div class = "product-subpage-section-wrapper" id = "game-log-section">
+			<div class = "product-subpage-heading">Game Log</div>
+			<div class = "product-subpage-content-section">
+
+				<div class = "product-subpage-text">
+					The Game Log allows you to modify any of the stats you have collected. To view the Game Log, click "Show Game Log" below the shot chart. Click the edit button and you can change the player, the stat and the timestamp. You can also delete stats.
+				</div>
+
+				<div class = "product-subpage-img-wrapper">
+					<%=video_tag("game-mode-vids/game-log.mp4", :alt => "game-log", controls: true, muted: true,  :class => "product-subpage-img")%>
+				</div>
+
+				<div class = "product-subpage-text">
+					Any change you make in the game log will reflect in the stat table and the shot chart.
+				</div>
+
+
+			</div>
+		</div>
+
+		<div class = "product-subpage-section-wrapper" id = "submit-section">
+			<div class = "product-subpage-heading">Submit</div>
+			<div class = "product-subpage-content-section">
+
+				<div class = "product-subpage-text">
+					When the game is over, click the submit button to finalize your stats. 
+				</div>
+
+				<div class = "product-subpage-img-wrapper">
+					<%=video_tag("game-mode-vids/game-submit.mp4", :alt => "game-submit", controls: true, muted: true,  :class => "product-subpage-img")%>
+				</div>
+
+				<div class = "product-subpage-text">
+					After submission, you will be taken to the game review page. Here you can glean further insights into your team's performance. For a description of the features on the game review page, check out the Analytics product description.
+				</div>
+
+
+			</div>
+		</div>
+</div>
+
+<style></style>
+<script>
+	var jumping = false;
+	$(".portal-button-2").addClass("portal-button-2-alt")
+
+	$("#stat-collection-content").css("left", $("#stat-collection-sidebar").width())
+	$(".mobile-product-sidebar-wrapper").css("top", $("#logged-in-header").outerHeight() -1)
+	$("#stat-collection-sidebar").css("top", $("#logged-in-header").outerHeight() + 30)
+	$("#stat-collection-sidebar").css("height", $(window).outerHeight() - $("#logged-in-header").outerHeight())
+
+</script>

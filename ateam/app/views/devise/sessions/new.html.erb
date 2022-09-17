@@ -1,0 +1,311 @@
+<!doctype html>
+ <% content_for(:body_attributes) do %>
+    data-turbolinks="false"
+ <% end %>
+<html lang="en-US" class="no-js">
+<head>
+<!-- Meta Tags -->
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0" />
+
+<%= stylesheet_link_tag  'particles' %>
+<%= stylesheet_link_tag  'salient_main' %>
+<%= stylesheet_link_tag  'salient_old' %>
+<%= stylesheet_link_tag  'salient_child' %>
+
+
+
+
+
+
+
+
+
+
+<!-- TODO: IE8 COMPATABILITY!!! -->
+
+
+<!--Typekit custom fonts IMPORTANT!!!!!!-->
+<script src="https://use.typekit.net/jeg3uxg.js"></script>
+<script>try{Typekit.load({ async: true });}catch(e){}</script>
+
+
+
+
+</style><style type="text/css" data-type="vc_shortcodes-custom-css">.vc_custom_1479418982621{margin-top: 0px !important;padding-top: 0px !important;}</style><noscript><style type="text/css"> .wpb_animate_when_almost_visible { opacity: 1; }</style></noscript> 
+</head>
+
+
+<body class="home page-template-default page page-id-3166 nectar-auto-lightbox ascend wpb-js-composer js-comp-ver-5.7 vc_responsive " data-footer-reveal="1" data-footer-reveal-shadow="small" data-header-format="centered-menu" data-body-border="off" data-boxed-style="" data-header-breakpoint="1000" data-dropdown-style="classic" data-cae="linear" data-cad="650" data-megamenu-width="contained" data-aie="none" data-ls="magnific" data-apte="standard" data-hhun="0" data-fancy-form-rcs="default" data-form-style="default" data-form-submit="default" data-is="minimal" data-button-style="default" data-header-inherit-rc="false" data-header-search="false" data-animated-anchors="true" data-ajax-transitions="true" data-full-width-header="true" data-slide-out-widget-area="true" data-slide-out-widget-area-style="fullscreen" data-user-set-ocm="1" data-loading-animation="none" data-bg-header="true" data-responsive="1" data-ext-responsive="true" data-header-resize="1" data-header-color="light" data-cart="false" data-remove-m-parallax="" data-remove-m-video-bgs="" data-force-header-trans-color="light" data-smooth-scrolling="0" data-permanent-transparent="false" >
+
+<script type="text/javascript"> if(navigator.userAgent.match(/(Android|iPod|iPhone|iPad|BlackBerry|IEMobile|Opera Mini)/)) { document.body.className += " using-mobile-browser "; } </script>
+
+<div id="header-space" data-header-mobile-fixed='1'></div> 
+
+  
+<div id="header-outer"  data-has-menu="true" data-has-buttons="yes" data-using-pr-menu="false" data-mobile-fixed="1" data-ptnm="false" data-lhe="animated_underline" data-user-set-bg="#ffffff" data-format="centered-menu" data-permanent-transparent="false" data-megamenu-rt="0" data-remove-fixed="0" data-header-resize="1" data-cart="false" data-transparency-option="" data-box-shadow="small" data-shrink-num="6" data-full-width="true" data-condense="false" data-using-secondary="0" data-using-logo="1" data-logo-height="45" data-m-logo-height="24" data-padding="32" data-transparent-header="true" data-transparent-shadow-helper="false" data-remove-border="true" class="transparent">
+  
+  
+<header id="top">
+  <div class="container">
+  <div class="row">
+    <div class="col span_3">
+    <%= link_to root_path, {:id => "logo"} do %> 
+        <img class="stnd default-logo" alt="ATeam" src="<%= asset_path 'logo-grey.png' %>" srcset="<%= asset_path 'logo-grey.png' %> 1x,<%= asset_path 'logo-grey.png' %> 2x" />
+        <img class="starting-logo default-logo"  alt="ATeam" src="<%= asset_path 'logo-white.png' %>" srcset="<%= asset_path 'logo-white.png' %> 1x, <%= asset_path 'logo-white.png' %> 2x" />
+        <img class="starting-logo dark-version default-logo"  alt="ATeam" src="<%= asset_path 'logo-grey.png' %>" srcset="<%= asset_path 'logo-grey.png' %> 1x, <%= asset_path 'logo-grey.png' %> 2x" /> 
+    <%end %> 
+    </div><!--/span_3-->
+    <div class="col span_9 col_last">
+          <div class="slide-out-widget-area-toggle mobile-icon fullscreen" data-icon-animation="simple-transform">
+      <div> <a href="#sidewidgetarea" class="closed"> <span> <i class="lines-button x2"> <i class="lines"></i> </i> </span> </a> </div> 
+      </div>
+     
+    <div class="col span_9 col_last">
+    <nav>
+      <ul class="buttons" data-user-set-ocm="1" id = "header-buttons">
+        <li class="button_login button_logged_out " id = "signup-button">
+          <a>
+            <button class = "portal-button portal-button-1" id = "" onclick = "sign_up_modal()">Sign Up</button>
+          </a>
+        </li> 
+        <li class="button_login button_logged_out login-button" id = "login-button">
+          <a>
+            <button class = "portal-button portal-button-2" id = "login-user-button" onclick = "sign_in_modal()">Login</button>
+          </a>
+        </li>
+
+        <li class="button_login button_logged_in " id = "create-team-button" style = "display: none;">
+          <%=link_to new_team_path do %>
+                    <button class = "portal-button portal-button-1" onclick = "create_team()">Create Team</button>
+                  <%end%>
+        </li> 
+<!--        <li class="button_login button_logged_in " id = "join-team-button" style = "display: none;">
+          <a>
+            <button class = "portal-button portal-button-2 header-button-deactivated" >Join Team</button>
+          </a>
+        </li> -->
+
+        <li class = "player-dropdown" style = "display: none">
+          <div class = "player-dropdown-wrapper flex-row">
+            <div class = "player-dropdown-text" ></div> 
+            <object data='<%=asset_path("down-arrow.svg")%>' type="image/svg+xml" class = "sort-img player-dropdown-arrow" id = "player-dropdown-arrow">
+                        <%= image_tag("down-arrow.png", :alt => "sort", :class => "sort-img") %>  
+                    </object>
+                    <object data='<%=asset_path("down-dark.svg")%>' type="image/svg+xml" class = "sort-img player-dropdown-arrow" id = "player-dropdown-arrow-dark" style = "display: none;">
+                        <%= image_tag("down-dark.png", :alt => "sort", :class => "sort-img") %> 
+                    </object>
+                   </div>
+        </li>
+       
+      </ul>
+      <ul class="sf-menu">  
+        <li id="menu-item-8559" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-home current-menu-item page_item page-item-3166 current_page_item menu-item-8559"><%= link_to 'Home', root_path %>
+        </li>
+        <li id="menu-item-9626" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-9626"><%= link_to 'Product', product_path %> 
+        </li>
+        <li id="menu-item-9627" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-9627"><%= link_to 'Demos', demos_path %> 
+        </li>
+        <li id="menu-item-9626" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-9626"><%= link_to 'About', about_path %> 
+        </li>
+      </ul>    
+    </nav>    
+    </div><!--/span_9-->
+
+    
+  </div><!--/row-->
+  </div><!--/container-->
+</header>
+      
+   
+</div><!--/header-outer-->
+
+
+<div id="ajax-content-wrap">
+
+<div class="blurred-wrap"><div id="page-header-wrap" data-animate-in-effect="none" data-midnight="light" class="fullscreen-header" >      <div class=" fullscreen-header"  data-padding-amt="normal" data-animate-in-effect="none" id="page-header-bg" data-midnight="light" data-text-effect="none" data-bg-pos="center" data-alignment="center" data-alignment-v="middle" data-parallax="1" data-height="450" style="background-color: #2b2b2b;   ">
+      
+       <div class=" nectar-particles" data-disable-explosion="off" data-rotation-timing="">
+        <div class="canvas-bg">
+          <canvas id="canvas" data-active-index="0" data-randommovement="true">
+            
+          </canvas></div><div class="container">
+            <div class="row">
+              <div class="col span_6" >
+                <div class="shape" data-src="<%= asset_path 'Basketball-Rev5.png' %>" data-max-size="" data-alpha="original" data-density="14" data-color-mapping="original" data-color="" data-bg-color="">
+                  
+                </div>
+                
+                <div class="shape" data-src="<%= asset_path 'Basketball-Rev5.png' %>" data-max-size="" data-alpha="" data-density="14" data-color-mapping="" data-color="" data-bg-color="">
+                  
+                </div>
+                <div class="inner-wrap shape-2">
+                </div>
+                  </div>
+                </div>
+              </div>
+
+        <div class="pagination-navigation">
+          <div class="pagination-current"></div>
+          <div class="pagination-dots">
+            <button class="pagination-dot"></button><button class="pagination-dot"></button>
+          </div>
+        </div>
+      </div> <!--/nectar particles--> 
+
+      
+    </div>
+
+     </div>
+
+
+</div><!--blurred-wrap-->
+
+</div> <!--/ajax-content-wrap-->
+
+
+<script type='text/javascript'>
+    $(window).trigger('resize');
+/* <![CDATA[ */
+var nectarLove = {};
+/* ]]> */
+</script>
+
+
+<div class = "modal-overlay" id = "sign-in-overlay"></div>
+<div class = "modal modal-positioning" id = "sign-in-modal">
+  <div id = "signup-initializer" class = "modal-container">
+    <div class = "GM-modal-wrapper">
+      <div class = "modal-header-wrapper">
+        <div class = "modal-header" id = "create-account-header">Sign In</div>
+      </div>
+      <div id = "sign-in-modal-wrapper">
+        <%= bootstrap_form_for(resource, 
+                           as: resource_name, 
+                           url: session_path(resource_name)) do |f| %>
+        <div class = "modal-inner-content" id = "signup-modal-content">
+          <div class = "modal-body ">
+            
+              <div id = "create-account-wrapper">
+                  <%= f.email_field :email, 
+                          autofocus: true, 
+                          class: 'form-control signup-modal-input', 
+                          placeholder: 'email' %>
+                  <%= f.password_field  :password, 
+                              autocomplete: "off", 
+                              class: 'form-control signup-modal-input',
+                              placeholder: 'password' %>
+              </div>
+              
+              <% if devise_mapping.rememberable? -%>
+                 <%= f.check_box :remember_me %>
+              <% end -%>
+
+              <div id = "sign-in-new-account-wrapper" class = "flex-row">
+                <div id = "dont-have-an-account">Don't have an account?</div>
+                <div id = "create-account" class = "main-link"> Create one here.</div>
+              </div>
+              <div id = "forgot-password" class = "main-link" style = "cursor: pointer;">Forgot Password?</div>
+          </div>
+
+        </div>
+       
+        
+        <div class = "modal-footing">
+          <%= f.submit "Log in", class: 'modal-submit-button', id: "signin-submit" %>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class = "modal-overlay" id = "forgot-password-overlay" style = "display: none;"></div>
+<div class = "modal modal-positioning" id = "forgot-password-modal" style = "display: none;">
+  <div id = "signup-initializer" class = "modal-container">
+    <div class = "GM-modal-wrapper">
+      <div class = "modal-header-wrapper">
+        <div class = "modal-header" id = "create-account-header">Forgot Password</div>
+      </div>
+      <div class = "modal-inner-content" id = "signup-modal-content">
+        <div class = "modal-body ">
+          
+          <!-- padding top, padding bottom -->
+            <div id = "forgot-password-wrapper">
+              <label for = 'recovery-email'>Enter Email</label>
+              <input class = "form-control signup-modal-input" id = "recovery-email">
+            </div>
+            <div class = "flex-row center-justified" id = "join-team-button-wrapper">
+              <button id = "join-team-modal-button" onclick = "send_recovery_email()">Send Recovery Email</button>
+            </div>
+            <div id = "email-not-found" class = "needs-input" style = "display: none;">*Email not found. If you think there was a mistake email ryan@ateamsports.awsapps.com.</div>
+            <div id = "email-sent" class = "green-text" style = "display: none;">Email sent. Check your inbox in a few minutes.</div>
+
+        </div>
+      </div>
+      <div class = "modal-footing">
+      </div>
+      
+    </div>
+  </div>
+</div>
+
+
+<div class = "modal-overlay" id = "sign-up-overlay" style = "display: none;"></div>
+<div class = "modal modal-positioning" id = "sign-up-modal" style = "display: none;">
+  <div id = "signup-initializer" class = "modal-container">
+    <div class = "GM-modal-wrapper">
+      <div class = "modal-header-wrapper">
+        <div class = "modal-header" id = "create-account-header">Create Account</div>
+      </div>
+      <%= bootstrap_form_for(resource, 
+       :as => resource_name, 
+       :url => registration_path(resource_name)) do |f| %>
+      <div class = "modal-inner-content" id = "signup-modal-content">
+        <div class = "modal-body ">
+          
+          <!-- padding top, padding bottom -->
+            <div id = "create-account-wrapper">
+                <div class = "grid" id = "firstname-lastname">              
+                  <%= f.text_field :first_name, 
+                           class: 'form-control signup-modal-input' %>
+                  <%= f.text_field :last_name, 
+                          class: 'form-control signup-modal-input' %>
+                </div>
+                <%= f.email_field :email, 
+                           class: 'form-control signup-modal-input signup-email' %>
+                <%= f.password_field :password, 
+                                     class: 'form-control signup-modal-input' %>
+                <%= f.password_field :password_confirmation, 
+                                     class: 'form-control signup-modal-input' %>
+            </div>
+
+        </div>
+      </div>
+      <div class = "modal-footing">
+        <%= f.submit 'Sign up', class: 'modal-submit-button modal-submit-button-deactivated', id: "signup-submit", disabled: true %>
+        <% end %>
+      </div>
+      
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+</body>
+</html>
+
+<script>
+  var email_verified = false;
+  $("#create-account").click(sign_up_page_modal)
+
+$("#forgot-password").on("click", function(){
+    console.log("show password reset")
+      show_password_reset()
+   })
+</script>

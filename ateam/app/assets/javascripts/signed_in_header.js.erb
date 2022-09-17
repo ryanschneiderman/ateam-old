@@ -1,0 +1,283 @@
+	
+	$(document).on('turbolinks:load ', function(){
+		if(gon.current_user){
+			window.notifications = []
+			notificationButtonSize()
+			load_notifications(gon.notifications)
+			addCurrentPageClass()
+			get_season_dropdown()
+			setMemberDropdown()
+			window.notifications_page = 1;
+			var load_bool = true;
+			$("#notifications-container").scroll(function(){
+				var height= $("#notifications-container").height() - 200
+				var scroll_top = $("#notifications-container").scrollTop()
+				if($("#notifications-container").scrollTop() > $("#notifications-container").height() - 200 && load_bool){
+					load_bool = false
+					load_more_notifications()
+				}
+			})	
+		}
+	});
+
+
+	function notificationButtonSize(){
+		var mobile = window.matchMedia( "screen and (min-device-width : 300px) and (max-device-width : 1024px) and (orientation : portrait)" );
+		if(mobile.matches){
+			$("#notifications-button svg")[0].setAttribute('viewBox', '0 0 21 21')
+			$("#notifications-button svg").height(45)
+			$("#notifications-button svg").width(45)
+		}
+	}
+
+	function load_more_notifications(){
+		var url = '/load_more_notifications'
+		window.notifications_page+=1;
+		$.ajax({
+			url: url,
+			beforeSend: function(xhr) {xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))},
+			method: "get",
+			data_type: 'json',
+			data: {page: window.notifications_page, reload: false},
+			success: function(result){
+				load_notifications(result.notifications)
+				load_bool = true;
+			}
+
+		});
+	}
+
+	function setSeasonDropdown() {
+		if(!$("body").hasClass("game_mode")){
+			$("#seasons-dropdown-content").css("top", $("#logged-in-header").outerHeight() + 5)
+  			$("#seasons-dropdown-content").css("left", $("#seasons-dropdown").offset().left + $("#seasons-dropdown").outerWidth() - $("#seasons-dropdown-content").outerWidth())
+		}
+	}
+
+	function setMemberDropdown(){
+		if(!$("body").hasClass("game_mode")){
+			$("#user-dropdown-content").css("top", $("#logged-in-header").outerHeight() + 5)
+	  		$("#user-dropdown-content").css("left", $("#user-dropdown").offset().left + $("#user-dropdown").outerWidth() - $("#user-dropdown-content").outerWidth())
+		}
+	}
+
+	function get_season_link_url(season){
+		var pathname = window.location.pathname.split('/');
+		var len = pathname.length
+		var i = 0;
+		var rest_of_path = ""
+		var found_season = false
+		while(i< len-1){
+			if(found_season){
+				rest_of_path += "/"+pathname[i] +"/"
+			}
+			if(pathname[i]=="seasons"){
+				found_season = true
+				i++
+			}
+			i++
+		}
+
+		var url = "/teams/"+season.team_id + "/seasons/"+season.id + rest_of_path
+		return url
+	}
+
+
+	function insert_season_in_dropdown(season){
+		var link;
+		if(season.year2){
+			var link = "<a class='flex-row toolbar-dropdown-button' href = '"+get_season_link_url(season)+"'></a>"
+			var year_string = season.year1 % 100 + '/' + season.year2 % 100
+			var inner = "<div class='dropdown-action season-dropdown-action'> "+season.team_name+" '"+year_string+" </div>"
+		}
+		else{
+			var link = "<a class='flex-row toolbar-dropdown-button' href = '"+get_season_link_url(season)+"'></a>"
+			var inner = `<div class="dropdown-action season-dropdown-action"> `+season.team_name+` '`+season.year1 % 100+` </div>`
+		}
+		$("#seasons-dropdown-container").append($(link).append(inner))
+		setSeasonDropdown()
+	}
+	
+	function insert_seasons_dropdown(seasons){
+		var seasons_len = seasons.length
+		console.log("printing seasons")
+		console.log(seasons)
+		for(var i = 0; i < seasons_len; i++){
+			insert_season_in_dropdown(seasons[i])
+		}
+	}
+
+	function get_season_dropdown(){
+		var url = "/get_seasons/";
+		$.ajax({
+			url: url,
+			beforeSend: function(xhr) {xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))},
+			type: "get",
+			data_type: 'json',
+			data: {},
+			success: function(result){
+				insert_seasons_dropdown(result.seasons)
+			}
+		});
+	}
+
+	function season_dropdown(){
+		$("#seasons-dropdown-content").show()
+		$('body').on("mousedown", function(e){
+			if(!$(e.target).hasClass("dropdown-action") && !$(e.target).hasClass("toolbar-dropdown-button") && !$(e.target).parents(".toolbar-no-close").length > 0){
+				$("#seasons-dropdown-content").hide()
+			}
+		})
+	}
+
+	function user_dropdown(){
+		$("#user-dropdown-sub-menu").css("visibility", "visible")
+		$("#user-dropdown-sub-menu").css("opacity", "1")
+		$('body').on("mousedown", function(e){
+			if(!$(e.target).hasClass("dropdown-action") && !$(e.target).hasClass("toolbar-dropdown-button") && !$(e.target).parents(".toolbar-no-close").length > 0){
+				$("#user-dropdown-sub-menu").css("visibility", "hidden")
+				$("#user-dropdown-sub-menu").css("opacity", "0")
+			}
+		})
+	}
+
+	function addCurrentPageClass(){
+		$(".main-header-link").removeClass("current_page_item").removeClass("current_menu_item").removeClass("sfHover")
+		if($('body[data-controller-name="teams"').length > 0){
+			$("#home-page-link").addClass("current_page_item").addClass("current_menu_item")
+		}
+		else if($('body[data-controller-name="stats"').length > 0){
+			$("#stats-page-link").addClass("current_page_item").addClass("current_menu_item")
+		}
+		else if($('body[data-controller-name="games"').length > 0){
+			$("#schedule-page-link").addClass("current_page_item").addClass("current_menu_item")
+		}
+		else if($('body[data-controller-name="plays"').length > 0){
+			$("#plays-page-link").addClass("current_page_item").addClass("current_menu_item")
+		}
+		else if ($('body[data-controller-name="settings"').length > 0){
+			$("#settings-page-link").addClass("current_page_item").addClass("current_menu_item")
+		}
+		else if ($('body[data-controller-name="lineups"').length > 0){
+			$("#lineup-explorer-page-link").addClass("current_page_item").addClass("current_menu_item")
+		}
+
+	}
+	
+
+	function convert_data(str){
+		var text = str.text()
+		var split = text.split(/[\s, ]+/);
+		if(split[0] == "less"){
+			var return_word = str.text()
+		}
+		else{
+			var arr_len = split.length
+			for(var i = 0; i < arr_len; i++){
+				if(parseInt(split[i])){
+					var return_word = split[i] + split[i+1][0]
+				}
+			}
+		}
+		return return_word
+	}
+
+	$(".notification-ago").each(function(){
+		$(this).text(convert_data($(this)))
+	})
+
+	function build_notification_dom(notification, link){
+		var notification_button = $("<button class = 'notification-button' id = 'notif-"+notification.id+"' onclick = 'update_notification_read("+ notification.id + ")'></button>")
+		notification_button.append(link)
+		$("#notifications-container").append(notification_button)
+	}
+
+	function time_ago_in_words(date){
+
+	}
+
+	function get_notification_link_html(notification){
+		if(notification.notif.read){
+			var wrapper = '<div class = "notification"></div>'
+		}
+		else{
+			var wrapper = '<div class = "notification notification-unread"></div>'
+		}
+		var notification_content ='<div class = "notification-content">'+notification.notif.content+'</div>'
+		var notification_ago = '<div class = "notification-ago">'+notification.time_ago+'</div>'
+		var link = '<a href = "'+notification.link+'"></a>'
+		return $(link).append($(wrapper).append(notification_content).append(notification_ago))
+	}
+
+	function load_notifications(notifications_arr){
+		if(notifications_arr){
+			var unviewed_notif = false;
+			var len = notifications_arr.length
+			console.log("load notifications")
+			console.log(notifications_arr)
+			for(var i = 0; i < len; i++){
+				var notification = {"content" : notifications_arr[i].notif.content, "viewed" : notifications_arr[i].notif.viewed, "id" : notifications_arr[i].notif.member_notif_id, "read" : notifications_arr[i].notif.read, "notif_type_id" : notifications_arr[i].notif.notif_type_id, }
+				window.notifications.push(notification)
+				var link = get_notification_link_html(notifications_arr[i])
+
+
+				if(notifications_arr[i].notif.viewed == false){
+					unviewed_notif = true;
+				}
+				if (unviewed_notif){
+					$(".notif-circle").show()
+				}
+				build_notification_dom(notification, link)
+			}
+		}
+
+	} 
+
+	function splice_notifications(notif_type_id){
+		var unviewed_notif = false;
+		window.notifications = window.notifications.filter(function(notif) {
+		    if(notif_type_id == notif.notif_type_id){
+				var notif_dom = $("#notif-" + notif.id)
+				notif_dom.remove();
+			}
+			else{
+				 return notif;
+			}
+		});
+		window.notifications.forEach(function(notif){
+			if(!notif.viewed){
+				unviewed_notif = true;
+			}
+		})
+		if(!unviewed_notif){
+			$(".notif-circle").hide()
+		}
+	}
+
+	function update_notification_read(notification_id){
+		$.ajax({
+			url: "/notification_read", 
+			beforeSend: function(xhr) {xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))},
+		    type: "post",
+		    data: {"notification_id" : notification_id},
+			success: function(result){
+		        console.log("viewed notification")
+		    }
+		});
+	}
+
+	
+	function click_notifications(){
+		$("#notifications").css("left", $("#notifications").width() * -1 + 25)
+		$("#notifications-nub").css("left", $("#notifications").width() - 18)
+		$(".notif-circle").hide()
+		$.ajax({
+			url: "/notifications/", 
+			beforeSend: function(xhr) {xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))},
+		    type: "post",
+		    data: {"notifications" : window.notifications},
+			success: function(result){
+		        console.log("viewed notification")
+		    }
+		});
+	}

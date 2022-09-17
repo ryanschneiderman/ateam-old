@@ -1,0 +1,141 @@
+.overlay-content{
+	z-index: 2001;
+	background: none;
+	justify-content: center;
+}
+
+.schedule-event{
+	margin: 0px 5px;
+    background-color: #e8e8e8;
+    border-radius: 5px;
+    font-weight: 500;
+    box-shadow: 0px 0px 3px #a2a2a2;
+}
+
+
+.delete-schedule-event{
+	border: 1px solid #ff0047;
+    color: #ff0047;
+}
+
+.delete-schedule-event:hover{
+	background-color: #ff0047;
+    color: white;
+}
+
+.edit-schedule-event{
+	color: #0075ff;
+    border: 1px solid #0075ff;
+}
+
+.edit-schedule-event:hover{
+	background-color: #0075ff;
+    color: white;
+}
+
+
+
+.event-edit-delete-wrapper{
+	padding-top: 5px;
+	padding-bottom:5px;
+}
+
+
+
+.schedule-event-link{
+	display: flex;
+	flex-direction: column;
+}
+
+.schedule-event-elem{
+	padding: 4px; 
+}
+
+.game-heading{
+	text-align: center;
+    border-bottom: 1px solid white;
+}
+
+.game-score-wrapper{
+	display: grid;
+	grid-template-columns: 3fr 1fr 3fr;
+	text-align: center;
+}
+
+.schedule-score{
+	font-weight: 600;
+}
+
+.game-time{
+	font-weight: 600;
+	text-align: center;
+}
+
+.re-enter-stats-wrapper{
+	margin-bottom: 20px;
+    margin-top: 20px;
+}
+
+.re-enter-stats{
+	padding: 10px;
+    padding-left: 20px;
+    padding-right: 20px;
+    background-color: white;
+    border: 2px solid #0195ff;
+    color: #0195ff !important;
+    font-weight: 600;
+    border-radius: 10px;
+}
+
+.schedule-score-win{
+	color: #37d686;
+}
+
+.schedule-score-loss{
+	color: #ff0016;
+}
+
+.new-game-box{
+	overflow: hidden;
+	margin: auto;
+	border-radius: 3px;
+	z-index: 2001;
+	display: flex;
+	flex-direction: column;
+	width: 45vw;
+	margin-top: 100px;
+	justify-content: center;
+}
+
+.new-game-header{
+	background-color: white;
+	font-size: 25px;
+	padding-top: 10px;
+	padding-bottom: 10px;
+	text-align:center;
+}
+
+.new-game-form{
+	padding: 0px 30px 0px;
+}
+
+#calendar{
+	width: 85vw;
+	margin: 20px auto 0 auto;
+}
+
+.new-game-input-label{
+	font-size: 16px;
+    font-weight: 600;
+    margin-bottom: 8px;
+}
+
+
+.select-opponent-wrapper{
+	padding-top: 5px;
+}
+
+.needs-input-game{
+	color: red;
+	margin-top: 5px;
+}

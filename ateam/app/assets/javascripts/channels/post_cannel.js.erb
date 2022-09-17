@@ -1,0 +1,21 @@
+
+$(document).on('turbolinks:load ', function(){
+	if($("body").hasClass("season_home")){
+		postsChannel = App.cable.subscriptions.create({channel: "PostsChannel", season_id: gon.season_id}, {
+		    connected: function() {
+		    	postsChannel.send({trigger_update: true})
+		    },
+		    disconnected: function() {},
+			received: function(data) {
+				if(data.post){
+					insert_post(data.post)
+				}
+			}
+		});
+	}
+
+});
+
+
+
+

@@ -1,0 +1,70 @@
+<div class = "flex-column plays-index-content-wrapper plays-index-deactivated" id = "all-plays-wrapper">
+	<div class = "plays-index-content">
+		<div class = "plays-and-playlists">
+			<div class = "plays-row-wrapper">
+				<div class = "play-back-wrapper">
+					<div class = "flex-row">
+						<button class = "modal-back-button" onclick = "back_to_previous()">
+		        			<object data='<%=asset_path("back-arrow.svg")%>' type="image/svg+xml" class = "back-arrow-img">
+		                          <%= image_tag("back-arrow.png", :alt => "back-arrow", :class => "back-arrow-img") %>	
+		                     </object>
+		        		</button>
+		        	</div>
+	        		<div class = "plays-buttons-wrapper flex-row">
+	        			<div class = "stat-index-toggle-button-wrapper team-trend-button-wrapper">
+							<select class = "center-aligned stat-index-toggle-button" id = "sort-plays-button" onchange="sort_plays_button(this, value);" >
+								<option class="flex-row toolbar-dropdown-button" disabled selected hidden>Sort By</option>
+								<option class="flex-row toolbar-dropdown-button" value = 'alpha'>A-Z</option>
+								<option class="flex-row toolbar-dropdown-button" value = 'viewed'>Recently Viewed</option>
+								<option class="flex-row toolbar-dropdown-button" value = 'updated'>Recently Updated</option>
+
+							</select>
+						</div>
+		        		<%if @write_permiss%>
+			        		<button class = "done-button not-editing" onclick = "update_plays()"> Done </button>
+			        		<button class = "modal-back-button settings-button" onclick = "edit_plays_mode()">
+			        			<object data='<%=asset_path("settings.svg")%>' type="image/svg+xml" class = "settings-img">
+			                          <%= image_tag("settings.png", :alt => "settings", :class => "settings-img") %>	
+			                     </object>
+			        		</button>
+			        	<%end%>
+		        	</div>
+	        	</div>
+				<div class = "plays-full-heading">All Plays</div>
+				<div class = "plays-full" id = "all-plays">
+					<%counter = 0%>
+					<%@all_plays.each do |play| %>
+						<div class = "play-image-block-wrapper" id = "play-all-<%=play.id%>" data-play-id = "<%=play.id%>" data-viewed = "<%=play.viewed%>" data-play-name = "<%=play.name%>" data-updated-at = "<%=play.updated_at%>">
+							<div class ="play-image-block flex-row">
+								<button class= "play-index-image" id = "play-image-<%=play.id%>" data-play-id = "<%=play.id%>">
+									<object data='<%=asset_path("delete.svg")%>' type="image/svg+xml" class = "delete-img delete-play delete-svg not-editing">
+				                          <%= image_tag("delete.png", :alt => "delete-progression", :class => "delete-img delete-play") %>	
+				                     </object>
+									<%= link_to show_vs_edit(play.id), :class => "play-link" do %>
+										<%if @all_plays_progressions[counter].first%>
+											<%= image_tag(@all_plays_progressions[counter].first.play_image, :alt => "play", :class => "play-img-full recently_viewed", :id => counter) if @all_plays_progressions[counter].first.play_image.attached?%>
+										<%else%>
+											<div class = "play-img-full play-full-no-img"></div>
+										<%end%>
+									<%end%>
+								</button>
+								
+							</div>
+							<div class = "play-link-text"><%= link_to play.name, show_vs_edit(play.id) %></div>
+						</div>
+						<%counter+=1%>
+					<%end%>
+				</div>
+			</div>
+			
+		</div>
+	</div>
+</div>
+
+
+<script>
+
+
+	
+
+</script>

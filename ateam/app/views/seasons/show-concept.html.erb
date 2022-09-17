@@ -1,0 +1,334 @@
+
+
+<%=render "layouts/small_header"%>
+<div id="header-outer"  data-has-menu="true" data-has-buttons="yes" data-using-pr-menu="false" data-mobile-fixed="1" data-ptnm="false" data-lhe="animated_underline" data-user-set-bg="#ffffff" data-format="centered-menu" data-permanent-transparent="false" data-megamenu-rt="0" data-remove-fixed="0" data-header-resize="1" data-cart="false" data-transparency-option="" data-box-shadow="small" data-shrink-num="6" data-full-width="true" data-condense="false" data-using-secondary="0" data-using-logo="1" data-logo-height="45" data-m-logo-height="24" data-padding="32" data-transparent-header="true" data-transparent-shadow-helper="false" data-remove-border="true" class="transparent">
+  
+  
+<header id="top">
+
+</header>
+      
+   
+</div><!--/header-outer-->
+<div id="ajax-content-wrap">
+
+<div class="blurred-wrap">
+	<div id="page-header-wrap" data-animate-in-effect="none" data-midnight="light" class="fullscreen-header" >      <div class=" fullscreen-header"  data-padding-amt="normal" data-animate-in-effect="none" id="page-header-bg" data-midnight="light" data-text-effect="none" data-bg-pos="center" data-alignment="center" data-alignment-v="middle" data-parallax="1" data-height="450" style="background-color: #2b2b2b;   ">
+      
+       <div class=" nectar-particles" data-disable-explosion="off" data-rotation-timing="">
+        <div class="canvas-bg">
+          <canvas id="canvas" data-active-index="0" data-randommovement="true">
+            
+          </canvas></div><div class="container">
+            <div class="row">
+              <div class="col span_6" >
+                <div class="shape" data-src="<%= asset_path 'Basketball-Rev5.png' %>" data-max-size="" data-alpha="original" data-density="14" data-color-mapping="original" data-color="" data-bg-color="">
+                  
+                </div>
+                
+                <div class="shape" data-src="<%= asset_path 'Basketball-Rev5.png' %>" data-max-size="" data-alpha="" data-density="14" data-color-mapping="" data-color="" data-bg-color="">
+                  
+                </div>
+                <div class="inner-wrap shape-1">
+                	<div id = "main">
+	<div id = "season-home-grid">
+		<div id = "season-main-wrapper">
+<!-- 			<div class = "season-home-grid-row"> -->
+				<div id = "season-home-schedule-info">
+					<div class = "season-home-team-name"><%=@season.team_name%></div>
+					<div class = "season-home-record"><%=@wins%> - <%=@losses%></div>
+					<div class = "season-home-schedule">
+						<div id = "schedule-info">
+							<%=link_to team_season_games_path(@team_id, @season_id) do %>
+								<div id = "date-info" class = "schedule-info">
+									<div id = "date-wrapper">
+										<div class = "day-week"><%=@day_of_week%></div>
+										<div class = "day-date"><%=@day_number%></div>
+										<div class = "month-year"><%=@month_string%> <%=@year%></div>
+									</div>
+								</div>
+							<%end%>
+							<div id = "schedule-event-wrapper" class = "schedule-info">
+								<%=render get_schedule_event%>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div id = "season-home-stats" class = "season-home-container">
+					<div class = "season-home-container-inner">
+						<div class = "season-home-heading" id = "season-home-stat-heading">Season Shooting</div>
+						<div class = "season-home-stat-content flex-row center-justified center-aligned">
+							<button class = "left expand-collapse-arrow" onclick = "slide_stat_content_left()"></button>
+							<div id = "season-home-stat-content-inner">
+								<div class = "season-home-stat-circles season-home-stat-container" id = "season-home-stat-container-0" data-header-text = "Season Shooting">
+									<div class = "flex-column center-justified center-aligned  percentage-circle-wrapper">
+										<div class = "percentage-circle-header">FG%</div>
+										<div class = "fg-percentage-circle percentage-circle" id = "team-fg-percentage-circle"></div>
+									</div>
+									<div class = "flex-column center-justified center-aligned percentage-circle-wrapper">
+										<div class = "percentage-circle-header">FT% </div>
+										<div class = "ft-percentage-circle percentage-circle" id = "team-ft-percentage-circle"></div>
+									</div>
+									<div class = "flex-column center-justified center-aligned percentage-circle-wrapper">
+										<div class = "percentage-circle-header">3PT%</div>
+										<div class = "three-pt-percentage-circle percentage-circle" id = "team-three-pt-percentage-circle"></div>
+									</div>
+								</div>
+								<div class = "team-advanced-ratings season-home-team-advanced-ratings season-home-stat-container" id = "season-home-stat-container-1" data-header-text = "Season Efficiency">
+									<div id = "season-home-offensive-rating" class = "flex-column season-home-rating">
+										<div class = "flex-row">
+											<div id = "offensive-rating-heading" class = "offensive-rating season-home-advanced-text team-rating-heading">Offensive Rating</div>
+										</div>
+										<div id = "offensive-rating-value" class = "offensive-rating season-home-advanced-text team-rating-value"></div>
+									</div>
+									<div id = "season-home-defensive-rating" class = "flex-column season-home-rating">
+										<div class = "flex-row">
+											<div id = "defensive-rating-heading" class = "defensive-rating season-home-advanced-text team-rating-heading">Defensive Rating</div>
+										</div>
+										<div id = "defensive-rating-value" class = "defensive-rating season-home-advanced-text team-rating-value"></div>
+									</div>
+								</div>
+								<div class = "season-home-stat-container season-home-lineup-wrapper" id = "season-home-stat-container-2" data-header-text = "Top Offensive Lineup">
+									<div class = "season-home-lineup-container season-home-lineup-offensive"></div>
+								</div>
+								<div class = "season-home-stat-container season-home-lineup-wrapper" id = "season-home-stat-container-3" data-header-text = "Top Defensive Lineup">
+									<div class = "season-home-lineup-container season-home-lineup-defensive"></div>
+								</div>
+								<div class = "season-home-stat-container season-home-lineup-wrapper" id = "season-home-stat-container-4" data-header-text = "Top Net Lineup">
+									<div class = "season-home-lineup-container season-home-lineup-net"></div>
+								</div>
+							</div>
+							<button class = "right expand-collapse-arrow" onclick = "slide_stat_content_right()"></button>
+						</div>
+
+						<div id = "season-stat-toggle-buttons" class = "circle-toggle-buttons">
+							<button class = "season-stat-toggle-button" onclick = "toggle_season_home_stats(0)">
+								<div id = "season-stat-toggle-button-0" style = "width: 10px; height: 10px;" class = "dot season-stat-toggle-button-active"></div>
+							</button>
+							<button class = "season-stat-toggle-button" onclick = "toggle_season_home_stats(1)">
+								<div id = "season-stat-toggle-button-1" class = "dot"></div>
+							</button>
+							<button class = "season-stat-toggle-button" onclick = "toggle_season_home_stats(2)">
+								<div id = "season-stat-toggle-button-2" class = "dot"></div>
+							</button>
+							<button class = "season-stat-toggle-button" onclick = "toggle_season_home_stats(3)">
+								<div id = "season-stat-toggle-button-3" class = "dot"></div>
+							</button>
+							<button class = "season-stat-toggle-button" onclick = "toggle_season_home_stats(4)">
+								<div id = "season-stat-toggle-button-4" class = "dot"></div>
+							</button>
+						</div>
+
+						<%=link_to team_season_stats_path(@team_id, @season_id) do%>
+							<div class = "season-home-footer-link">
+								<div class = "season-home-footer-text">See more stats</div>
+		<!-- 						<div class = "season-more-link-arrow"></div> -->
+
+							</div>
+						<%end%>
+					</div>
+
+				</div>
+			<!-- </div> -->
+			<!-- <div class = "season-home-grid-row"> -->
+				<div id = "season-home-plays-wrapper" class = "season-home-container">
+					<div class = "season-home-container-inner">
+						<div class = "season-home-heading">Recently Viewed Plays</div>
+						<div class = "season-home-plays">
+							<div id = "recently-viewed">
+								<%counter = 0%>
+								<%@recently_viewed.each do |play| %>
+									<div class ="play-image-block home-image-block" id = "recently-viewed-<%=play.id%>">
+										<div class= "play-index-image" id = "play-image-<%=play.id%>">
+											<%= link_to team_season_play_path(@team_id, @season_id, play.id), :class => "play-link" do %>
+												<%= image_tag(@recently_viewed_progressions[counter].first.play_image, :alt => "play", :class => "play-img recently_viewed", :id => counter) %>
+											<%end%>
+										</div>
+										<div class = "play-link-text"><%= link_to play.name, team_season_play_path(@team_id, @season_id, play.id) %></div>
+									</div>
+									<%counter+=1%>
+								<%end%>
+							</div>
+						</div>
+						<%=link_to team_season_plays_path(@team_id, @season_id) do%>
+							<div class = "season-home-footer-link">
+								<div class = "season-home-footer-text">See more plays</div>
+			<!-- 						<div class = "season-more-link-arrow"></div> -->
+							</div>
+						<%end%>
+					</div>
+				</div>
+				<div id = "previous-game" class = "season-home-container">
+					<div class = "season-home-container-inner">
+						<div class = "season-home-heading">Previous Game</div>
+						<div class = "team-advanced-ratings" id = "previous-game-container">
+							<div id = "previous-game-team-result" class = "flex-column previous-game-result">
+								<div class = "flex-row">
+									<div id = "previous-game-team-heading" class = "season-home-advanced-text team-rating-heading"><%=@season.team_name%></div>
+								</div>
+								<div id = "previous-game-team-value" class = "season-home-advanced-text team-rating-value"><%=@team_points%></div>
+							</div>
+							<div id = "previous-game-opponent-result" class = "flex-column season-home-rating">
+								<div class = "flex-row">
+									<div id = "previous-game-opponent-heading" class = "season-home-advanced-text team-rating-heading"><%=@previous_game_opponent.name%></div>
+								</div>
+								<div id = "previous-game-opponent-value" class = "season-home-advanced-text team-rating-value"><%=@opponent_points%></div>
+							</div>
+						</div>
+						<%=link_to team_season_game_path(@team_id, @season_id, @previous_game.id) do%>
+							<div class = "season-home-footer-link">
+								<div class = "season-home-footer-text">See game review</div>
+		<!-- 						<div class = "season-more-link-arrow"></div> -->
+
+							</div>
+						<%end%>
+					</div>
+				</div>
+			<!-- </div> -->
+		</div>
+		<div id = "team-chat-wrapper">
+			<div id = "team-chat-content">
+				<div id = "team-chat-inner">
+					<div class = "season-home-heading" id = "team-chat-heading">Team Chat</div>
+					<div id = "season-chat-header-shadow"></div>
+					<div id = "team-chat-container">
+						<%@post_objs.each do |post_obj|%>
+							<%if post_obj[:post].member_id == @curr_member.id%>
+								<div class = "post-wrapper post-wrapper-curr-member" id = '<%=post_obj[:post].post_id%>'>
+							<%else%>
+								<div class = "post-wrapper" id = '<%=post_obj[:post].post_id%>'>
+							<%end%>
+								<div class = "post-info">
+									<div class = "post-author"><%=post_obj[:post].nickname%></div>
+									<div class = "post-ago"><%=(post_obj[:time])%></div>
+									
+								</div>
+								<div>
+									<div class = "post post-role-<%=post_obj[:post].role_id%>">
+										<div class = "post-content"><%=post_obj[:post].content%></div>
+									</div>
+								</div>
+
+							</div>
+						<%end%> 
+					</div>
+				</div>
+				<div id = "team-chat-enter">
+					<div id = "team-chat-enter-inner">
+						<div id = "team-chat-enter-text">
+							<div class = "post-placeholder" id = "post-placeholder">What's on your mind...</div>
+							<form onsubmit="test_submit_post()" id = "new-post-form">
+								<input class = "new-post">
+							</form>
+							<!-- <textarea class = "new-post" form="new-post-form"></textarea> -->
+							<!-- <div class = "new-post textbox-nostyle" contenteditable="true" role = "textbox"></div> -->
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- <div id = "col1">
+			<div id = "feed" class = "full-column">
+				<div class = "new-post-wrapper post">
+					<div class = "new-post-author" id = <%=@curr_member.id%>>
+						<%=@curr_member.nickname%>:
+					</div>
+					<div class = "new-post-content">
+						<div class = "post-placeholder" id = "post-placeholder">What's on your mind...</div>
+						<div class = "new-post textbox-nostyle" contenteditable="true" role = "textbox"></div>
+					</div>
+					<div class = "new-post-toolbar">
+						<button class = "send-post send-post-inactive" onclick = "send_post()">Send</button>
+					</div>
+				</div>
+				
+				<div class = "posts">
+					
+				</div>
+			</div>
+		</div> -->
+
+	</div>
+</div>
+</div>
+                </div>
+                  </div>
+                </div>
+              </div>
+
+        <div class="pagination-navigation">
+          <div class="pagination-current"></div>
+          <div class="pagination-dots">
+            <button class="pagination-dot"></button><button class="pagination-dot"></button>
+          </div>
+        </div>
+      </div> <!--/nectar particles--> 
+
+      
+    </div>
+
+     </div>
+
+
+</div><!--blurred-wrap-->
+
+</div> <!--/ajax-content-wrap-->
+
+
+
+
+
+
+
+
+<script>
+	var member_to_join; 
+	var curr_button;
+	var posts = [];
+	var num_stat_sections;
+	var curr_stat_section = 0;
+	var slide_offset = 80;
+	var season_stat_timer = new Timer(function() {
+		slide_stat_content_right();
+	}, 10000);
+
+	console.log("printing season stat timer")
+	console.log(season_stat_timer)
+
+	var svg_comment = '<svg height="20" viewBox="0 0 20 20" width="20"><g><path class = "comment-icon" transform="scale(.01116)" d="M896 384q-204 0-381.5 69.5t-282 187.5-104.5 255q0 112 71.5 213.5t201.5 175.5l87 50-27 96q-24 91-70 172 152-63 275-171l43-38 57 6q69 8 130 8 204 0 381.5-69.5t282-187.5 104.5-255-104.5-255-282-187.5-381.5-69.5zm896 512q0 174-120 321.5t-326 233-450 85.5q-70 0-145-8-198 175-460 242-49 14-114 22h-5q-15 0-27-10.5t-16-27.5v-1q-3-4-.5-12t2-10 4.5-9.5l6-9 7-8.5 8-9q7-8 31-34.5t34.5-38 31-39.5 32.5-51 27-59 26-76q-157-89-247.5-220t-90.5-281q0-174 120-321.5t326-233 450-85.5 450 85.5 326 233 120 321.5z"/></g></svg>'
+	var window_height = $(window).height() - $("#header-outer").outerHeight();
+	$("#main").css("margin-top", $("#header-outer").outerHeight() +2);
+	var big_box_height = (window.innerHeight - $(".big-box").offset().top)/2
+
+	$(".posts").height(window.innerHeight - $(".posts").offset().top - 11)
+	$(".big-box").height(big_box_height -5);
+
+	$(".send-post").prop("disabled",true);
+
+
+	
+	
+
+
+
+	$('body').on('keypress', '.comment-text', function(event) {
+		  if (event.keyCode === 13) {
+		    submit_comment($(this))
+		    return false;
+		  }
+	})
+
+	$(".new-post").width($(".new-post-wrapper").width() - $(".new-post-author").width() - 30)
+	$(".post-ago").each(function(){
+		$(this).text(convert_date_string($(this)))
+	})
+
+   	
+
+	//populate_schedule_info()
+	
+
+	
+
+</script>
+

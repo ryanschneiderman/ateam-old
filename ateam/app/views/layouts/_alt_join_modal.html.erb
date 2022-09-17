@@ -1,0 +1,32 @@
+<div class = "modal-overlay" id = "alt-join-team-overlay" style = "display: none;"></div>
+<div class = "modal modal-positioning" id = "alt-join-team-modal" style = "display: none;">
+  <div id = "signup-initializer" class = "modal-container">
+    <div class = "GM-modal-wrapper">
+      <div class = "modal-header-wrapper">
+        <div class = "modal-header" id = "join-team-header">Join Team</div>
+      </div>
+       <div class = "modal-inner-content" id = "game-mode-modal-content">
+          <div class = "modal-body" id = "game-mode-modal-body">
+            <div class = "modal-subheading">Enter team username and password below. </div>
+            <div id = "join-username-password">
+              <div class = "flex-row">
+                <input type = "text" class = "signup-modal-input join-input" id = "team-username" placeholder="Username">
+              </div>
+              <div class = "flex-row">
+                <input type = "password" class = "signup-modal-input join-input" id = "team-password" placeholder="Password">
+              </div>
+            </div>
+            <div class = "flex-row center-justified" id = "join-team-button-wrapper">
+              <button id = "join-team-modal-button" onclick = "alt_join_team_button()">Join Team</button>
+            </div>
+            <div class = "needs-input" id = "join-error" style= "display: none;">*Username or password incorrect</div>
+         </div>
+     </div>
+        
+        <div class = "modal-footing">
+          <button class = "modal-cancel-button" id = "signin-cancel" onclick = "close_join_modal()">Cancel</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

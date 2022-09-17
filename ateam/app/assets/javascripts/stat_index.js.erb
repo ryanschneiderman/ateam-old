@@ -1,0 +1,464 @@
+/*-------------------------------------------------------------------------
+
+	1.	Init
+	2.	Home
+	3.	All Plays 
+	4.	View Playlists
+	5.	Deleted Plays
+
+
+-------------------------------------------------------------------------*/
+
+
+/*-------------------------------------------------------------------------*/
+/*	1.	Init
+/*-------------------------------------------------------------------------*/
+
+$(document).on('turbolinks:load ', function(){
+	var hash = window.location.hash;
+		var split_hash = hash.split("?")
+	if(!(split_hash[0]=="#player_profiles" && split_hash[1])){
+		$('#ajax-loading-screen').css({'opacity':0, 'display':'none'})
+		$('#ajax-loading-screen .loading-icon').css({'opacity':0}) 
+	}
+
+	if($("body").hasClass("stats") || ($("body").hasClass("demos")&& $("body").hasClass("analytics"))){
+		if(gon.stats_read || gon.stats_demo){
+			stats_index_init()
+		}
+		$( window ).on( "orientationchange", function( event ) {
+	        handleStatIndexOrientationChange()
+	    });
+	    	$(document).scroll(function(){
+				statsIndexScrollTo()
+			});
+	 
+	}
+	else if ($("body").hasClass("games") && $("body").hasClass("show")){
+		if(gon.stats_read){
+			game_review_init()
+		}
+		$( window ).on( "orientationchange", function( event ) {
+			clearTimeout(window.resizedFinished);
+		    window.resizedFinished = setTimeout(function(){
+		       handleStatIndexOrientationChange()
+		    }, 100);
+	        
+	    });
+	    	$(document).scroll(function(){
+				statsIndexScrollTo()
+			});
+	 
+	}
+
+
+	document.addEventListener('sticky-change', e => {
+	  const sticky_target = e.detail.target;  // header became sticky or stopped sticking.
+	  const sticking = e.detail.stuck; // true when header is sticky.
+	  //stick.classList.toggle('shadow', sticking); // add drop shadow when sticking.
+
+	  //document.querySelector('.who-is-sticking').textContent = header.textContent;
+	});
+});
+
+function handleStatIndexOrientationChange(){
+	console.log("stat index orientationchange")
+	var afterOrientationChange = function() {
+		$(".mobile-product-sidebar-wrapper").css("top", $("#logged-in-header").outerHeight())
+	    $(".sticky-spacer-middle").css("top", $("#logged-in-header").outerHeight() + $("#stats-mobile-sidebar-wrapper")[0].offsetHeight)
+	    $("#lineups-index-header").css("top", $("#logged-in-header").outerHeight() + $("#stats-mobile-sidebar-wrapper")[0].offsetHeight -2)
+	    $("#player-profile-index-header").css("top", $("#logged-in-header").outerHeight() + $("#stats-mobile-sidebar-wrapper")[0].offsetHeight -2)
+		window.removeEventListener('resize', afterOrientationChange);
+	};
+	window.addEventListener('resize', afterOrientationChange);
+	
+}
+
+function game_review_init(){
+	alignStatIndexDOM()
+	populate_display_stats_basic(gon.stat_table_columns);
+	populate_display_stats_adv(gon.adv_stat_table_columns);
+	populate_opponent_stats(gon.opponent_stats);
+	populate_team_display_stats_adv(gon.team_adv_stat_table_columns)
+	populate_team_advanced_stats(gon.team_advanced_stats);
+	populate_stat_array(gon.player_stats, gon.advanced_stats);
+	add_minutes_to_game_index_stats()
+	init_sort_stat_array()
+	populate_team_stats(gon.team_stats);
+
+	
+
+	init_stat_tables(true)
+	console.log("shot chart data")
+	console.log(gon.shot_chart_data)
+	court_width = getCourtWidth()
+
+	initCalibration()
+	init_shot_charts(court_width, gon.shot_chart_data, gon.team_id, gon.opponent_shot_chart_data, gon.opponent_name)
+	teamStatsPercentageCircles(gon.team_stats, gon.team_advanced_stats)
+	insertBasicTeamPercentageCircles(gon.team_stats, 5.5, 3.7, 3.7, "#0c0c0c", 0.87)
+	populate_team_stat_tables(true, false);
+	init_game_review_page()
+	// statsIndexScrollTo()
+	// $(document).scroll(function(){
+	// 	statsIndexScrollTo()
+	// });
+}
+
+function retrieve_shot_chart_data(){
+	var url = '/teams/'+gon.team_id + '/seasons/'+gon.season_id + '/shot_chart_data'
+	$.ajax({
+		url: url,
+		beforeSend: function(xhr) {xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))},
+		method: "get",
+		data_type: 'json',
+		success: function(result){
+			init_shot_charts(court_width, result.shot_chart_data, gon.team_id, result.opponent_shot_chart_data, gon.opponent_name)
+		}
+
+	});
+}
+
+function stats_index_init(){
+	alignStatIndexDOM()
+	populate_display_stats_basic(gon.stat_table_columns);
+	populate_display_stats_adv(gon.adv_stat_table_columns);
+	populate_opponent_stats(gon.opponent_stats);
+	populate_team_display_stats_adv(gon.team_adv_stat_table_columns)
+	populate_team_advanced_stats(gon.team_advanced_stats);
+	populate_stat_array(gon.player_stats, gon.advanced_stats);
+	init_sort_stat_array()
+	populate_team_stats(gon.team_stats);
+	court_width = getCourtWidth()
+	console.log("court_width: " + court_width)
+
+
+	init_stat_tables(false)
+
+	populate_team_stat_tables(true, true);
+
+	initCalibration()
+	retrieve_shot_chart_data()
+	//init_shot_charts(court_width, gon.shot_chart_data, gon.team_name, gon.opponent_shot_chart_data, "Opponents")
+
+	init_trend_display_stats()
+
+	insert_trends_order_links()
+	initialize_trends_chart()
+
+	initialize_lineup_stat_array()
+
+	insert_lineup_modules(lineup_stats)
+	insert_lineup_order_links()
+	// sort_lineups("#stat-link-16", 16, false)
+
+	teamStatsPercentageCircles(gon.team_stats, gon.team_advanced_stats)
+	insertBasicTeamPercentageCircles(gon.team_stats, 5.5, 3.7, 3.7, "#0c0c0c", 0.87)
+	
+
+	init_stats_page(false)
+
+	//TODO: CHECK
+	// statsIndexScrollTo()
+	//TODO: CHECK
+	getPlayerCourtWidth()
+	
+
+	$("#lineups-wrapper").scroll(function(){
+		if($("#lineups-wrapper").scrollTop() > $("#lineups-container").height() - 900 && load_bool){
+			load_bool = false
+			load_more_lineups()
+		}
+	})
+
+	
+
+	// $("#trends-wrapper").scroll(function(){
+
+ //        d3.select("#trend-y-axis").nodes()[0].setAttribute("transform", "translate("+ $("#trends-wrapper")[0].scrollLeft + ", 0)")
+ //        d3.select("#trend-y-axis-label").nodes()[0].setAttribute("y",  (-60 + $("#trends-wrapper")[0].scrollLeft))
+	// })
+
+	// window.onscroll = function() {myFunction()};
+
+ //        function myFunction() {
+ //            if(window.pageYOffset == 0)
+ //            {
+ //                d3.select("#test").nodes()[0].setAttribute("transform", "translate(200, " + 10  +")")
+ //            }
+ //             if (window.pageYOffset > 0) {
+ //              d3.select("#test").nodes()[0].setAttribute("transform", "translate(200, " + window.pageYOffset  +")")
+	// }
+	// }
+}
+
+function statsIndexScrollTo(){
+	if(onStatPage()){
+		var st = $(this).scrollTop();
+		var offset_height = $("#logged-in-header").outerHeight() + $(".mobile-product-sidebar")[0].offsetHeight
+		if(!jumping){
+			$(".stats-index-content-wrapper").each(function() {
+				if(st + offset_height + 30 > $(this).offset().top && st + offset_height + 30 <= $(this).offset().top + $(this).outerHeight() ){   
+					var id = $(this).attr('id');  
+					if(id == "player-profile-index"){
+						id = "player-profiles-index"
+					}
+					$("."+id+"-link").addClass("sidebar-link-active")
+					$("."+id+"-link").find(".sidebar-link-text").addClass('underline');
+				}else{
+					var id = $(this).attr('id');
+					$("."+id+"-link").removeClass("sidebar-link-active")
+					$("."+id+"-link").find(".sidebar-link-text").removeClass('underline');   
+				}   
+			});
+		}
+	}
+}
+
+function onStatPage(){
+	if($("body").hasClass("stats") || ($("body").hasClass("demos")&& $("body").hasClass("analytics")) || ($("body").hasClass("games") && $("body").hasClass("show"))){
+		return true
+	}
+	else{
+		return false
+	}
+}
+
+function getCourtWidth(){
+	var x = window.matchMedia("(max-device-width : 1024px) and (max-device-width : 1024px)")
+	if (x.matches){
+		return $(window).width()*.7
+	}
+	else return $(window).width()*.55
+}
+
+function getPlayerCourtWidth(){
+	var x = window.matchMedia("(max-device-width : 1024px) and (max-device-width : 1024px)")
+	if (x.matches){
+		return $(window).width()*.6
+	}
+	else return $(window).width()*.4
+}
+
+function init_stat_tables(single_game){
+	sort_basic_table(find_minutes_index(), !single_game, false);
+	populate_stat_tables(true, single_game, true);
+
+	$("#per-minute-table").hide();
+	$("#adv-player-stats-table").hide()
+}
+
+function find_minutes_index(){
+	var len = gon.player_stats[0].stats.length
+	for(var i = 0 ; i< len; i++){
+		if(gon.player_stats[0].stats[i].stat_list_id == 16){
+			return gon.player_stats[0].stats[i].display_priority
+		}
+	}
+}
+
+
+
+/**
+ * Sets up an intersection observer to notify when elements with the class
+ * `.sticky_sentinel--top` become visible/invisible at the top of the container.
+ * @param {!Element} container
+ */
+
+/**
+ * Sets up an intersection observer to notify when elements with the class
+ * `.sticky_sentinel--bottom` become visible/invisible at the bottom of the
+ * container.
+ * @param {!Element} container
+ */
+
+
+
+
+function jumpTo(id){
+	$(".sidebar-link").removeClass("sidebar-link-active")
+	$(".sidebar-link").each(function(){
+		$(this).find(".sidebar-link-text").removeClass("underline")
+	})
+	jumping = true;
+	$(id+"-link").addClass("sidebar-link-active")
+	$(id+"-link").find(".sidebar-link-text").addClass("underline")
+	if(id == "#player-profiles-index"){
+		if(!$("#player-profiles-index").is(":visible")){
+			console.log("not visible")
+			id = "#player-profile-index"
+		}
+		console.log($("#player-profiles-index").is(":visible"))
+	}
+	$("html, body").animate({ scrollTop: $(id).offset().top -20 }, 500, function(){
+		jumping = false;
+	});
+
+}
+
+
+function align_sticky_elements(){
+	// var team_advanced_top = $(window).outerHeight() - $("#team-advanced-container").outerHeight()
+
+	// $(".team-advanced-sticky").css("top", team_advanced_top)
+	// var team_basic_top = team_advanced_top - ($(".team-stats-basic-wrapper").outerHeight() + $(".sticky-spacer-middle").outerHeight())
+	// $(".team-stats-basic-wrapper").css("top", team_basic_top)
+
+	// $("#team-basic-advanced-spacer").css("top", team_advanced_top - $("#team-basic-advanced-spacer").outerHeight())
+}
+
+function alignStatIndexDOM(){
+	// $(".page-index").css("margin-top", $("#header-outer").outerHeight() -5)
+	$(".sticky-spacer-middle").css("top", $("#logged-in-header").outerHeight() + $("#stats-mobile-sidebar-wrapper")[0].offsetHeight)
+	$("#stats-index-sidebar").css("top", $("#logged-in-header").outerHeight() + 30);
+	$(".mobile-product-sidebar-wrapper").css("top", $("#logged-in-header").outerHeight())
+    $("#lineups-index-header").css("top", $("#logged-in-header").outerHeight() + $("#stats-mobile-sidebar-wrapper")[0].offsetHeight -2)
+    $("#player-profile-index-header").css("top", $("#logged-in-header").outerHeight() + $("#stats-mobile-sidebar-wrapper")[0].offsetHeight -2)
+	// $(".stats-index-content-wrapper").css("padding-left", $("#stats-index-sidebar").width())
+}
+
+
+function reset_player_profile_page(){
+	$(".player-percentage-circle").empty()
+	$(".player-game-log-body").empty()
+	$(".game-log-per-game").empty()
+	$(".game-log-per-minute").empty()
+	$("#player-game-log-header").empty()
+	$(".game-log-totals").empty()
+	$(".player-shot-chart").empty()
+	$(".profile-advanced-wrapper").each(function(){
+		$(this).remove()
+	})
+
+}
+
+function reset_stats_page_content(){
+	reset_player_profile_page()
+	$(".stats-index-content-wrapper").addClass("stats-index-deactivated")
+	$(".sidebar-link").removeClass("sidebar-link-active")
+	$(".sidebar-link-text").removeClass("underline")
+}
+
+function init_game_review_page(){
+	$("#team-stats-index").removeClass("stats-index-deactivated");
+	$("#stat-tables-index").removeClass("stats-index-deactivated")
+	$("#shot-charts-index").removeClass("stats-index-deactivated")
+	$("#shot-charts-wrapper").css("top",$("#shot-chart-index-header").offset().top + $("#shot-chart-index-header").outerHeight()+10)
+}
+
+function init_stats_page(){
+	// reset_stats_page_content()
+	$("#team-stats-index").removeClass("stats-index-deactivated");
+	$("#stat-tables-index").removeClass("stats-index-deactivated")
+	$("#shot-charts-index").removeClass("stats-index-deactivated")
+	$("#shot-charts-wrapper").css("top",$("#shot-chart-index-header").offset().top + $("#shot-chart-index-header").outerHeight()+10)
+	$("#trends-index").removeClass("stats-index-deactivated")
+	$("#player-profiles-index").removeClass("stats-index-deactivated")
+	$("#lineup-explorer-index").removeClass("stats-index-deactivated")
+	d3.selectAll(".legend").call(wrap, 60)
+}
+
+
+function shot_chart_dropdown(){
+	$("#show-shot-chart-dropdown").show()
+	$('#shot-charts-index').on("mousedown", function(e){
+		if(!$(e.target).hasClass("dropdown-action") && !$(e.target).hasClass("toolbar-dropdown-button")){
+			$("#show-shot-chart-dropdown").hide()
+		}
+	})
+}
+
+function lineup_explorer_dropdown(){
+	$("#show-lineup-explorer-dropdown").show()
+	$('#lineup-explorer-index').on("mousedown", function(e){
+		if(!$(e.target).hasClass("dropdown-action") && !$(e.target).hasClass("toolbar-dropdown-button")){
+			$("#show-lineup-explorer-dropdown").hide()
+		}
+	})
+}
+
+function team_stat_dropdown(){
+	$("#trend-team-stats").show()
+	$('#trends-index').on("mousedown", function(e){
+		if(!$(e.target).hasClass("dropdown-action") && !$(e.target).hasClass("toolbar-dropdown-button")){
+			$("#trend-team-stats").hide()
+		}
+	})
+}
+
+function player_stat_dropdown(){
+	$("#trend-player-stats").show()
+	$('#trends-index').on("mousedown", function(e){
+		if(!$(e.target).hasClass("dropdown-action") && !$(e.target).hasClass("toolbar-dropdown-button")){
+			$("#trend-player-stats").hide()
+		}
+	})
+}
+
+function trends_player_dropdown(){
+	$("#trends-player-dropdown").show()
+	$('#trends-index').on("mousedown", function(e){
+		if(!$(e.target).hasClass("dropdown-action") && !$(e.target).hasClass("toolbar-dropdown-button")){
+			$("#trends-player-dropdown").hide()
+		}
+	})
+}
+
+function box_score_dropdown(){
+	$("#toggle-table-dropdown").show();
+	$("#stat-tables-index").on("mousedown", function(e){
+		if(!$(e.target).hasClass("dropdown-action") && !$(e.target).hasClass("toolbar-dropdown-button")){
+			$("#toggle-table-dropdown").hide()
+		}
+	})
+}
+
+function player_profile_dropdown(){
+	$("#player-profile-dropdown").show()
+	$('#player-profile-index').on("mousedown", function(e){
+		if(!$(e.target).hasClass("dropdown-action") && !$(e.target).hasClass("toolbar-dropdown-button")){
+			$("#player-profile-dropdown").hide()
+		}
+	})
+}
+
+
+
+function setTrendsButtons(){
+	$("#trend-team-stats").css("top", $("#trend-team-stats-button").outerHeight() + $("#trend-team-stats-button").offset().top + 5)
+	$("#trend-team-stats").css("left", $("#trend-team-stats-button").offset().left)
+
+	$("#trend-player-stats").css("top", $("#trend-team-stats-button").outerHeight() + $("#trend-team-stats-button").offset().top + 5)
+	$("#trend-player-stats").css("left", $("#trend-team-stats-button").offset().left)
+
+	$("#trends-player-dropdown").css("top", $("#trends-player-button").outerHeight() + $("#trends-player-button").offset().top + 5)
+	$("#trends-player-dropdown").css("left", $("#trends-player-button").offset().left)
+
+}
+
+function setLineupExplorerButtons(){
+	$("#show-lineup-explorer-dropdown").css("top", $("#sort-lineups-button").outerHeight() + $("#sort-lineups-button").position().top + 5)
+	$("#show-lineup-explorer-dropdown").css("left", $("#sort-lineups-button").position().left)
+}
+
+function setShotChartButtons() {
+	$("#show-shot-chart-dropdown").css("top", $("#toggle-shot-chart-button").outerHeight() + $("#toggle-shot-chart-button").offset().top + 5)
+	$("#show-shot-chart-dropdown").css("left", $("#toggle-shot-chart-button").offset().left )
+}
+
+function setStatTableButtons(){
+	$("#toggle-table-dropdown").css("top", $("#box-score-button").outerHeight() + $("#box-score-button").offset().top + 5)
+	$("#toggle-table-dropdown").css("left", $("#box-score-button").offset().left )
+}
+
+
+function setPlayerProfileButtons(){
+	$("#player-profile-dropdown").css("top", $("#player-profile-toggle-button").outerHeight() + $("#player-profile-toggle-button").position().top + 5)
+	$("#player-profile-dropdown").css("left", $("#player-profile-toggle-button").css("margin-left") )
+ }
+
+
+
+
+
+

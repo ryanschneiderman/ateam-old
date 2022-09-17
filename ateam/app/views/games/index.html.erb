@@ -1,0 +1,21 @@
+<%=render "layouts/small_header"%>
+<%if @games_read%>
+<div id='calendar'></div>
+<%=games_modal_partial_path(@games_write)%>
+<script>
+
+	//activate_header();
+
+	var new_game_data = []
+
+	var event_arr = []
+	var calendar;
+
+</script>
+<%else%>
+
+
+
+Sorry, you don't have permission to view this page.
+<%end%>
+

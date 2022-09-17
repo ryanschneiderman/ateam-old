@@ -1,0 +1,370 @@
+@media only screen 
+and (min-device-width : 300px) 
+and (max-device-width : 1024px)  { 
+	.mobile-product-sidebar-wrapper{
+		display: block;
+		border-bottom: 1px solid #d8d8d8;
+		position: sticky;
+	    top: 0;
+	    background-color: #f5f5f5;
+    	z-index: 10;
+	}
+
+	.sidebar-link{
+		margin-left: 0px;
+	    height: initial;
+	    text-align: center;
+	}
+
+	#team-stats-table td {
+	    padding: 1.6vw;
+	    padding-left: .5vw;
+	    padding-right: .5vw;
+	    font-size: 1.6vw;
+	}
+	#stats-index-sidebar{
+		display: none;
+		width: 0;
+	}
+
+	#team-advanced-stats{
+		height: initial;
+	}
+
+	.other-advanced-heading{
+		padding-bottom: 40px;
+	}
+
+
+	.team-advanced-container {
+	    margin-top: initial; 
+	    padding-bottom: 80px;
+	}
+
+	.team-stats-heading{
+		padding-bottom: 60px;
+	}
+
+
+
+	#stats-mobile-sidebar{
+		display: grid;
+    	grid-template-columns: 1fr 1fr 1fr;
+	}
+
+	#stats-mobile-sidebar-wrapper{
+		background-color: #252526;
+	    color: white;
+	    border-bottom: 1px solid #8e8e8e;
+	    padding-bottom: 10px;
+	    height: initial;
+	    padding-top: 10px;
+	    z-index: 30;
+	}
+	#team-advanced-wrapper {
+		grid-template-columns: 1fr;
+	}
+	.sticky-spacer-bottom{
+		display: none;
+	}
+
+
+	.player-profile-link {
+	    width: 20.5vw;
+	    height: 19vw;
+	    margin: 1vw;
+	}
+
+	.player-profile-link-text {
+	    font-size: 23px !important;
+	}
+
+	.team-stats-header-spaced {
+	    padding-bottom: 60px;
+	    padding-top: 20px;
+	}
+	#team-stats-header{
+		font-size: 60px;
+	}
+
+	.player-profile-grid {
+	    grid-template-columns: 1fr;
+	    height: initial;
+	}
+	.player-profile-sticky {
+	     position: initial; 
+	     top: initial; 
+	}
+	#player-shot-chart-wrapper {
+	    padding-bottom: 25px;
+	    padding-right: 25px;
+	    height: initial;
+	}
+	#player-shot-chart-container {
+	     height: initial; 
+	     padding-bottom: 60px;
+	}
+	.player-advanced-stats {
+	    grid-template-columns: 1fr 1fr 1fr 1fr;
+	}
+
+	.profile-module-label, .profile-module-value{
+		font-size: 26px;
+	}
+
+	.profile-advanced-module{
+		min-width: 150px;
+	}
+	.player-advanced-stats{
+		margin-top: 50px;
+	}
+
+
+
+	#team-advanced-container{
+		height: initial;
+		padding-right: 25px !important;
+		padding-bottom: 25px;
+	}
+
+
+	.team-advanced-sticky{
+		position: initial;
+	}
+
+	.stats-index-header{
+		width: 100vw;
+		grid-template-columns: 1fr 2fr 1fr;
+	}
+
+
+	.shot-chart-button {
+	    margin-left: 10px;
+	}
+
+	#shot-charts-wrapper{
+		flex-direction: column;
+		padding-left: 0px;
+	}
+
+	.color-scale-text{
+		font-size: 14px;
+	}
+
+	#main-color-key{
+		margin-top: 40px;
+	}
+
+	.four-factors-teams{
+		padding-bottom: 20px;
+		margin-top: initial;
+	}
+
+}
+@media only screen 
+and (min-device-width : 300px) 
+and (max-device-width : 1024px) 
+and (orientation : portrait) { 
+	.sidebar-link{
+	    padding-top: 5px;
+	    padding-bottom: 5px;
+	}
+	.player-circle-text{
+		font-size: 3vw;
+	}
+
+	.basic-team-stat-circles .player-circle-text {
+	    font-size: 3vw;
+	}
+
+	.four-factors-teams{
+		font-size: 4vw;
+	}
+	.team-stats-heading{
+		font-size: 6vw;
+	}
+
+	.team-stats-text{
+		font-size: 4vw;
+	}
+	.four-factors-heading{
+		font-size: 3vw;
+	}
+	#team-stats-header{
+		font-size: 7vw;
+	    padding-bottom: 30px;
+	    padding-top: 30px;
+	}
+
+	.sidebar-link-text {
+		margin-left: 0px;
+		font-size: 2.5vw;
+    	font-weight: 600;
+	}
+	.lineup-slider-wrapper{
+		padding-right: 0px;
+	}
+}
+
+
+@media only screen 
+and (min-device-width : 300px) 
+and (max-device-width : 1024px) 
+and (orientation : landscape) { 
+	.player-circle-text{
+		font-size: 2vw;
+	}
+
+	.basic-team-stat-circles .player-circle-text {
+	    font-size: 2.5vw;
+	}
+
+	.four-factors-teams{
+		font-size: 3vw;
+	}
+	.team-stats-heading{
+		font-size: 4.5vw;
+	}
+	.team-stats-text{
+		font-size: 3.5vw;
+	}
+	.four-factors-heading{
+		font-size: 3vw;
+	}
+	#team-stats-header{
+		font-size: 6vw;
+	    padding-bottom: 30px;
+	    padding-top: 30px;
+	}
+
+	.sidebar-link-text {
+		margin-left: 0px;
+		font-size: 2vw;
+    	font-weight: 600;
+	}
+
+
+	.team-stats-container{
+		padding-left: 35px;
+    	padding-right: 35px;
+	}
+}
+
+/*@media only screen 
+and (min-device-width : 300px) 
+and (max-device-width : 1024px) 
+and (orientation : landscape) { 
+
+	#team-stats-table td {
+	    padding-left: 5px;
+	    padding-right: 5px;
+	    font-size: 14px;
+	}
+
+	#team-stats-table td {
+	    padding: 1.6vw;
+	    padding-left: .5vw;
+	    padding-right: .5vw;
+	    font-size: 1.6vw;
+	}
+	#stats-index-sidebar{
+		display: none;
+		width: 0;
+	}
+
+	.sidebar-link-text {
+		margin-left: 0px;
+		font-size: 2.5vw;
+    	font-weight: 600;
+	}
+
+	#stats-mobile-sidebar{
+		display: grid;
+    	grid-template-columns: 1fr 1fr 1fr;
+	}
+
+	#stats-mobile-sidebar-wrapper{
+		background-color: #252526;
+	    color: white;
+	    border-bottom: 1px solid #8e8e8e;
+	    padding-bottom: 10px;
+	    height: initial;
+	    padding-top: 10px;
+	    z-index: 30;
+	}
+	#team-advanced-wrapper {
+		grid-template-columns: 1fr;
+	}
+	.sticky-spacer-bottom{
+		display: none;
+	}
+	.four-factors-teams{
+		font-size: 4vw;
+	}
+	.team-stats-heading{
+		font-size: 6vw;
+	}
+	.team-stats-text{
+		font-size: 4vw;
+	}
+	.four-factors-heading{
+		font-size: 3vw;
+	}
+	#team-stats-header{
+		font-size: 8vw;
+	    padding-bottom: 30px;
+	    padding-top: 30px;
+	}
+
+	.player-profile-link {
+	    width: 20.5vw;
+	    height: 19vw;
+	    margin: 1vw;
+	}
+
+	.player-profile-link-text {
+	    font-size: 23px !important;
+	}
+
+	.team-stats-header-spaced {
+	    padding-bottom: 60px;
+	    padding-top: 20px;
+	}
+	#team-stats-header{
+		font-size: 60px;
+	}
+
+	.player-profile-grid {
+	    grid-template-columns: 1fr;
+	    height: initial;
+	}
+	.player-profile-sticky {
+	     position: initial; 
+	     top: initial; 
+	}
+	#player-shot-chart-wrapper {
+	    padding-bottom: 25px;
+	    padding-right: 25px;
+	    height: 550px;
+	}
+	#player-shot-chart-container {
+	     height: initial; 
+	     padding-bottom: 60px;
+	}
+	.player-advanced-stats {
+	    grid-template-columns: 1fr 1fr 1fr 1fr;
+	}
+
+	.profile-module-label, .profile-module-value{
+		font-size: 24px;
+	}
+
+	.profile-advanced-module{
+		min-width: 150px;
+	}
+	.player-advanced-stats{
+		margin-top: 50px;
+	}
+
+
+}*/

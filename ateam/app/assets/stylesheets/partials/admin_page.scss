@@ -1,0 +1,43 @@
+#admin-page{
+    margin: 40px;
+}
+
+.admin-module{
+	margin: 10px;
+    padding: 15px;
+    min-width: 250px;
+    background-color: #ececec;
+    border-radius: 10px;
+}
+
+.admin-module-name{
+	font-size: 20px;
+    font-weight: 600;
+    margin-bottom: 10px;
+}
+
+.admin-season-user{
+	margin-bottom: 10px;
+}
+
+.show-delete-season{
+	margin-left: 10px;
+    margin-right: 10px;
+    font-weight: 600;
+    position: relative;
+    font-size: 15px;
+    padding: 3px;
+    padding-left: 10px;
+    padding-right: 10px;
+    border-radius: 10px;
+    text-align: center;
+}
+
+.show-season{
+	background-color: #0096ff;
+    color: white;
+}
+
+.admin-page-heading{
+
+}

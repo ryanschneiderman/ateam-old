@@ -1,0 +1,179 @@
+<%if @stats_write || @games_write%>
+<div id = "game-mode-grid">
+	<div id = "scoreboard-wrapper">
+		<div id = "game-mode-back-button">
+			<%=link_to team_season_games_path(@team.id, @season.id) do %>
+				<button class="modal-back-button">
+	    			<object data="/assets/back-arrow-67f9ef8967a9ef04fff6ea9668c1d5dce30772f06d69118550fb04852c6cdef4.svg" type="image/svg+xml" class="back-arrow-img">
+	                      <img alt="back-arrow" class="back-arrow-img" src="/assets/back-arrow-bf1d8de78088a3e077f2699aa1aff4cc19e80df556d6839d87b049c709a04741.png">	
+	                 </object>
+	    		</button>
+    		<%end%>
+		</div>
+		<div id = "scoreboard">
+			<div id = "score-status">
+				<div id = "home-scoreboard" class = "squad-scoreboard">
+					<div class = "team-name"><%= @team_name%></div>
+					<div id = "home-score" class = "squad-score"> 0 </div>
+				</div>
+				<button id = "time" onclick = "toggleClock()">
+					<div id = "period"></div>
+					<div class = "dash">
+						<svg style = "height: 1px; width: 20px;" class = "time-dash">
+					      <line x1="0" y1="0" x2="20" y2="1" style="stroke:#3E3E3E;stroke-width:2"/>
+					    </svg>
+					</div>
+					<div id = "timer"></div>
+				</button>
+				<div id = "opponent-scoreboard" class = "squad-scoreboard">
+					<div class = "team-name"> <%= @opponent.name%></div>
+					<div id = "opponent-score" class = "squad-score"> 0 </div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div id = "top-grid">
+		<div id = "gm-toolbar">
+			<div id = "players_w_stats">
+				<%=render 'games/game_mode/game_mode_buttons'%>
+			</div>
+			<div id = "tb-third-level" class = "tb-container flex-vert">
+				<button class = "gm-submit" type = "button" onclick = "submit_game_mode_button()"> SUBMIT </button>
+			</div>
+		</div>
+		<%=render "games/game_mode/game_mode_middle"%>
+		
+	</div>	
+</div>
+
+<%=render 'games/game_mode/game_mode_modals'%>
+
+<%= content_tag :div, class: "game-mode-id", data: {game_id: @game_id} do %>
+<% end %>
+
+
+<script>
+	var fg_index = 1;
+	var two_pt_fg_index = 3;
+	var three_pt_fg_index = 3;
+	var ft_index = 5;
+	var ft_pct_index = 6;
+	var game_mode_state;
+
+
+	var curr_player = null; 
+	var curr_player_button = null;
+	var curr_stat = null;
+	var curr_stat_button = null;
+	var curr_player_is_opponent = false;
+	var on_game_page = false;
+	var is_demo = false;
+
+	var player_stats_table = document.getElementById("player-stats-table");
+	var team_stats_table = document.getElementById("gm-team-stats-table");
+	var first_half_table = document.getElementById("half-1-table");
+	var second_half_table = document.getElementById("half-2-table");
+	var first_quarter_table = document.getElementById("quarter-1-table");
+	var second_quarter_table = document.getElementById("quarter-2-table");
+	var third_quarter_table = document.getElementById("quarter-3-table");
+	var fourth_quarter_table = document.getElementById("quarter-4-table");
+
+	var game_log = document.getElementById("gm-log");
+	var make_radius = 7;
+
+	var make_selected = false
+	var miss_selected = false;
+	var horiz_offset;
+	var vert_offset;
+
+	var submitted = false;
+// TODO - set in initializer
+	var arc_vert_radius;
+	var arc_horiz_radius; 
+
+	var canvas;
+	var gm_canvas_width;
+	var gm_canvas_height;
+	var minutes;
+	var seconds;
+
+	var basket_x;
+	var basket_y;
+
+	// TODO - set in initializer
+	var basket_radius; 
+
+	var player_is_selected = false;
+
+	var stat_array = [];
+	var stat_array_counter = 0;
+	var display_stats = [];
+	var basic_stats = []
+	var stat_table_columns;
+	
+	var all_stat_granules = [];
+	var stat_granules_history = [];
+
+	var all_players = [];
+	var active_players = [];
+	var inactive_players = [];
+
+	var players_in_game = 0;
+
+	var curr_lineup;
+	var lineups_arr = [];
+
+
+	var home_score = 0;
+	var opponent_score = 0;
+
+	var opponent_obj;
+
+	var team_stat_totals = [];
+
+	var quarter_1_totals = [];
+	var quarter_2_totals = [];
+	var quarter_3_totals = [];
+	var quarter_4_totals = [];
+
+	var half_1_totals = [];
+	var half_2_totals = [];
+
+
+	var player_charts_toggle = false;
+	var player_number_toggle = false;
+
+	var periods = gon.num_periods;
+	var curr_period = 1;
+
+	var minutes_per_period = <%=@per_minutes%>;
+
+
+	var minutes_index;
+	var points_index;
+
+	var total_minutes = 0;
+
+	var select_inactives_html = "";
+
+	var scoreboard_clock = new ScoreboardClock();
+
+	var game_mode_initialized = false;
+
+	var collectable_stats = [];
+	var canvas_vars;
+	var curr_aspect_ratio = 0;
+	var update_canvas = false;
+	var height_log_tables;
+	var scoreboard_height;
+
+	var game_state;
+	var stat_counter = 0;
+
+	
+</script>
+
+
+<%else%>
+Sorry, you don't have permission to view this page.
+<%end%>

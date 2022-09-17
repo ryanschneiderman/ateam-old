@@ -1,0 +1,49 @@
+
+$(document).on('turbolinks:load ', function(){
+	if($("body").hasClass("game_mode")){
+		gameModeChannel = App.cable.subscriptions.create({channel: "GameModeChannel", game_id: gon.game_id}, {
+		    connected: function() {
+		    	gameModeChannel.send({trigger_update: true})
+		    },
+		    disconnected: function() {},
+			received: function(data) {
+				if(data.trigger_update && game_mode_initialized && scoreboard_clock.isRunning){
+					send_clock_state()
+				}
+				else if (data.load_clock && !game_mode_initialized){
+					load_clock(data.load_clock)
+					game_mode_initialized = true;
+				}
+				else if (data.clock_update ){
+					clock_update(data.clock_update)
+				}
+				else if (data.lineup_data){
+					update_lineup(data.lineup_data)
+					//load_lineups_arr(data.lineups_arr);	
+				}
+				else if (data.new_stat){
+					console.log("new_stat")
+					if(!granule_exists(data.new_stat)){
+						loadStatGranule(data.new_stat, false)
+						// load_lineups_arr(data.lineups_arr);
+					}
+					else{
+						console.log("granule_exists")
+					}
+					
+				}
+				// else if (data.new_stat && !granule_exists(data.new_stat)){
+					
+				// }
+				else if (data.undo_stat && granule_exists(data.undo_stat)){
+					undo_player_array_stat(data.undo_stat);
+				}
+			}
+		});
+	}
+
+});
+
+
+
+

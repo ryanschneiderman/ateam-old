@@ -1,0 +1,59 @@
+<%=render "layouts/small_header"%>
+<div id = "admin-page" >
+	<div id = "admin-seasons">
+		<h1 class = "heading">Seasons</h1>
+		<div class = "flex-row flex-wrap" id = "admin-seasons-container">
+			<%@seasons.each do |season|%>
+					<div class = "admin-season-wrapper flex-row">
+						<div class = "admin-module">
+							<div class = "admin-module-name"><%=season.team_name%> (id: <%=season.season_id%>)</div>
+							<div class = "admin-season-user">Owner: <%=season.first_name%> <%=season.last_name%></div>
+							<div class="flex-row center-justified edit-delete-member-wrapper">
+								<%=link_to team_season_path(season.team_id, season.season_id) do %>
+									<button class="show-delete-season show-season">Show</button>
+								<%end%>
+								<button class="show-delete-season delete-member" onclick="admin_delete_season(<%=season.team_id%>, <%=season.season_id%>)">Delete</button></div>
+<!-- 								<button class="show-delete-season show-season" onclick = "admin_get_team_stats(<%=season.season_id%>)">print team stats</button> -->
+						</div>
+					</div>
+			<%end%>
+		</div>
+	</div>
+
+	<div id = "admin-teams">
+		<h1 class = "heading">Teams</h1>
+		<div class = "flex-row flex-wrap" id = "admin-teams-container">
+			<%@teams.each do |team|%>
+					<div class = "admin-team-wrapper flex-row">
+						<div class = "admin-module">
+							<div class = "admin-module-name">Team ID: <%=team.team_id%></div>
+							<div class = "admin-season-user">Owner: <%=team.first_name%> <%=team.last_name%></div>
+							<div class="flex-row center-justified edit-delete-member-wrapper">
+								<button class="show-delete-season delete-member" onclick="admin_delete_team(<%=team.team_id%>)">Delete</button>
+							</div>
+						</div>
+					</div>
+			<%end%>
+		</div>
+	</div>
+
+	<div id = "admin-users">
+		<h1 class = "heading">Users</h1>
+		<div class = "flex-row flex-wrap" id = "admin-teams-container">
+			<%@users.each do |user|%>
+				<div class = "admin-team-wrapper flex-row">
+					<div class = "admin-module">
+						<div class = "admin-module-name"><%=user.first_name%> <%=user.last_name%> (<%=user.id%>) </div>
+						<div ><%=user.email%> </div>
+						<div class="flex-row center-justified edit-delete-member-wrapper">
+							<button class="show-delete-season show-season" onclick = "admin_make_user_admin(<%=user.id%>)">Make Admin</button>
+							<button class="show-delete-season delete-member" onclick="admin_delete_user(<%=user.id%>)">Delete</button></div>
+					</div>
+				</div>
+			<%end%>
+		</div>
+	</div>
+</div>
+<script>
+	$(".portal-button-2").addClass("portal-button-2-alt")
+</script>

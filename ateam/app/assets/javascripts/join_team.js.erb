@@ -1,0 +1,45 @@
+
+
+function join_team_button(){
+	var url = '/teams/'+gon.team_id+'/seasons/'+gon.season_id+'/join_season'
+	$.ajax({
+		url: url, 
+		beforeSend: function(xhr) {xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))},
+	    type: "post",
+	    data: {"member_hash" : gon.member_id},
+	    success: function(result){
+	    	if(result.already_joined){
+	    		$("#already-joined").show()
+	    	}
+	    }
+	});
+}
+
+function alt_join_team_button(){
+	var url = '/join_season'
+	var username = $("#team-username").val()
+	var password = $("#team-password").val()
+	$.ajax({
+		url: url, 
+		beforeSend: function(xhr) {xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))},
+	    type: "post",
+	    data: {"username" : username, "password" : password},
+	    success: function(result){
+	    	if(result.message){
+	    		$("#join-error").text(result.message)
+	    		$("#join-error").show()
+	    	}
+	    }
+	});
+}
+
+
+function join_team_modal(){
+	$("#alt-join-team-overlay").show()
+	$("#alt-join-team-modal").show()
+}
+
+function close_join_modal(){
+	$("#alt-join-team-overlay").hide()
+	$("#alt-join-team-modal").hide()
+}

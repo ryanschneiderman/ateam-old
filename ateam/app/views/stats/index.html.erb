@@ -1,0 +1,18 @@
+<%=render "layouts/small_header"%>
+
+<%if @num_games > 0 %>
+	<%if @read_permiss%>
+		<%=render "stats_home"%>
+	<%else%>
+		Sorry, you do not have permission to view this page.
+	<%end%>
+<%else %>
+<div id = "no-games-played">
+	<%= image_tag("Court.jpg", :alt => "game-mode-preview", :class => "no-games-img") %>
+</div>
+<div class = "no-games-text">
+	<div class = "no-games-header">You have not played any games yet!</div>
+	<div class = "no-games-subheader">Create a game and submit stats to view data.</div>
+</div>
+
+<%end %>

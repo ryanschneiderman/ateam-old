@@ -1,0 +1,33 @@
+<div id = "tb-first-level" class = "flex-horiz tb-container">
+	<div id = "player-buttons" class = "tb-elem">
+		<div class = "in-game">
+			<div id = "players-in-game-label" class = "in-game-label">In Game</div>
+			<div class = "in-game-players"></div>
+		</div>
+		<div id = "player-numbers-toggle">
+			<input id = "player-numbers-button" type="checkbox" name="player-shot-charts" value="false"> Show Player Numbers
+		</div>
+		<div id = "player-shot-chart-toggle">
+			<input id = "player-charts-button" type="checkbox" name="player-shot-charts" value="false"> Show Player Shot Charts
+		</div>
+		<div id = "oppenent-label" class = "in-game-label">Opponent</div>
+		<div id = "opponent"><button class = 'player-button' id = 'opponent-button' type = 'button' onclick = 'opponent_button(<%=@opponent_id%>, this)'> <%=@opponent_name%>  </div>
+		<!--<button id = "voice-rec" onclick = "voice_rec_toggle()"><%= image_tag("microphone.png", :alt => "voice-recognition", :class => "microphone-icon") %></button> -->
+	</div>
+	<div id = "stat-buttons-wrapper">
+		<div id = "stat-buttons" class = "flex-margin-auto tb-elem">
+			<% counter = 0 %>
+			<% @collection_stats.each do |stat|%>
+					<button class = "stat-button stat-button-<%=stat[:id]%>" id = "stat-button-<%=counter%>" type = "button" onclick = "stat_button('<%= stat[:id] %>', this)"> <%= stat[:display_name] %> </button>
+			<%counter+=1%>
+			<% end %>
+		</div>
+	</div>
+</div>
+<div id = "tb-second-level" class = "flex-horiz tb-container">
+	<div id = "bench">
+		<div id = "bench-label" class = "in-game-label">Bench</div>
+		<div id = "bench-players"></div>
+	</div>
+
+</div>

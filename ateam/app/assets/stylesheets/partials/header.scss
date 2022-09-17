@@ -1,0 +1,209 @@
+/* ADDED STYLES */
+
+
+li.button_login{
+	display: block;
+}
+#logo-section{
+	position: relative;
+    right: 30px;
+}
+
+.header-buttons-right{
+	display: grid;
+	grid-template-columns: 2fr 1fr 1fr;
+	justify-items: center;
+	width: 28vw;
+	position: relative;
+	align-items: flex-end;
+}
+
+#user-dropdown{
+	position: relative;
+}
+
+.header-buttons-right-non-user{
+	display: grid;
+	grid-template-columns:1fr 1fr;
+	justify-items: center;
+	width: 28vw;
+}
+
+#notifications-button{
+	width: 25px;
+}
+
+#team-header-buttons{
+	/*height: 100%;*/
+}
+
+.season-dropdown{
+	margin-left: 6px;
+	height: 10px;
+}
+
+.season-dropdown-container{
+	font-weight: 600;
+	font-size: 16px;
+	color: #353535;
+}
+
+.header-link{
+	-webkit-transition: color 0.2s ease;
+	transition: color 0.2s ease;
+	font-family: "Montserrat"; 
+	text-transform: capitalize;
+	font-size: 15px;
+	line-height: 20px;
+	font-weight: 700;
+	color: #888;
+	margin-left: 12px;
+	margin-right: 12px;
+}
+
+.header-link:hover:after{
+	backface-visibility: hidden;
+	-ms-transform: scaleX(1);
+	-webkit-transform: scaleX(1);
+	transform: scaleX(1);
+}
+
+.header-link:after{
+	-ms-transition: -webkit-transform .3s ease-out,border-color .3s ease-out;
+	-webkit-transition: -webkit-transform .3s ease-out,border-color .3s ease-out;
+	transition: transform .3s ease-out,border-color .3s ease-out;
+	display: block;
+	bottom: -6px;
+	left: 0;
+	width: 100%;
+	-ms-transform: scaleX(0);
+	-webkit-transform: scaleX(0);
+	transform: scaleX(0);
+	border-top: 2px solid #000;
+	content: '';
+	padding-bottom: inherit;
+	border-color: #e57106 !important;
+}
+
+
+#logged-in-header{
+	min-height: 80px;
+    padding-bottom: 15px;
+	display: grid;
+	grid-template-columns: 1fr 1fr 1fr;
+	justify-items: center;
+	align-items: flex-end;    
+	position: sticky;
+	top: 0;
+	background-color: white;
+	z-index: 9999;
+	box-shadow: 0px 0px 3px #dedede;
+}
+
+.lines-button .close{
+	opacity: 1;
+}
+
+.logged-in-logo{
+	height: 38px;
+    margin-bottom: 5px;
+}
+
+#new-season-wrapper{
+	border-top: 1px solid #cccccc;
+	padding-top: 10px;
+	margin-left: 8px;
+	margin-right: 8px;
+	margin-bottom: 10px;
+}
+
+#new-season-container{
+    text-align: left;
+    padding: 5px;
+    padding-left: 15px;
+    padding-right: 15px;
+    border-radius: 20px;
+    font-weight: 500;
+    font-size: 16px;
+    color: white;
+    background: #0ddb70;
+}
+
+.add-season-icon{
+	width: 15px;
+	margin-right: 5px;
+}
+
+.add-season-svg{
+	height: 15px;
+}
+
+#new-season-text{
+	font-size: 16px;
+    font-weight: 500;
+}
+
+
+button#new-season{
+	border: none;
+}
+
+#user-dropdown-sub-menu{
+	top: 40px;
+}
+
+
+
+.header-sub-menu{
+	visibility: hidden;
+	opacity: 0;
+	transition: visibility 0.2s, opacity 0.2s linear;
+    position: absolute;
+    top: 37px;
+    right: -10px;
+    color: white;
+    background-color: #b59f95;
+    width: 120px;
+    border-radius: 1px;
+}
+
+.header-sub-menu-wrapper{
+    position: relative;
+}
+
+.header-sub-menu-item{
+    padding: 15px;
+    font-family: "Montserrat";
+    text-transform: capitalize;
+    font-weight: 600;
+    font-size: 12px;
+    line-height: initial;
+    color: white;
+}
+
+.header-sub-menu-item:hover{
+	background-color: #9e7766;
+}
+
+.header-buttons-right-alt{
+    grid-template-columns: 2fr 2fr 1fr;
+    width: 31vw;
+    margin-right: 5px;
+}
+
+#other-page-link:hover .header-sub-menu{
+	visibility: visible;
+	opacity: 1;
+}
+
+#page-links-section{
+	position:relative;
+}
+
+#header-page-links{
+	position: relative;
+    bottom: -15px;
+    height: 37px;
+}
+
+

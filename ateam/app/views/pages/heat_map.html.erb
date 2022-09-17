@@ -1,0 +1,26 @@
+here
+
+MAKE SHOT CHART DATA QUERY ASYNCHRONOUS!!!
+
+<style>
+	#heat-map-container{
+		background-color: #252526;
+	}
+</style>
+<div id = "heat-map-container">
+	<div id="heat_map"></div>
+</div>
+
+
+
+<script>
+	var court_margin = { left: 0, right: 0, top: 0, bottom: 0};
+	var court_width =  $(window).width()*.55
+	var court_height = court_width * 0.7
+	var inner_width = court_width - court_margin.left - court_margin.right;
+	var inner_height = court_height - court_margin.top - court_margin.bottom;
+
+	var x_offset = court_width / 179;
+	var y_offset = court_width / 716;
+	var region_spacing = court_width / 179
+</script>

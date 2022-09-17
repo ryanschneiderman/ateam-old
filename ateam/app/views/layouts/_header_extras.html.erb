@@ -1,0 +1,61 @@
+<div id = "team-header-buttons">
+  <div class = "header-buttons-right header-buttons-right-alt">
+    <div class = "flex-row center-aligned dropdown header-right-container">
+      <%=link_to new_team_path do %>
+              <button class = "portal-button portal-button-1">Purchase Team</button>
+            <%end%>
+    </div> 
+    <div class = "flex-row center-aligned dropdown header-right-container">
+      <button class = "portal-button portal-button-2" style = "color: #ff6c40;" onclick = "join_team_modal()">Join Team</button>
+    </div> 
+    <div class = "flex-row dropdown header-right-container" id = "user-dropdown" style = "align-items: flex-end;">
+      <button class = "season-dropdown-container flex-row center-aligned" onclick = "user_dropdown()">
+        <div class = "current-season"><%=current_user.first_name%></div>
+        <object data='<%=asset_path("down-dark.svg")%>' type="image/svg+xml" class = "sort-img season-dropdown">
+              <%= image_tag("down-dark.png", :alt => "sort", :class => "sort-img season-dropdown") %> 
+         </object>
+      </button>
+        <div>
+            <div class = "header-sub-menu" id = "user-dropdown-sub-menu">
+              <%= link_to edit_user_registration_path do %>
+                <div class = "header-sub-menu-item">Edit Profile  </div>
+              <%end%>
+              <%= link_to destroy_user_session_path, method: :delete do %>
+                <div class = "header-sub-menu-item"> Log Out  </div>
+              <%end%>
+              
+            </div>
+      </div>
+    </div> 
+    <div class="slide-out-widget-area-toggle mobile-icon fullscreen" data-icon-animation="simple-transform">
+      <div> <a href="#sidewidgetarea" class="closed"> <span> <i class="lines-button x2"> <i class="lines"></i> </i> </span> </a> </div> 
+    </div>
+  </div>
+</div>
+
+<script>
+  $(window).load(function(){
+    $("#user-dropdown-sub-menu").css("top", $(".header-buttons-right").height() + 15)
+  })
+  
+</script>
+
+
+<!-- <div class = "toolbar-dropdown" id = "user-dropdown-content" style = "display: none;">
+  <div id = "user-dropdown-container"></div>
+  <div id = "user-dropdown-wrapper" class = "toolbar-no-close">
+    <div class = "dropdown-action" id = "user-dropdown-container">
+      <%= link_to 'Edit Profile', edit_user_registration_path %>
+    </div>
+    <div class = "dropdown-action" id = "user-dropdown-container">
+      <%= link_to 'Log out', destroy_user_session_path, method: :delete %>
+    </div>
+  </div>
+</div> -->
+
+
+
+
+
+<%=render "layouts/alt_join_modal"%>
+

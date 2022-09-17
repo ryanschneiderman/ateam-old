@@ -1,0 +1,116 @@
+@media only screen 
+and (min-device-width : 300px) 
+and (max-device-width : 1024px) 
+and (orientation : portrait) {
+	.section-descr{
+		width: 100% !important;
+	}
+
+	.section-bullets ul{
+		display: none;
+	}
+
+	.section-header{
+		font-size: 30px;
+	    line-height: 35px;
+	}
+	.section-subheader{
+		font-size: 18px
+	}
+
+	.court {
+	    width: 85vw;
+	}
+
+	.player-piece-svg{
+		r: 4vw;
+	}
+	#stat-collection-descr{
+		color: white;
+		background-color: #383838;
+		margin-top: 100px;
+	}
+
+	.stat-collection-item{
+		font-size: 16px;
+	}
+
+
+	#analytics-descr-wrapper{
+		margin-left: 20px;
+		margin-right: 20px;
+	}
+
+	#analytics-descr{
+		margin-right: initial;
+	}
+}
+
+@media only screen 
+and (min-device-width : 768px) 
+and (max-device-width : 1024px) 
+and (orientation : portrait) {
+
+	.section-bullets ul{
+		display: none;
+	}
+
+	.section-header{
+		font-size: 30px;
+	    line-height: 35px;
+	}
+	.section-subheader{
+		font-size: 18px
+	}
+
+	.court {
+	    width: 55vw;
+	}
+
+	.player-piece-svg{
+		r: 3vw;
+	}
+	#stat-collection-descr{
+		color: white;
+		background-color: #383838;
+		margin-top: 100px;
+	}
+
+	.stat-collection-item{
+		font-size: 16px;
+	}
+
+
+	#analytics-descr-wrapper{
+		margin-left: 20px;
+		margin-right: 20px;
+	}
+
+	#analytics-descr{
+		margin-right: initial;
+	}
+}
+
+@media only screen 
+and (min-device-width : 768px) 
+and (max-device-width : 1024px) 
+and (orientation : landscape) {
+	header#top .container{
+		padding-right: 10px !important;
+	}
+
+	.button_logged_in a{
+		margin-left: 3px !important;
+   		margin-right: 3px !important;
+	}
+
+	.portal-button{
+		width: 130px !important;
+	}
+
+	.section-bullet{
+		padding-top: 10px;
+		padding-bottom: 10px;
+	}
+
+}

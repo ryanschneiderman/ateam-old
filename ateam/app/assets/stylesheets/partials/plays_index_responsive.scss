@@ -1,0 +1,72 @@
+
+
+
+@media only screen 
+and (min-device-width : 300px) 
+and (max-device-width : 1024px)  { 
+	#plays-mobile-sidebar-wrapper{
+		background-color: #f3f3f3;
+	    color: black;
+	    /* border-bottom: 1px solid #8e8e8e; */
+	    padding-bottom: 10px;
+	    margin-bottom: 30px;
+	    height: initial;
+	    padding-top: 10px;
+	    z-index: 30;
+	}
+
+	#plays-index-sidebar{
+		display: none;
+	}
+
+	.plays-index-content-wrapper{
+		margin-left: 0px !important;
+	}
+
+	.new-play-icon {
+	    width: 20vw;
+	}
+
+	.plays-index-content{
+		width: 90vw;
+	}
+
+	.play-img{
+		height: 14vw;
+	}
+
+	.playlist-imgs{
+		width: 20vw;
+    	height: 18vw;
+	}
+
+	.plays-row-heading {
+	    font-size: 28px;
+	    margin-bottom: 30px;
+	}
+	.new-play-text{
+		font-size: 30px;
+	}
+
+	.play-img-full {
+	    height: 18vw;
+	}
+
+	.sort-button-text{
+		font-size: 20px;
+	}
+
+}
+
+
+@media only screen 
+and (min-device-width : 768px) 
+and (max-device-width :1024px) 
+and (orientation : landscape) { 
+
+
+}
+
+
+
+

@@ -1,0 +1,48 @@
+<%=render "layouts/small_header"%>
+<div id = "products-page-wrapper">
+	<div class = "page-landing-banner flex-row center-aligned center-justified" id = "products-banner">
+		<div class = "page-banner-heading">Product</div>
+	</div>
+	<div id = "product-grid" class = "grid">
+		<%=link_to product_play_diagramming_path do%>
+			<div class = "product-box-wrapper flex-row center-justified center-aligned product-box-border-right product-box-border-bottom">
+				<div class = "product-box flex-column" id = "play-diagramming-box">
+					<div class = 'product-box-label'>Play Diagramming</div>
+					<div class = 'product-box-descr'>Create, animate, and share your plays. It's play diagramming for the 21st century. </div>
+					<div class = 'product-box-see-more'>See More</div>
+				</div>
+			</div>
+		<%end%>
+		<%=link_to product_stat_collection_path do%>
+			<div class = "product-box-wrapper flex-row center-justified center-aligned product-box-border-bottom">
+				<div class = "product-box flex-column" id = "stat-collection-box">
+					<div class = 'product-box-label'>Stat Collection</div>
+					<div class = 'product-box-descr'>Track stats for your team with our intuitive platform. Pen and paper is a thing of the past.</div>
+					<div class = 'product-box-see-more'>See More</div>
+				</div>
+			</div>
+		<%end%>
+		<%=link_to product_analytics_path do%>
+			<div class = "product-box-wrapper flex-row center-justified center-aligned product-box-border-right">
+				<div class = "product-box flex-column" id = "analytics-box">
+					<div class = 'product-box-label'>Analytics</div>
+					<div class = 'product-box-descr'>Get next level insights with ATeam Analytics. Shot charts, lineup data, advanced stats and more. </div>
+					<div class = 'product-box-see-more'>See More</div>
+				</div>
+			</div>
+		<%end%>
+		<%=link_to product_team_hub_path do%>
+			<div class = "product-box-wrapper flex-row center-justified center-aligned">
+				<div class = "product-box flex-column" id = "team-hub-box">
+					<div class = 'product-box-label'>Team Hub</div>
+					<div class = 'product-box-descr'>Take your team space online. Communicate with your players and share stats and plays. </div>
+						<div class = 'product-box-see-more'>See More</div>
+				</div>
+			</div>
+		<%end%>
+	</div>
+</div>
+
+<script>
+	$(".portal-button-2").addClass("portal-button-2-alt")
+</script>

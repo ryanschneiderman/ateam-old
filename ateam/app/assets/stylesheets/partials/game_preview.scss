@@ -1,0 +1,42 @@
+.game-mode-preview{
+	width: 100%;
+	opacity: .4;
+}
+
+#game-preview-banner{
+	position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+	overflow: hidden;
+	background-color: black;
+}
+
+.game-preview-heading{
+	font-family: 'Open Sans', serif;
+	font-size: 75px;
+    text-align: center;
+    color: white;
+    font-weight: 700;
+}
+
+.game-preview-text{
+	font-family: 'Open Sans', serif;
+	font-size: 35px;
+    text-align: center;
+    color: white;
+    font-weight: 700;
+}
+
+.game-preview-content{
+	position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}

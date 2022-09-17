@@ -1,0 +1,81 @@
+
+function initialize_subscription(){
+	console.log(gon.subscriptions)
+	console.log(gon.plan)
+	$("#subscription-name").text(gon.plan.response.plan.name)
+	var price = "$"+(gon.plan.response.plan.price / 100) + "/year"
+	$("#subscription-price").text(price)
+	if(gon.subscriptions[0].response.subscription.next_billing_at){
+		insert_renew_date(gon.subscriptions[0].response.subscription)
+		
+	}
+	else{
+		$("#renew-date").text("Cancelled")
+		$("#renew-date").addClass("subscription-cancelled")
+	}
+	
+}
+
+function insert_renew_date(subscription){
+	var d = new Date(subscription.next_billing_at *1000)
+	var split_d = d.toString().split(" ")
+	var date_str = split_d[1] + " " + split_d[2] + " " + split_d[3]
+	$("#renew-date").text(date_str)
+}
+
+function open_chargebee_portal(){
+	chargebeeInstance.setPortalSession(function(){
+		var result = $.ajax({
+			beforeSend: function(xhr) {xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))},
+			url: '/create_portal_session',
+			method: 'POST'
+		});
+		console.log(result)
+		return result
+	});
+	let cbPortal = chargebeeInstance.createChargebeePortal();
+	cbPortal.open({
+		loaded(){
+			console.log("loaded")
+		},
+		close() {
+		    console.log("Closing")
+		},
+		paymentSourceAdd: function() {
+		   console.log("payment source added")
+		},
+		subscriptionCancelled: function(data) {
+			console.log(data)
+			// $.ajax({
+			// 	beforeSend: function(xhr) {xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))},
+			// 	url: '/cancel_subscription',
+			// 	method: 'POST'
+			// });
+			delete_subscription_html()
+  		},
+		subscriptionReactivated(data){
+			console.log("subscription reactived")
+			console.log(data)
+			renew_subscription_html(data)
+		}
+	});
+}
+
+function retrieve_subscription(subscription_id){
+	var result = $.ajax({
+		beforeSend: function(xhr) {xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))},
+		url: '/reactivate_subscription',
+		method: 'POST',
+		data: {subscription_id: subscription_id},
+	});
+}
+
+function delete_subscription_html(){
+	$("#renew-date").text("Cancelled")
+	$("#renew-date").addClass("subscription-cancelled")
+}
+
+function renew_subscription_html(data){
+	retrieve_subscription(data.subscription.id)
+}
+

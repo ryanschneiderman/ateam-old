@@ -1,0 +1,53 @@
+<%=render "layouts/small_header"%>
+Mailer!!
+
+
+<input type="file" id="input" multiple>
+
+<button onclick = "send_file()">Send File</button>
+<br><br>
+<div style = "text-decoration: underline;">Invalid Emails</div>
+<br>
+<div id = "invalid-coaches"></div>
+
+
+<script>
+	function send_file(){
+		var selectedFile = document.getElementById('input').files[0];
+		let fileReader = new FileReader();
+        fileReader.readAsBinaryString(selectedFile);
+        fileReader.onload = (event)=>{
+         let data = event.target.result;
+         let workbook = XLSX.read(data,{type:"binary"});
+         console.log(workbook);
+         // let rowObject = XLSX.utils.sheet_to_row_object_array(workbook.Sheets["Florida"]);
+         // console.log(rowObject)
+         // var url =  "/admin/send_mail/" 
+     	
+         workbook.SheetNames.forEach(sheet => {
+            let rowObject = XLSX.utils.sheet_to_row_object_array(workbook.Sheets[sheet]);
+            console.log(rowObject)
+            var url =  "/admin/send_mail" 
+				$.ajax({
+		        url: url,
+		        beforeSend: function(xhr) {xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))},
+		        type: "POST",
+		        data_type: 'json',
+		        data: {"emails": rowObject},
+                success: function(r){
+                    console.log(r.response)
+                    r.response.forEach(function(e){
+                        console.log(e)
+                        console.log("invalid coach")
+                        $("#invalid-coaches").append("<div>Coach: "+e.coach+", Email: "+e.email+"</div>")
+                    })
+                }
+		    });
+         });
+        }
+	}	
+
+
+
+
+</script>

@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+  <body>
+    <div id = "welcome">Hey <%=@name%>,</div>
+    <p>
+      You have been invited to join the team <%=@team_name%>. Click <a href = "<%= @message %>"> this link</a> to join immediately. If you don't already have an account with ATeam you will be asked to create one (don't worry it's free). 
+    </p>
+    <p>
+      Alternatively, you can join the team by entering a username and password. To join by username and password, go to the home page and create an account <a href = "<%=@home_link%>">here</a>. After creating an account there will be a link in the top right corner to join a team. There you will be asked to enter a username and password. That's it!
+    </p>
+    <div>Username: <%=@username%></div>
+    <div>Password: <%=@password%></div>
+
+    <p>Good luck on your season!</p>
+
+    <p>-- ATeam</p>
+  </body>
+</html>
+

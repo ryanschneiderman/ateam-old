@@ -1,0 +1,85 @@
+<div class = "modal-overlay" id = "sign-in-overlay" style = "display: none;"></div>
+<div class = "modal modal-positioning" id = "sign-in-modal" style = "display: none;">
+  <div id = "signup-initializer" class = "modal-container">
+    <div class = "GM-modal-wrapper">
+      <div class = "modal-header-wrapper">
+        <div class = "modal-header" id = "create-account-header">Sign In</div>
+      </div>
+      <%= bootstrap_form_for(resource, 
+                         as: resource_name, 
+                         url: session_path(resource_name)) do |f| %>
+      <div class = "modal-inner-content" id = "signup-modal-content">
+        <div class = "modal-body ">
+          
+          <!-- padding top, padding bottom -->
+            <div id = "create-account-wrapper">
+                <%= f.email_field :email, 
+                        autofocus: true, 
+                        class: 'form-control signup-modal-input', 
+                        placeholder: 'email' %>
+                <%= f.password_field  :password, 
+                            autocomplete: "off", 
+                            class: 'form-control signup-modal-input',
+                            placeholder: 'password' %>
+            </div>
+            
+            <% if devise_mapping.rememberable? -%>
+               <%= f.check_box :remember_me %>
+            <% end -%>
+            <div id = "forgot-password" class = "main-link"  style = "cursor: pointer;">Forgot Password?</div>
+
+        </div>
+      </div>
+      <div class = "modal-footing">
+      	<div class = "modal-cancel-button" id = "signin-cancel" style = "cursor: pointer;">Cancel</div>
+        <%= f.submit "Log in", class: 'modal-submit-button', id: "signin-submit" %>
+        <% end %>
+      </div>
+      
+    </div>
+  </div>
+</div>
+
+<div class = "modal-overlay" id = "forgot-password-overlay" style = "display: none;"></div>
+<div class = "modal modal-positioning" id = "forgot-password-modal" style = "display: none;">
+  <div id = "signup-initializer" class = "modal-container">
+    <div class = "GM-modal-wrapper">
+      <div class = "modal-header-wrapper">
+        <div class = "modal-header" id = "create-account-header">Forgot Password</div>
+      </div>
+      <div class = "modal-inner-content" id = "signup-modal-content">
+        <div class = "modal-body ">
+          
+          <!-- padding top, padding bottom -->
+            <div id = "forgot-password-wrapper">
+              <label for = 'recovery-email'>Enter Email</label>
+              <input class = "form-control signup-modal-input" id = "recovery-email">
+            </div>
+            <div class = "flex-row center-justified" id = "join-team-button-wrapper">
+              <button id = "join-team-modal-button" onclick = "send_recovery_email()">Send Recovery Email</button>
+            </div>
+            <div id = "email-not-found" class = "needs-input" style = "display: none;">*Email not found. If you think there was a mistake email ryan@ateamsports.awsapps.com.</div>
+            <div id = "email-sent" class = "green-text" style = "display: none;">Email sent. Check your inbox in a few minutes.</div>
+
+        </div>
+      </div>
+      <div class = "modal-footing">
+        <div class = "modal-cancel-button" id = "signin-cancel" style = "cursor: pointer;">Cancel</div>
+      </div>
+      
+    </div>
+  </div>
+</div>
+
+<script type="text/javascript">
+   $("#signin-cancel").on("click", function(){
+      close_signin_modal()
+   })
+
+   
+$("#forgot-password").on("click", function(){
+    console.log("show password reset")
+      show_password_reset()
+   })
+
+</script>

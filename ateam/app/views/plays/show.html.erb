@@ -1,0 +1,150 @@
+<%=render "layouts/small_header"%>
+<div id = "show-grid" >
+    <div id = "play-scrollbar-wrapper">
+        <div class="progression-block-header"><%=@play.name%></div>
+        <div id = "play-scrollbar">
+            <div id = "play-scrollbar">
+                <%= render @progressions %>
+            </div>
+        </div>
+    </div>
+    <div class = "plays-with-arrows">
+        <div class = "progressions">
+            <% @progressions.each do |pro| %>
+                <canvas id ="c-<%=pro.id%>" class = "show-canvas"></canvas>
+            <%end%>
+        </div>
+    </div>
+    <div id = "toolbar-wrapper">
+        <div id = "expand-collapse" onclick = "expandCollapseToolbar()"> 
+            <div id = "expand-wrapper"style = "display: none;">
+                <button class = "left expand-collapse-arrow" id = "expand-arrow" onclick = "expandCollapseToolbar()"></button>
+            </div>
+            <div id = "collapse-wrapper">
+                <button class = "right expand-collapse-arrow" id = "collapse-arrow" onclick = "expandCollapseToolbar()"></button>
+            </div>
+        </div>
+        <div id = "tool-bar" class = "show-toolbar">
+            <div id = "drawing-buttons-wrapper">
+                <div class = "toolbar-heading">Key</div>
+                <div id = "show-key">
+                  <div id = "run" class = "drawing-button" >
+                    <div class = "drawing-button-name">Run</div>
+
+                    <div class = "drawing-button-arrow">
+                      <%= image_tag("white-arrow.png", :alt => "information", :class => "drawing-img") %>
+                    </div>
+                  </div>
+                  
+                  <div id = "pass" class = "drawing-button"  >
+                    <div class = "drawing-button-name">Pass</div>
+                    <div class = "drawing-button-arrow">
+                        <%= image_tag("dotted-arrow.png", :alt => "information", :class => "drawing-img") %>
+                    </div>
+                  </div>
+                  
+                  <div id = "drive" class = "drawing-button"  >
+                    <div class = "drawing-button-name">Dribble</div>
+                    <div class = "drawing-button-arrow ">
+                      <%= image_tag("stripe-arrow.png", :alt => "information", :class => "drawing-img") %>
+                    </div>
+                  </div>
+                  
+                  <div id = "screen" class = "drawing-button"  >
+                    <div class = "drawing-button-name">Screen</div>
+                    <div class = "drawing-button-arrow">
+                        <%= image_tag("screen-line.png", :alt => "information", :class => "drawing-img") %>
+                    </div>
+                  </div> 
+                  <div id = "has-ball" class = "drawing-button" >
+                    <div class = "drawing-button-name">Has Ball</div>
+                       <%= image_tag("basketball-icon.png", :alt => "basketball", :class => "basketball-icon") %>
+                  </div>  
+                </div>
+            </div>
+            <div id = "other-buttons-wrapper">
+                <div id = "other-play-buttons-key">
+                    <button class = "other-button" type ="button" onclick="indexJsonArray(1)">
+                        <div class="tooltiptext">Animate Step</div>
+                        <%= image_tag("animate-icon.png", :alt => "download", :class => "other-button-icon") %>
+                    </button>
+                    <button id = "download" class = "other-button" type = "button" onclick="downloadPlay()">
+                        <div class="tooltiptext">Download Play</div>
+                        <%= image_tag("download-icon.png", :alt => "download", :class => "other-button-icon") %>
+                    </button> 
+                </div>
+            </div>
+        </div>
+    </div>
+	
+    
+
+</div>
+
+<script>
+    $("#progression-img-0 .progression-img").addClass("progression-img-current")
+    $("#progression-num-0").addClass("progression-num-current")
+
+    $("#toolbar-wrapper").css("top", $("#logged-in-header").outerHeight())
+    $("#play-scrollbar-wrapper").css("top", $("#logged-in-header").outerHeight())
+    $( window ).resize(function() {
+        //$("#play-scrollbar-wrapper").css("max-height", "89vh")
+
+    });
+
+    $(".show-toolbar").width(120)
+    $( window ).resize(function() {
+        //$("#play-scrollbar").css("height", "90vh")
+    });
+        //activate_header()
+        var index = 0
+        var line_type;
+    
+        var line, isDown, evented;
+        var anchorRadius = 3;
+        var anchorOffset = anchorRadius - .5;
+        var animate_time = 900;
+
+         var index = 0
+        var line_type;
+    
+        var line, isDown, evented;
+        var anchorRadius = 3;
+        var anchorOffset = anchorRadius - .5;
+        var anchorSelectRadius = 12
+        var anchorSelectOffset = anchorSelectRadius;
+        var canvas_width;
+        var canvas_height;
+        var playerRadius;
+        var propagation_modal_expanded = false;
+
+        var animate_time = 900;
+        var curr_line_type = null;
+        var play_name = "<%=@play.name%>";
+
+        var progressions_arr = []
+        var endpoint_moves = []
+
+        var has_ball_selected = false;
+
+        var canvas;
+
+        var play_type = "<%=@play_type%>";
+        var play_id = <%=@play.id%>;
+        var unsaved_play = false;
+
+
+
+        
+</script>
+
+<style>
+  body{
+    background-image: url(<%= asset_path('tiled_floor3.png')%>);
+    background-size: 100%;
+  }
+</style>
+
+
+
+

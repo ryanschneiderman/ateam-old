@@ -1,0 +1,147 @@
+@media only screen 
+and (min-device-width : 300px) 
+and (max-device-width : 1024px) 
+and (orientation : portrait) { 
+
+	.stat-button {
+	    width: 75px;
+	    height: 65px;
+	    margin: 2px;
+	    font-size: 12px;
+	}
+
+	#top-grid{
+		display: flex;
+		flex-direction: column-reverse;
+	}
+
+	#time{
+		padding-left: 20px;
+    	padding-right: 20px;
+	}
+
+	#gm-middle{
+		width: 100vw;
+	}
+
+	#canvas-wrapper{
+		display: block;
+		margin: auto;
+	}
+
+	#gm-toolbar{
+		width: 100vw;
+	}
+
+	#stat-buttons{
+		width: 27vw;
+	}
+
+	.in-game-players{
+		grid-template-columns: repeat(2, 12vw);
+	}
+	.player-button{
+		height: 40px;
+	    min-width: 75px;
+	    margin: 2px;
+	    font-size: 12px;
+	}
+
+	#players_w_stats{
+		display: flex;
+		flex-direction: row-reverse;
+	}
+
+	#bench-players{
+		grid-template-columns: repeat(2, 12vw);
+	}
+
+	#bench{
+	    margin-left: 40px;
+	    padding-right: 40px;
+	    margin-right: 20px;
+	    border-right: 1px solid white;
+	}
+
+	.tb-elem{
+		margin-left: 15px;
+		padding-right: 15px;
+	}
+
+	.gm-submit{
+		margin-right: 150px;
+		margin-left: 150px;
+	}
+}
+
+@media only screen 
+and (min-device-width : 300px) 
+and (max-device-width : 1024px) {
+	#score-status{
+		font-size: 25px;
+	}
+}
+
+@media only screen 
+and (min-device-width : 300px) 
+and (max-device-width : 1024px)
+and (orientation : landscape) {
+	.in-game-label{
+		margin-top: 10px;
+    	margin-bottom: 10px;
+	}
+
+	.player-button{
+		margin: 2px;
+    	padding: 3px;
+    	font-size: 10px;
+	}
+
+	.stat-button{
+		width: 69px;
+	    height: 60px;
+	    margin: 2px;
+	}
+
+}
+
+
+
+
+@media only screen 
+and (min-device-width : 300px) 
+and (max-device-width : 700px) 
+and (orientation : portrait) { 
+
+	.stat-button {
+	    width: 10vw;
+	    height: 8vw;
+	    font-weight: 600;
+	    font-size: 16px; 
+	    margin: 3px;
+	}
+
+	.player-button{
+		height: 60px;
+	    min-width: 90px;
+	    font-size: 16px;
+	}
+
+	#stat-buttons{
+		width: 40vw;
+	}
+
+	#gm-toolbar{
+		padding-top: 30px;
+	}
+
+	.in-game-label{
+		font-size: 20px;
+	    margin-top: 5px;
+	    margin-bottom: 15px;
+	}
+
+	#player-numbers-toggle, #player-shot-chart-toggle{
+		font-size: 16px;
+	}
+}

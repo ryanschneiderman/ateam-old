@@ -1,0 +1,60 @@
+<div class = "flex-column plays-index-content-wrapper plays-index-deactivated" id = "deleted-plays-wrapper">
+		<div class = "plays-index-content">
+			<div class = "plays-and-playlists">
+				<div class = "plays-row-wrapper">
+					<div class = "play-back-wrapper">
+						<div class = "flex-row">
+							<button class = "modal-back-button" onclick = "back_to_previous()">
+			        			<object data='<%=asset_path("back-arrow.svg")%>' type="image/svg+xml" class = "back-arrow-img">
+			                          <%= image_tag("back-arrow.png", :alt => "back-arrow", :class => "back-arrow-img") %>	
+			                     </object>
+			        		</button>
+		        		</div>
+		        		<%if @write_permiss%>
+			        		<div class = "plays-buttons-wrapper">
+				        		<button class = "modal-back-button settings-button" id = "deleted-settings-button" onclick = "bulk_actions()">
+				        			<object data='<%=asset_path("settings.svg")%>' type="image/svg+xml" class = "settings-img">
+				                          <%= image_tag("settings.png", :alt => "back-arrow", :class => "settings-img") %>	
+				                     </object>
+				        		</button>
+				        	</div>
+			        	<%end%>
+			        	<div class = "toolbar-dropdown playlist-settings-wrapper" id = "deleted-settings-wrapper" style = "display: none;">
+		        			<button class = "dropdown-action" onclick = "delete_all()">Delete All</button>
+		        			<button class = "dropdown-action" onclick = "recover_all()">Recover All</button>
+		        		</div>
+		        	</div>
+					<div class = "plays-full-heading">Deleted Plays</div>
+					<div class = "plays-full-subheading">Deleted plays will remain accessible for a 30 day period, after which they will be automatically deleted fully. </div>
+					<div class = "plays-full" id = "deleted-plays">
+						<%counter = 0%>
+						<%@deleted_plays.each do |play| %>
+							<div class = "play-image-block-wrapper soft-deleted" id = "play-deleted-<%=play.id%>" data-play-id = "<%=play.id%>">
+								<div class ="play-image-block flex-row">
+									<button class= "play-index-image" id = "play-image-<%=play.id%>" data-play-id = "<%=play.id%>">
+										<%= link_to show_vs_edit(play.id), :class => "play-link" do %>
+											<%if @deleted_plays_progressions[counter].first%>
+											<%= image_tag(@deleted_plays_progressions[counter].first.play_image, :alt => "play", :class => "play-img-full recently_viewed", :id => counter) if @deleted_plays_progressions[counter].first.play_image.attached? %>
+											<%else%>
+											<div class = "play-img-full play-full-no-img"></div>
+											<%end%>
+										<%end%>
+									</button>
+								</div>
+								<div class = "play-link-text"><%= link_to play.name, show_vs_edit(play.id) %></div>
+								<%if @write_permiss%>
+									<div class = "flex-row deleted-play-actions">
+										<button class = "remove-play-button deleted-play-action" onclick = "full_delete(<%=play.id%>)">Full Delete</button>
+										<button class = "recover-play-button deleted-play-action" onclick = "recover_play(<%=play.id%>)">Recover</button>
+									</div>
+								<%end%>
+							</div>
+							<%counter+=1%>
+						<%end%>
+					</div>
+				</div>
+				
+			</div>
+		</div>
+	</div>
+

@@ -1,0 +1,61 @@
+<%=render "layouts/small_header"%>
+<div id = "products-page-wrapper">
+	<div class = "page-landing-banner flex-row center-aligned center-justified" id = "demos-banner">
+		<div class = "page-banner-heading">Demos</div>
+	</div>
+	<div id = "demos-wrapper">
+		<%=link_to stats_demo_path do%>
+			<div class = "demo-banner-wrapper" id = "analytics-demo-wrapper">
+				<div class = "dark-background page-banner"></div>
+				<div class = "demo-banner" id = "analytics-demo-banner"></div>
+				<div class = "page-landing-banner page-banner flex-row center-aligned center-justified" id = "analytics-banner">
+					<div class = "demo-banner-content">
+						<div class = "demo-banner-inner">
+							<div class = "demo-banner-heading">Analytics</div>
+							<div class= "demo-banner-link-wrapper">
+								<div class = "demo-banner-link">Explore Demo</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		<%end%>
+		<%=link_to play_demo_path do%>
+			<div class = "demo-banner-wrapper" id = "plays-demo-wrapper">
+				<div class = "dark-background page-banner"></div>
+				<div class = "demo-banner" id = "plays-demo-banner"></div>
+				<div class = "page-landing-banner page-banner flex-row center-aligned center-justified" id = "analytics-banner">
+					<div class = "demo-banner-content">
+						<div class = "demo-banner-inner">
+							<div class = "demo-banner-heading">Play Diagramming</div>
+							<div class= "demo-banner-link-wrapper">
+								<div class = "demo-banner-link">Explore Demo</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		<%end%>
+		<%=link_to game_mode_demo_path do%>
+		<div class = "demo-banner-wrapper" id = "game-mode-demo-wrapper">
+			<div class = "dark-background page-banner"></div>
+			<div class = "demo-banner" id = "game-mode-demo-banner"></div>
+			<div class = "page-landing-banner page-banner flex-row center-aligned center-justified" id = "analytics-banner">
+				<div class = "demo-banner-content">
+					<div class = "demo-banner-inner">
+						<div class = "demo-banner-heading">Stat Collection</div>
+						<div class= "demo-banner-link-wrapper">
+							<div class = "demo-banner-link">Explore Demo</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<%end%>
+	</div>
+	
+</div>
+
+<script>
+	$(".portal-button-2").addClass("portal-button-2-alt")
+</script>
