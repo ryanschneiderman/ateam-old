@@ -12,12 +12,8 @@ class GamesController < ApplicationController
 
 		@curr_member =  Member.where(user_id: current_user.id, season_id: params[:season_id]).take
 
-
 		@games = Game.joins(:stat_totals).select("games.*, stat_totals.value").where("games.season_id" => params[:season_id], "stat_totals.stat_list_id" => 15)
-		@games.each do |game|
-			puts "printing game id!"
-			puts game.id
-		end
+
 		@game_events = ScheduleEvent.joins(game: :stat_totals).select("games.id as game_id, games.opponent_id as opponent_id, games.played as played, stat_totals.value as value, stat_totals.is_opponent as is_opponent, schedule_events.*").where("games.season_id" => params[:season_id], "stat_totals.stat_list_id" => 15)
 		non_played_events = ScheduleEvent.joins(:game).select("games.id as game_id, games.opponent_id as opponent_id, games.played as played, schedule_events.*").where("games.season_id" => params[:season_id], "games.played" => false)
 		game_events = []

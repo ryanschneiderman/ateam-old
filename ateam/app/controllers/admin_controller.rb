@@ -3,17 +3,10 @@ class AdminController < ApplicationController
 	def index
 		@small_header = true
 	    if current_user.admin
-
 	        if cookies[:season_id].present?
 	            @season = Season.find_by_id(cookies[:season_id])
 	        end
 	        @seasons = Season.joins(team: :user).select("seasons.*, seasons.id as season_id, users.*, teams.*").all
-	        # @seasons.each do |season|
-	        #   ft_rate = TeamStat.where(season_id: season.season_id, stat_list_id: 46)
-	        #   if ft_rate.length == 0
-	        #     TeamStat.create(stat_list_id: 46, season_id: season.season_id)
-	        #   end
-	        # end
 	        @teams = Team.joins(:user).select("teams.*, teams.id as team_id, users.*").all
 	        @users = User.all
 	    else
